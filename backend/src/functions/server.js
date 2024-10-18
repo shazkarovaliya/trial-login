@@ -4,8 +4,6 @@ const cors = require('cors');
 const session = require('express-session');
 const mysql = require('mysql');
 
-require("dotenv").config();
-
 const app = express();
 app.use(bodyParser.json());
 app.use(cors({
@@ -20,7 +18,15 @@ app.use(session({
   cookie: { secure: false } // set to true in production with HTTPS
 }));
 
-const urlDB = `mysql://root:QjPtaHGxFzVMWVTfyLAwsPdsxdDsANwZ@mysql.railway.internal:3306/railway`
+/*const con = mysql.createConnection({
+  host: "sql5.freesqldatabase.com", //"jdbc:mysql://sql5.freesqldatabase.com:3306/sql5736909",
+  user: "sql5736909",
+  password: "mEdx8aXMbk",
+  database: "sql5736909",
+  port: "3306"
+});*/
+
+const urlDB = `mysql://root:QjPtaHGxFzVMWVTfyLAwsPdsxdDsANwZ@mysql.railway.internal:3306/railway`;
 
 const con = mysql.createConnection(urlDB);
 
