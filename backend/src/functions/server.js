@@ -6,8 +6,15 @@ const mysql = require('mysql');
 
 const app = express();
 app.use(bodyParser.json());
+/*
 app.use(cors({
   origin: 'http://localhost:3000', // React app's URL
+  credentials: true
+}));
+*/
+
+app.use(cors({
+  origin: 'https://trial-login.netlify.app', // React app's URL
   credentials: true
 }));
 
