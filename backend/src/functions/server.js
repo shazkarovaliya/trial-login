@@ -21,7 +21,7 @@ const corsOptions = {
 app.use(cors(corsOptions));
 
 // Handle preflight OPTIONS requests
-app.options('*', cors(corsOptions));
+//app.options('*', cors(corsOptions));
 
 app.use(session({
   secret: 'your_secret_key', // Replace with your actual secret key
