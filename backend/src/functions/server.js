@@ -18,6 +18,11 @@ app.use(cors({
   credentials: true
 }));
 
+app.options('*', cors({
+  origin: 'https://trial-login.netlify.app',
+  credentials: true
+}));
+
 app.use(session({
   secret: 'your_secret_key', // Replace with your actual secret key
   resave: false,
@@ -104,6 +109,6 @@ app.post('/logout', (req, res) => {
   });
 });
 
-app.listen(3001, () => {
-  console.log("Server running on port 3001");
+app.listen(3306, () => {
+  console.log("Server running on port 3306");
 });
