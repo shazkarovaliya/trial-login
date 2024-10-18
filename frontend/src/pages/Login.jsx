@@ -25,7 +25,9 @@ const Login = () => {
         },
         credentials: 'include', // Include credentials in the request
         body: JSON.stringify(formData)
-      });
+      }).then((response) => response.json())
+        .then((data) => console.log(data))
+        .catch((error) => console.error('Error:', error));
 
       if (response.ok) {
         const data = await response.json();
