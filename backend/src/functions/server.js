@@ -30,9 +30,12 @@ app.use(session({
   cookie: { secure: false } // set to true in production with HTTPS
 }));
 
+//for cors errors
 app.use((req, res, next) => {
   res.setHeader('Access-Control-Allow-Origin', 'https://trial-login.netlify.app');
   res.setHeader('Access-Control-Allow-Credentials', 'true');
+  res.setHeader('Access-Control-Allow-Methods', 'POST, GET, OPTIONS, PUT, DELETE');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type, X-Auth-Token, Origin, Authorization');
   next();
 });
 
@@ -57,7 +60,7 @@ con.connect(function(err) {
   console.log('connection successful');
 });
 
-app.UseCors(builder => builder.AllowAnyHeader().AllowAnyMethod().WithOrigins("https://trial-login.netlify.app"))
+//app.UseCors(builder => builder.AllowAnyHeader().AllowAnyMethod().WithOrigins("https://trial-login.netlify.app"))
 
 app.get('/register', (req, res) => {
   res.json('OK');
