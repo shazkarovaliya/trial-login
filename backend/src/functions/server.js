@@ -57,6 +57,8 @@ con.connect(function(err) {
   console.log('connection successful');
 });
 
+app.UseCors(builder => builder.AllowAnyHeader().AllowAnyMethod().WithOrigins("https://trial-login.netlify.app"))
+
 app.get('/register', (req, res) => {
   res.json('OK');
 });
