@@ -7,9 +7,9 @@ const mysql = require('mysql');
 const app = express();
 app.use(bodyParser.json());
 
-app.use(cors({
+/*app.use(cors({
   origin: 'http://localhost:3000', // React app's URL
-}));
+}));*/
 
 
 /*const corsOptions = {
