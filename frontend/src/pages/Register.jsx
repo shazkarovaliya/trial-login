@@ -30,11 +30,9 @@ const Register = () => {
         headers: {
           'Content-Type': 'application/json'
         },
-        credentials: 'include', // Include credentials in the request
+        //credentials: 'include', // Include credentials in the request
         body: JSON.stringify(formData)
-      }).then((response) => response.json())
-        .then((data) => console.log(data))
-        .catch((error) => console.error('Error:', error));
+      });
 
       const result = await response.json();
       if (response.ok) {
