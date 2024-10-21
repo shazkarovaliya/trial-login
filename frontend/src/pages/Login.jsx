@@ -18,9 +18,9 @@ const Login = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/login` /*'http://localhost:3001/login'*/, {
+      const response = await fetch(/*`${process.env.REACT_APP_BACKEND_URL}/login`*/ 'https://trial-login-production-c2f7.up.railway.app/login' /*'http://localhost:3001/login'*/, {
         method: 'POST',
-        mode: 'cors',
+        //mode: 'cors',
         headers: {
           'Content-Type': 'application/json'
         },

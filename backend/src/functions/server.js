@@ -13,8 +13,10 @@ app.use(bodyParser.json());
 
 
 const corsOptions = {
-  origin: true, // Netlify frontend URL
-  credentials: true, // Allow credentials (cookies, authorization headers)
+  origin: 'https://trial-login.netlify.app', // Your frontend URL
+  credentials: true,  // Allow cookies and credentials
+  methods: ['GET', 'POST', 'OPTIONS'],  // Allowed methods
+  allowedHeaders: ['Content-Type', 'Authorization'],  // Allowed headers
 };
 
 app.use(cors(corsOptions));
@@ -33,11 +35,10 @@ app.use(session({
 app.use((req, res, next) => {
   res.setHeader('Access-Control-Allow-Origin', 'https://trial-login.netlify.app');
   res.setHeader('Access-Control-Allow-Credentials', 'true');
-  res.setHeader('Access-Control-Allow-Methods', 'POST, GET, OPTIONS, PUT, DELETE');
-  res.setHeader('Access-Control-Allow-Headers', 'Content-Type, X-Auth-Token, Origin, Authorization');
+  res.setHeader('Access-Control-Allow-Methods', 'GET,POST,OPTIONS');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
   next();
 });
-
 
 /*const con = mysql.createConnection({
   host: "sql5.freesqldatabase.com", //"jdbc:mysql://sql5.freesqldatabase.com:3306/sql5736909",
@@ -120,5 +121,5 @@ app.post('/logout', (req, res) => {
 });
 
 app.listen(3001, () => {
-  console.log("Server running on port 3306");
+  console.log("Server running on port 3001");
 });
