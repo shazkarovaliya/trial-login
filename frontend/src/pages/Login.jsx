@@ -20,7 +20,7 @@ const Login = () => {
     try {
       const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/login` /*'http://localhost:3001/login'*/, {
         method: 'POST',
-        mode: 'no-cors',
+        //mode: 'no-cors',
         headers: {
           'Content-Type': 'application/json'
         },
