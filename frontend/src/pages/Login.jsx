@@ -36,7 +36,7 @@ const Login = () => {
           console.error('Invalid credentials');
         }
       } else {
-        console.error('Login failed');
+        console.error(/*'Login failed'*/ 'Error:', error);
       }
     } catch (error) {
       console.error('Error:', error);
