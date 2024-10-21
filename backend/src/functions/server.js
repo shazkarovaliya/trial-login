@@ -12,15 +12,15 @@ app.use(bodyParser.json());
 }));*/
 
 
-/*const corsOptions = {
-  origin: 'https://trial-login.netlify.app', // Netlify frontend URL
+const corsOptions = {
+  origin: true, // Netlify frontend URL
   credentials: true, // Allow credentials (cookies, authorization headers)
-};*/
+};
 
-app.use(cors());
+app.use(cors(corsOptions));
 
 // Handle preflight OPTIONS requests
-//app.options('*', cors(corsOptions));
+app.options('*', cors(corsOptions));
 
 app.use(session({
   secret: 'your_secret_key', // Replace with your actual secret key
@@ -30,13 +30,13 @@ app.use(session({
 }));
 
 //for cors errors
-/*app.use((req, res, next) => {
+app.use((req, res, next) => {
   res.setHeader('Access-Control-Allow-Origin', 'https://trial-login.netlify.app');
   res.setHeader('Access-Control-Allow-Credentials', 'true');
   res.setHeader('Access-Control-Allow-Methods', 'POST, GET, OPTIONS, PUT, DELETE');
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type, X-Auth-Token, Origin, Authorization');
   next();
-});*/
+});
 
 
 /*const con = mysql.createConnection({
