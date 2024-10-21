@@ -15,7 +15,6 @@ const Dashboard = () => {
       try {
         const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/dashboard`, {
           method: 'GET',
-          credentials: 'include', // Include credentials in the request
         });
 
         if (response.ok) {

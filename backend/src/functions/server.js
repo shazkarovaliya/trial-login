@@ -6,19 +6,18 @@ const mysql = require('mysql');
 
 const app = express();
 app.use(bodyParser.json());
-/*
+
 app.use(cors({
   origin: 'http://localhost:3000', // React app's URL
-  credentials: true
 }));
-*/
 
-const corsOptions = {
+
+/*const corsOptions = {
   origin: 'https://trial-login.netlify.app', // Netlify frontend URL
   credentials: true, // Allow credentials (cookies, authorization headers)
-};
+};*/
 
-app.use(cors(corsOptions));
+app.use(cors());
 
 // Handle preflight OPTIONS requests
 //app.options('*', cors(corsOptions));
@@ -31,13 +30,13 @@ app.use(session({
 }));
 
 //for cors errors
-app.use((req, res, next) => {
+/*app.use((req, res, next) => {
   res.setHeader('Access-Control-Allow-Origin', 'https://trial-login.netlify.app');
   res.setHeader('Access-Control-Allow-Credentials', 'true');
   res.setHeader('Access-Control-Allow-Methods', 'POST, GET, OPTIONS, PUT, DELETE');
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type, X-Auth-Token, Origin, Authorization');
   next();
-});
+});*/
 
 
 /*const con = mysql.createConnection({
@@ -121,6 +120,6 @@ app.post('/logout', (req, res) => {
   });
 });
 
-app.listen(3306, () => {
+app.listen(3001, () => {
   console.log("Server running on port 3306");
 });

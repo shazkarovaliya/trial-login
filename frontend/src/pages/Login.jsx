@@ -18,16 +18,14 @@ const Login = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch( `${process.env.REACT_APP_BACKEND_URL}/login`, {
+      const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/login` /*'http://localhost:3001/login'*/, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
         },
-        credentials: 'include', // Include credentials in the request
+        //credentials: 'include', // Include credentials in the request
         body: JSON.stringify(formData)
-      }).then((response) => response.json())
-        .then((data) => console.log(data))
-        .catch((error) => console.error('Error:', error));
+      });
 
       if (response.ok) {
         const data = await response.json();
