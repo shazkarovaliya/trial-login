@@ -19,11 +19,6 @@ app.use(bodyParser.json());
 
 app.use(cors());
 
-/*app.use(cors({
-  origin: 'https://trial-login.netlify.app', // Ensure this is correct
-  methods: ['GET', 'POST'],
-}));*/
-
 // Handle preflight OPTIONS requests
 //app.options('*', cors(corsOptions));
 
