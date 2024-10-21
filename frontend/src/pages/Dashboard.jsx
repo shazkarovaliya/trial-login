@@ -61,19 +61,19 @@ const Dashboard = () => {
       <div className="register">
         <form>
           <div className='name'>
-            <label htmlFor='scan-code'>Enter Scan Code:</label>
-            <input type='text' name='scan-code' />
+            <label htmlFor='scan-code'>Enter Date:</label>
+            <input type='date' name='scan-code' />
           </div>
           <div className='password'>
-            <label htmlFor='item-name'>Enter Item Name:</label>
+            <label htmlFor='item-name'>Enter Category:</label>
             <input type='text' name='item-name' />
           </div>
           <div className='phonenum'>
-            <label htmlFor='quantity'>Enter Quantity:</label>
+            <label htmlFor='quantity'>Enter Description:</label>
             <input type='number' name='quantity'/>
           </div>
           <div className='email'>
-            <label htmlFor='sell-price'>Enter Sell Price:</label>
+            <label htmlFor='sell-price'>Enter Amount:</label>
             <input type='text' name='sell-price'/>
           </div>
         </form>

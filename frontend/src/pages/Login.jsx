@@ -79,7 +79,7 @@ const Login = () => {
       </nav>
       <form onSubmit={handleSubmit}>
         <div className='name'>
-          <label htmlFor='name'>Enter Store Name:</label>
+          <label htmlFor='name'>Enter Username:</label>
           <input type='text' name='name' value={formData.name} onChange={handleChange} />
         </div>
         <div className='password'>
