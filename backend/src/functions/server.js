@@ -14,6 +14,7 @@ app.use(bodyParser.json());
 
 const corsOptions = {
   origin: 'https://trial-login.netlify.app', // Your frontend URL
+  methods: ["GET", "POST"],
 };
 
 app.use(cors(corsOptions));
