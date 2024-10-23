@@ -36,7 +36,7 @@ app.use(session({
   port: "3306"
 });*/
 
-const urlDB = `mysql://root:QjPtaHGxFzVMWVTfyLAwsPdsxdDsANwZ@mysql.railway.internal:3306/railway`;
+const urlDB = `mysql://root:QjPtaHGxFzVMWVTfyLAwsPdsxdDsANwZ@junction.proxy.rlwy.net:57666/railway`;
 
 const con = mysql.createConnection(urlDB);
 
