@@ -23,7 +23,7 @@ const Login = () => {
         headers: {
           'Content-Type': 'application/json',
         },
-        //credentials: 'include', // Include credentials in the request
+        credentials: 'true', // Include credentials in the request
         body: JSON.stringify(formData)
       });
 
