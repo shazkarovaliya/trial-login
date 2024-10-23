@@ -12,7 +12,7 @@ app.use(bodyParser.json());
 }));*/
 
 app.use(cors({
-  origin: 'https://trial-login.netlify.app', // Your frontend URL
+  origin: 'https://trial-login.netlify.app/login', // Your frontend URL
   methods: ["GET", "POST"],
   credentials: true, // Allow cookies and credentials to be sent
   allowedHeaders: ["Content-Type", "Authorization"], // Specify allowed headers
