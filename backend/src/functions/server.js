@@ -15,6 +15,8 @@ app.use(bodyParser.json());
 const corsOptions = {
   origin: 'https://trial-login.netlify.app', // Your frontend URL
   methods: ["GET", "POST"],
+  credentials: true, // Allow cookies and credentials to be sent
+  allowedHeaders: ["Content-Type", "Authorization"], // Specify allowed headers
 };
 
 app.use(cors(corsOptions));
@@ -108,6 +110,6 @@ app.post('/logout', (req, res) => {
   });
 });
 
-app.listen(3306, () => {
+app.listen(3001, () => {
   console.log("Server running on port 3001");
 });

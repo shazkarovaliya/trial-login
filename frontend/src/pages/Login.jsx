@@ -20,11 +20,9 @@ const Login = () => {
     try {
       const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/login` /*'http://localhost:3001/login'*/, {
         method: 'POST',
-        //mode: 'cors',
-        /* headers: {
+        headers: {
           'Content-Type': 'application/json',
-          'Access-Control-Allow-Origin': '*',
-        }, */
+        },
         credentials: 'include', // Include credentials in the request
         body: JSON.stringify(formData)
       });
