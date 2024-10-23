@@ -11,23 +11,20 @@ app.use(bodyParser.json());
   origin: 'http://localhost:3000', // React app's URL
 }));*/
 
-
-const corsOptions = {
+app.use(cors({
   origin: 'https://trial-login.netlify.app', // Your frontend URL
   methods: ["GET", "POST"],
   credentials: true, // Allow cookies and credentials to be sent
   allowedHeaders: ["Content-Type", "Authorization"], // Specify allowed headers
-};
-
-app.use(cors(corsOptions));
+}));
 
 
-app.use(session({
+/*app.use(session({
   secret: 'your_secret_key', // Replace with your actual secret key
   resave: false,
   saveUninitialized: true,
   cookie: { secure: false } // set to true in production with HTTPS
-}));
+}));*/
 
 
 /*const con = mysql.createConnection({
