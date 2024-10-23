@@ -13,7 +13,7 @@ app.use(bodyParser.json());
 
 
 const corsOptions = {
-  origin: 'https://trial-login.netlify.app', // Your frontend URL
+  origin: '*', // Your frontend URL
   credentials: true,  // Allow cookies and credentials
   methods: ['GET', 'POST', 'OPTIONS'],  // Allowed methods
   allowedHeaders: ['Content-Type', 'Authorization'],  // Allowed headers

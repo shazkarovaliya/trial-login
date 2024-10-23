@@ -22,7 +22,8 @@ const Login = () => {
         method: 'POST',
         //mode: 'cors',
         headers: {
-          'Content-Type': 'application/json'
+          'Content-Type': 'application/json',
+          'Access-Control-Allow-Origin': '*',
         },
         //credentials: 'include', // Include credentials in the request
         body: JSON.stringify(formData)
