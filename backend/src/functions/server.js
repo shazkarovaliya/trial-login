@@ -13,16 +13,11 @@ app.use(bodyParser.json());
 
 
 const corsOptions = {
-  origin: '*', // Your frontend URL
-  credentials: true,  // Allow cookies and credentials
-  methods: ['GET', 'POST', 'OPTIONS'],  // Allowed methods
-  allowedHeaders: ['Content-Type', 'Authorization'],  // Allowed headers
+  origin: 'https://trial-login.netlify.app', // Your frontend URL
 };
 
 app.use(cors(corsOptions));
 
-// Handle preflight OPTIONS requests
-app.options('*', cors(corsOptions));
 
 app.use(session({
   secret: 'your_secret_key', // Replace with your actual secret key
@@ -31,14 +26,6 @@ app.use(session({
   cookie: { secure: false } // set to true in production with HTTPS
 }));
 
-//for cors errors
-/* app.use((req, res, next) => {
-  res.setHeader('Access-Control-Allow-Origin', 'https://trial-login.netlify.app');
-  res.setHeader('Access-Control-Allow-Credentials', 'true');
-  res.setHeader('Access-Control-Allow-Methods', 'GET,POST,OPTIONS');
-  res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
-  next();
-}); */
 
 /*const con = mysql.createConnection({
   host: "sql5.freesqldatabase.com", //"jdbc:mysql://sql5.freesqldatabase.com:3306/sql5736909",
