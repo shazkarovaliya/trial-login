@@ -11,14 +11,14 @@ app.use(bodyParser.json());
   origin: 'http://localhost:3000', // React app's URL
 }));*/
 
-app.use(cors({
-  origin: 'https://trial-login.netlify.app', // Your frontend URL
-  methods: ["GET", "POST"],
-  credentials: true, // Allow cookies and credentials to be sent
-  allowedHeaders: ["Content-Type", "Authorization"], // Specify allowed headers
-}));
+// app.use(cors({
+//   origin: 'https://trial-login.netlify.app', // Your frontend URL
+//   methods: ["GET", "POST"],
+//   credentials: true, // Allow cookies and credentials to be sent
+//   allowedHeaders: ["Content-Type", "Authorization"], // Specify allowed headers
+// }));
 
-
+app.use(cors())
 /*app.use(session({
   secret: 'your_secret_key', // Replace with your actual secret key
   resave: false,
