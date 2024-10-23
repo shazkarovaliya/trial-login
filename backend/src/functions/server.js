@@ -32,13 +32,13 @@ app.use(session({
 }));
 
 //for cors errors
-app.use((req, res, next) => {
+/* app.use((req, res, next) => {
   res.setHeader('Access-Control-Allow-Origin', 'https://trial-login.netlify.app');
   res.setHeader('Access-Control-Allow-Credentials', 'true');
   res.setHeader('Access-Control-Allow-Methods', 'GET,POST,OPTIONS');
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
   next();
-});
+}); */
 
 /*const con = mysql.createConnection({
   host: "sql5.freesqldatabase.com", //"jdbc:mysql://sql5.freesqldatabase.com:3306/sql5736909",
