@@ -10,8 +10,6 @@ const app = express();
 app.use(bodyParser.json());
 const allowedOrigins = [
   'http://localhost:3000',
-  //'https://trial-login-m-production.up.railway.app',
-  //"https://relaxed-bublanina-61187a.netlify.app",
   "https://trial-login-production-c2f7.up.railway.app",
   "https://trial-login.netlify.app",
 
@@ -114,7 +112,7 @@ app.post('/logout', (req, res) => {
       res.status(500).send('Error logging out');
     } else {
       res.clearCookie('connect.sid'); // Clear the session cookie
-      res.json({ message: 'Logout successful' });
+      res.json({ message: 'Logout successful' + `${req.session.user}` });
     }
   });
 });
