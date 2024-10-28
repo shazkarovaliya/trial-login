@@ -43,16 +43,15 @@ app.use(cors({
 
 const urlDB = `mysql://root:QjPtaHGxFzVMWVTfyLAwsPdsxdDsANwZ@mysql.railway.internal:3306/railway`;
 
-const con = mysql.createConnection(urlDB);
+const con = mysql.createConnection({ urlDB, debug: true });
 
 con.connect(function(err) {
   if (err) {
-    console.log(err);
+    console.log('Database connection failed:', err);
     throw err;
   }
-  console.log('connection successful');
+  console.log('Database connection successful');
 });
-
 
 app.get('/register', (req, res) => {
   res.json('OK');
