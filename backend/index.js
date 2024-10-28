@@ -44,9 +44,9 @@ app.use(cors({
   credentials: true  
 }));
 
-//const urlDB = `mysql://root:QjPtaHGxFzVMWVTfyLAwsPdsxdDsANwZ@mysql.railway.internal:3306/railway`;
+const urlDB = `mysql://root:QjPtaHGxFzVMWVTfyLAwsPdsxdDsANwZ@mysql.railway.internal:3306/railway`;
 
-const urlDB = createPool({
+/* const urlDB = createPool({
     host: process.env.DB_HOST,
     port: process.env.DB_PORT,
     user: process.env.DB_USER,
@@ -55,7 +55,7 @@ const urlDB = createPool({
     waitForConnections: true,
     connectionLimit: 10,
     queueLimit: 0
-});
+}); */
 
 const con = mysql.createConnection(urlDB);
 
