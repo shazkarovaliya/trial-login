@@ -55,7 +55,7 @@ const Dashboard = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch(/* `${process.env.REACT_APP_BACKEND_URL}/dashboard` */ 'http://localhost:3001/dashboard', {
+        const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/dashboard`  /*'http://localhost:3001/dashboard'*/, {
           method: 'GET',
           credentials: 'include',
         });
@@ -78,7 +78,7 @@ const Dashboard = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/register` /*'http://localhost:3001/dashboard'*/, {
+      const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/dashboard` /*'http://localhost:3001/dashboard'*/, {
         method: 'POST',
         credentials: 'include',
         headers: {
