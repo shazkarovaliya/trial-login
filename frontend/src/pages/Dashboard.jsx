@@ -30,7 +30,7 @@ const Dashboard = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch('http://localhost:3001/dashboard', {
+        const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/dashboard`  /*'http://localhost:3001/dashboard'*/, {
           method: 'GET',
           credentials: 'include',
         });
