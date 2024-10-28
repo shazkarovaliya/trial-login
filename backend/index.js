@@ -4,6 +4,8 @@ const cors = require('cors');
 const session = require('express-session');
 // const mysql = require('mysql');
 const mysql = require('mysql2');
+const { createPool } = require('mysql2/promise');
+require('dotenv').config();
 
 
 const app = express();
@@ -42,8 +44,18 @@ app.use(cors({
   credentials: true  
 }));
 
-const urlDB = `mysql://root:QjPtaHGxFzVMWVTfyLAwsPdsxdDsANwZ@mysql.railway.internal:3306/railway`;
+//const urlDB = `mysql://root:QjPtaHGxFzVMWVTfyLAwsPdsxdDsANwZ@mysql.railway.internal:3306/railway`;
 
+const urlDB = createPool({
+    host: process.env.DB_HOST,
+    port: process.env.DB_PORT,
+    user: process.env.DB_USER,
+    password: process.env.DB_PASSWORD,
+    database: process.env.DB_DATABASE,
+    waitForConnections: true,
+    connectionLimit: 10,
+    queueLimit: 0
+});
 
 const con = mysql.createConnection(urlDB);
 
