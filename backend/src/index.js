@@ -14,6 +14,7 @@ const allowedOrigins = [
   "https://relaxed-bublanina-61187a.netlify.app",
   "trial-login-production-c2f7.up.railway.app",
   "https://trial-login.netlify.app",
+  
 ];
 
 
