@@ -43,7 +43,7 @@ app.use(cors({
 
 const urlDB = `mysql://root:QjPtaHGxFzVMWVTfyLAwsPdsxdDsANwZ@mysql.railway.internal:3306/railway`;
 
-const con = mysql.createConnection({ urlDB, debug: true });
+const con = mysql.createConnection(urlDB);
 
 con.connect(function(err) {
   if (err) {
