@@ -37,6 +37,13 @@ app.use(cors({
   },
   credentials: true  
 }));
+
+// Middleware to set 'Access-Control-Allow-Credentials' header
+app.use((req, res, next) => {
+  res.header('Access-Control-Allow-Credentials', 'true');
+  next();
+});
+
 const urlDB = `mysql://root:KAGVqKlPNwxvRbAiLldEDJVcWUQcVSYR@junction.proxy.rlwy.net:33095/railway`;
 
 
