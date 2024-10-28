@@ -42,7 +42,7 @@ app.use(cors({
   credentials: true  
 }));
 
-const urlDB = `mysql://root:QjPtaHGxFzVMWVTfyLAwsPdsxdDsANwZ@junction.proxy.rlwy.net:57666/railway`;
+const urlDB = `mysql://root:QjPtaHGxFzVMWVTfyLAwsPdsxdDsANwZ@mysql.railway.internal:3306/railway`;
 
 
 const con = mysql.createConnection(urlDB);
