@@ -17,6 +17,12 @@ const allowedOrigins = [
 
 ];
 
+// Use PORT provided in environment or default to 3000
+const port = process.env.PORT || 3000;
+
+app.listen(port, "0.0.0.0", function () {
+  console.log("Server running on port 3001");
+});
 
 app.use(session({
   secret: 'your_secret_key', 
@@ -37,12 +43,6 @@ app.use(cors({
   },
   credentials: true  
 }));
-
-// Middleware to set 'Access-Control-Allow-Credentials' header
-app.use((req, res, next) => {
-  res.header('Access-Control-Allow-Credentials', 'true');
-  next();
-});
 
 const urlDB = `mysql://root:KAGVqKlPNwxvRbAiLldEDJVcWUQcVSYR@junction.proxy.rlwy.net:33095/railway`;
 
