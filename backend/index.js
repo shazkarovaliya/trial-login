@@ -112,7 +112,7 @@ app.post('/logout', (req, res) => {
       res.status(500).send('Error logging out');
     } else {
       res.clearCookie('connect.sid'); // Clear the session cookie
-      res.json({ message: 'Logout successful' + `${req.session.user}` });
+      res.json({ message: 'Logout successful' /*+ `${req.session.user}`*/ });
     }
   });
 });
