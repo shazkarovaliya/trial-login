@@ -2,19 +2,62 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import LogoutButton from '../components/LogoutButton';
+import DataTable from '../items/DataTable';
 
 import '../App.css';
 
 const Dashboard = () => {
-  const [message, setMessage] = useState('');
+  const [formData, setFormData] = useState({
+    date: '',
+    category: '',
+    description: '',
+    amount: ''
+  });
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({
+      ...formData,
+      [name]: value
+    });
+  };
 
   const navigate = useNavigate();
+
+  const [transactions, setTransactions] = useState([]);
+  const [message, setMessage] = useState('');
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/dashboard`, {
+        const response = await fetch('http://localhost:3001/dashboard', {
           method: 'GET',
+          credentials: 'include',
+        });
+
+        if (response.ok) {
+          const data = await response.json();
+          console.log('API Response:', data); // Log the API response
+          setMessage(data.message);
+          setTransactions(data.transactions);  // Set transactions from the API
+        } else {
+          setMessage('Unauthorized');
+        }
+      } catch (error) {
+        console.error('Error:', error);
+        setMessage('Error fetching data');
+      }
+    };
+
+    fetchData();
+  }, []);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch(/* `${process.env.REACT_APP_BACKEND_URL}/dashboard` */ 'http://localhost:3001/dashboard', {
+          method: 'GET',
+          credentials: 'include',
         });
 
         if (response.ok) {
@@ -32,6 +75,30 @@ const Dashboard = () => {
     fetchData();
   }, []);
 
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await fetch(/*`${process.env.REACT_APP_BACKEND_URL}/register`*/ 'http://localhost:3001/dashboard', {
+        method: 'POST',
+        credentials: 'include',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        //credentials: 'include', // Include credentials in the request
+        body: JSON.stringify(formData)
+      });
+
+      const result = await response.json();
+      if (response.ok) {
+        console.log('Form submission successful:', result);
+      } else {
+        console.error('Form submission failed:', result);
+      }
+    } catch (error) {
+      console.error('Error:', error);
+    }
+  };
+
   const handleRedirectHome = () => {
     navigate('/');
   };
@@ -46,9 +113,9 @@ const Dashboard = () => {
 
   return (
     <div className='main'>
-      <nav class="navbar">
-        <div class="navbar-container">
-          <ul class="nav-links">
+      <nav className="navbar">
+        <div className="navbar-container">
+          <ul className="nav-links">
             <li><button onClick={handleRedirectHome}>Home</button></li>
             <li><button onClick={handleRedirectAbout}>About</button></li>
             <li><button onClick={handleRedirectContact}>Contact</button></li>
@@ -58,26 +125,34 @@ const Dashboard = () => {
       </nav>
       <h1>{message}</h1>
       <div className="register">
-        <form>
+        <form onSubmit={handleSubmit}>
           <div className='name'>
-            <label htmlFor='scan-code'>Enter Date:</label>
-            <input type='date' name='scan-code' />
+            <label htmlFor='date'>Enter Date:</label>
+            <input type='date' name='scan-code' onChange={handleChange}/>
           </div>
           <div className='password'>
             <label htmlFor='item-name'>Enter Category:</label>
-            <input type='text' name='item-name' />
+            <select name="category" id="category" onChange={handleChange}>
+              <option value="income">Income</option>
+              <option value="expense">Expense</option>
+              <option value="investment">Investment</option>
+              <option value="borrower">Borrower</option>
+            </select>
           </div>
           <div className='phonenum'>
-            <label htmlFor='quantity'>Enter Description:</label>
-            <input type='number' name='quantity'/>
+            <label htmlFor='description'>Enter Description:</label>
+            <textarea type='text' name='description' onChange={handleChange}/>
           </div>
           <div className='email'>
-            <label htmlFor='sell-price'>Enter Amount:</label>
-            <input type='text' name='sell-price'/>
+            <label htmlFor='amount'>Enter Amount:</label>
+            <input type='number' name='amount' onChange={handleChange}/>
+          </div>
+          <div className='submit'>
+            <input id="submit" type='submit' />
           </div>
         </form>
       </div>
-    </div>
+    </div> 
   )
 }
 

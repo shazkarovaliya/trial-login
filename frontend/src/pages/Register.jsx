@@ -25,7 +25,7 @@ const Register = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/register`, {
+      const response = await fetch(/*`${process.env.REACT_APP_BACKEND_URL}/register`*/ 'http://localhost:3001/register', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
@@ -69,14 +69,14 @@ const Register = () => {
   return (
     <div className='main'>
       <div className="register">
-      <nav class="navbar">
-        <div class="navbar-container">
-          <ul class="nav-links">
+      <nav className="navbar">
+        <div className="navbar-container">
+          <ul className="nav-links">
             <li><button onClick={handleRedirectHome}>Home</button></li>
             <li><button onClick={handleRedirectAbout}>About</button></li>
             <li><button onClick={handleRedirectContact}>Contact</button></li>
             <li><button onClick={handleRedirectLogin}>Login</button></li>
-            <li><button class="active" onClick={handleRedirectRegister}>Register</button></li>
+            <li><button className="active" onClick={handleRedirectRegister}>Register</button></li>
           </ul>
         </div>
       </nav>

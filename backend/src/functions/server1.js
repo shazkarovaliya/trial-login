@@ -2,44 +2,43 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const session = require('express-session');
-// const mysql = require('mysql');
-const mysql = require('mysql2');
-
+const mysql = require('mysql');
 
 const app = express();
 app.use(bodyParser.json());
-const allowedOrigins = [
-  'http://localhost:3000',
-  'https://trial-login-m-production.up.railway.app',
-  "https://relaxed-bublanina-61187a.netlify.app",
-  "trial-login-production-c2f7.up.railway.app",
-  "https://trial-login.netlify.app",
-];
 
-
-app.use(session({
-  secret: 'your_secret_key', 
-  resave: false,
-  saveUninitialized: false,
-  cookie: { secure: false } 
-}));
-
-// CORS configuration
 app.use(cors({
-  origin: function (origin, callback) {
-    // Check if the incoming origin is in the allowed origins
-    if (!origin || allowedOrigins.indexOf(origin) !== -1) {
-      callback(null, origin); // Allow the request
-    } else {
-      callback(new Error('Not allowed by CORS'));  
-    }
-  },
-  credentials: true  
+  origin: 'http://localhost:3000', // React app's URL
+  credentials: true
 }));
-const urlDB = `mysql://root:KAGVqKlPNwxvRbAiLldEDJVcWUQcVSYR@junction.proxy.rlwy.net:33095/railway`;
+
+/* app.use(cors({
+  origin: 'https://trial-login.netlify.app', // Your frontend URL
+  methods: ["GET", "POST"],
+  credentials: true, // Allow cookies and credentials to be sent
+  allowedHeaders: ["Content-Type", "Authorization"], // Specify allowed headers
+})); */
 
 
-const con = mysql.createConnection(urlDB);
+/*app.use(session({
+  secret: 'your_secret_key', // Replace with your actual secret key
+  resave: false,
+  saveUninitialized: true,
+  cookie: { secure: false } // set to true in production with HTTPS
+}));*/
+
+
+const con = mysql.createConnection({
+  host: "sql5.freesqldatabase.com", //"jdbc:mysql://sql5.freesqldatabase.com:3306/sql5736909",
+  user: "sql5740447",
+  password: "rZkA74RPjE",
+  database: "sql5740447",
+  port: "3306"
+});
+
+// const urlDB = `mysql://root:QjPtaHGxFzVMWVTfyLAwsPdsxdDsANwZ@mysql.railway.internal:3306/railway`;
+
+// const con = mysql.createConnection(urlDB);
 
 con.connect(function(err) {
   if (err) {
@@ -64,13 +63,11 @@ app.post('/register', (req, res) => {
       console.log(result);
     });
   }
-  res.json("Form received");
+  res.json("Data added successfully");
 });
 
 app.post('/login', (req, res) => {
   const { name, password } = req.body;
-  
-  console.log("Session before login:", req.session);
 
   con.query("SELECT * FROM Login WHERE username = ? AND password = ?", [name, password], function(err, result) {
     if (err) {
@@ -80,7 +77,7 @@ app.post('/login', (req, res) => {
     }
 
     if (result.length > 0) {
-      req.session.user = name;  
+      req.session.user = name; // Store username in session
       res.status(200).json({ message: 'Login successful' });
     } else {
       res.status(401).json({ message: 'Invalid credentials' });

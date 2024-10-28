@@ -2,34 +2,25 @@
   "name": "trial-login",
   "version": "0.1.0",
   "private": true,
+  "main": "server.js",
   "dependencies": {
-    "@testing-library/jest-dom": "^5.17.0",
-    "@testing-library/react": "^13.4.0",
-    "@testing-library/user-event": "^13.5.0",
     "body-parser": "^1.20.2",
     "cors": "^2.8.5",
     "dotenv": "^16.4.5",
     "express": "^4.19.2",
     "express-session": "^1.18.0",
-    "heroicons": "^2.1.4",
     "mysql": "^2.18.1",
-    "react": "^18.3.1",
-    "react-dom": "^18.3.1",
-    "react-router-dom": "^6.24.0",
-    "react-scripts": "^5.0.1",
-    "typescript": "^4.9.5",
-    "web-vitals": "^2.1.4"
+    "mysql2": "^3.11.3",
+    "typescript": "^4.9.5"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "start": "node index.js",
+    "dev": "concurrently \"tsc -w\" \"nodemon index.js\"",
+    "test": "jest"
   },
   "eslintConfig": {
     "extends": [
-      "react-app",
-      "react-app/jest"
+      "eslint:recommended"
     ]
   },
   "browserslist": {
@@ -45,6 +36,11 @@
     ]
   },
   "devDependencies": {
-    "concurrently": "^9.0.1"
+    "@types/express": "^4.17.14",
+    "@types/node": "^18.0.0",
+    "concurrently": "^9.0.1",
+    "jest": "^29.2.1",
+    "nodemon": "^2.0.22",
+    "typescript": "^4.9.5"
   }
 }
