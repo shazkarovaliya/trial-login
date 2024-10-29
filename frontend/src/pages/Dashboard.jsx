@@ -41,11 +41,14 @@ const Dashboard = () => {
           setMessage(data.message);
           setTransactions(data.transactions);  // Set transactions from the API
         } else {
-          setMessage('Unauthorized');
+          // If response is not ok, try to parse the error response
+          const errorData = await response.json();
+          setMessage(`Error: ${errorData.message || 'Unauthorized access'}`);
         }
       } catch (error) {
+        // Capture network or unexpected errors
         console.error('Error:', error);
-        setMessage('Error fetching data');
+        setMessage(`Network or unexpected error: ${error.message}`);
       }
     };
     fetchData();
