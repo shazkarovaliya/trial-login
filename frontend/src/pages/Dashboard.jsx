@@ -80,11 +80,11 @@ const Dashboard = () => {
     try {
       const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/dashboard` /*'http://localhost:3001/dashboard'*/, {
         method: 'POST',
-        credentials: 'include',
+        //credentials: 'include',
         headers: {
           'Content-Type': 'application/json'
         },
-        //credentials: 'include', // Include credentials in the request
+        credentials: 'include', // Include credentials in the request
         body: JSON.stringify(formData)
       });
 
