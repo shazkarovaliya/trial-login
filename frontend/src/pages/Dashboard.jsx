@@ -129,7 +129,7 @@ const Dashboard = () => {
         <form onSubmit={handleSubmit}>
           <div className='name'>
             <label htmlFor='date'>Enter Date:</label>
-            <input type='text' name='scan-code' onChange={handleChange}/>
+            <input type='date' name='date' onChange={handleChange}/>
           </div>
           <div className='password'>
             <label htmlFor='item-name'>Enter Category:</label>

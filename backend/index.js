@@ -113,7 +113,7 @@ app.post('/dashboard', (req, res) => {
   const records = [[date, category, description, amount]];
 
   if (records[0][0] != null) {
-    con.query("INSERT INTO Transaction (date, category, description, amount) VALUES ?", [records], function(err, result) {
+    con.query("INSERT INTO Transactions (date, category, description, amount) VALUES ?", [records], function(err, result) {
       if (err) {
         console.error('Database error:', err);
         return res.status(500).json({ message: 'Database insertion error', err });
