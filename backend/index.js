@@ -113,6 +113,10 @@ app.get('/dashboard', (req, res) => {
 });
 
 app.get('/dashboard', (req, res) => {
+  console.log('Session Details:', req.session);
+  console.log('Request Headers:', req.headers);
+  console.log('Cookies:', req.headers.cookie);
+
   if (req.session.user) {
     con.query("SELECT * FROM Transactions", (err, results) => {
       if (err) {
@@ -125,9 +129,13 @@ app.get('/dashboard', (req, res) => {
       });
     });
   } else {
-    res.status(401).json({ message: 'Unauthorized' });
+    res.status(401).json({
+      message: 'Unauthorized access: No active session found. Please log in to access the dashboard.',
+      error: 'Session not found or expired'
+    });
   }
 });
+
 
 app.post('/dashboard', (req, res) => {
   const { date, category, description, amount } = req.body;
