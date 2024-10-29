@@ -95,7 +95,7 @@ const Dashboard = () => {
         console.error('Form submission failed:', result);
       }
     } catch (error) {
-      console.error('Database insertion error details:', err.message);
+      console.error('Database insertion error details:', error.message);
       console.error('Error:', error);
     }
   };
