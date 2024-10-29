@@ -116,7 +116,7 @@ app.post('/dashboard', (req, res) => {
     con.query("INSERT INTO Transaction (date, category, description, amount) VALUES ?", [records], function(err, result) {
       if (err) {
         console.error('Database error:', err);
-        return res.status(500).json({ message: 'Database insertion error' });
+        return res.status(500).json({ message: 'Database insertion error', err });
       }
       console.log(result);
       res.json("Form received");
