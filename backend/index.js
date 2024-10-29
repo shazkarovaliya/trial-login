@@ -45,6 +45,8 @@ const urlDB = `mysql://root:QjPtaHGxFzVMWVTfyLAwsPdsxdDsANwZ@mysql.railway.inter
 
 const con = mysql.createConnection(urlDB);
 
+module.exports = con;
+
 con.connect(function(err) {
   if (err) {
     console.log('Database connection failed:', err);
@@ -63,11 +65,16 @@ app.post('/register', (req, res) => {
 
   if (records[0][0] != null) {
     con.query("INSERT INTO Login (username, password, phone, email, business, address) VALUES ?", [records], function(err, result) {
-      if (err) throw err;
+      if (err) {
+        console.error('Database error:', err);
+        return res.status(500).json({ message: 'Database insertion error' });
+      }
       console.log(result);
+      res.json("Form received");
     });
+  } else {
+    res.status(400).json({ message: 'Invalid input data' });
   }
-  res.json("Form received");
 });
 
 app.post('/login', (req, res) => {
