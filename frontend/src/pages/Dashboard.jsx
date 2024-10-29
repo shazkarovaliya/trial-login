@@ -153,6 +153,7 @@ const Dashboard = () => {
           </div>
         </form>
       </div>
+      <DataTable transactions={transactions}/>
     </div> 
   )
 }
