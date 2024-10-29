@@ -108,6 +108,23 @@ app.get('/dashboard', (req, res) => {
   }
 });
 
+app.get('/dashboard', (req, res) => {
+  if (req.session.user) {
+    con.query("SELECT * FROM Transactions", (err, results) => {
+      if (err) {
+        console.error('Database error:', err);
+        return res.status(500).json({ message: 'Error fetching transactions' });
+      }
+      res.json({
+        message: `Welcome ${req.session.user}`,
+        transactions: results  // Send transactions data in response
+      });
+    });
+  } else {
+    res.status(401).json({ message: 'Unauthorized' });
+  }
+});
+
 app.post('/dashboard', (req, res) => {
   const { date, category, description, amount } = req.body;
   const records = [[date, category, description, amount]];
