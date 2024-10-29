@@ -22,10 +22,10 @@ app.listen(port, "0.0.0.0", function () {
 });
 
 app.use(session({
-  secret: 'your_secret_key', 
+  secret: 'your_secret_key',
   resave: false,
   saveUninitialized: false,
-  cookie: { secure: false } 
+  cookie: { secure: process.env.NODE_ENV === 'production' }
 }));
 
 // CORS configuration
@@ -108,6 +108,24 @@ app.get('/dashboard', (req, res) => {
   }
 });
 
+app.post('/dashboard', (req, res) => {
+  const { date, category, description, amount } = req.body;
+  const records = [[date, category, description, amount]];
+
+  if (records[0][0] != null) {
+    con.query("INSERT INTO Transaction (date, category, description, amount) VALUES ?", [records], function(err, result) {
+      if (err) {
+        console.error('Database error:', err);
+        return res.status(500).json({ message: 'Database insertion error' });
+      }
+      console.log(result);
+      res.json("Form received");
+    });
+  } else {
+    res.status(400).json({ message: 'Invalid input data' });
+  }
+});
+
 app.post('/logout', (req, res) => {
   // Destroy the session
   req.session.destroy(err => {
@@ -116,7 +134,7 @@ app.post('/logout', (req, res) => {
       res.status(500).send('Error logging out');
     } else {
       res.clearCookie('connect.sid'); // Clear the session cookie
-      res.json({ message: 'Logout successful' /*+ `${req.session.user}`*/ });
+      res.json({ message: 'Logout successful'});
     }
   });
 });
