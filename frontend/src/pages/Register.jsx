@@ -3,6 +3,8 @@ import { useNavigate } from 'react-router-dom';
 
 import '../App.css';
 
+import NavBar from '../items/NavBar';
+
 const Register = () => {
   const [formData, setFormData] = useState({
     name: '',
@@ -46,40 +48,10 @@ const Register = () => {
     }
   };
 
-  const handleRedirectHome = () => {
-    navigate('/');
-  };
-
-  const handleRedirectAbout = () => {
-    navigate('/login');
-  };
-
-  const handleRedirectContact = () => {
-    navigate('/login');
-  };
-
-  const handleRedirectLogin = () => {
-    navigate('/login');
-  };
-
-  const handleRedirectRegister = () => {
-    navigate('/register');
-  };
-
   return (
     <div className='main'>
       <div className="register">
-      <nav className="navbar">
-        <div className="navbar-container">
-          <ul className="nav-links">
-            <li><button onClick={handleRedirectHome}>Home</button></li>
-            <li><button onClick={handleRedirectAbout}>About</button></li>
-            <li><button onClick={handleRedirectContact}>Contact</button></li>
-            <li><button onClick={handleRedirectLogin}>Login</button></li>
-            <li><button className="active" onClick={handleRedirectRegister}>Register</button></li>
-          </ul>
-        </div>
-      </nav>
+      <NavBar />
         <form onSubmit={handleSubmit}>
           <div className='name'>
             <label htmlFor='name'>Enter Username:</label>
