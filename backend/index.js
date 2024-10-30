@@ -8,7 +8,7 @@ const mysql = require('mysql2');
 const app = express();
 app.use(bodyParser.json());
 const allowedOrigins = [
-  'http://localhost:3000',
+  "http://localhost:3000",
   "https://trial-login-production-c2f7.up.railway.app",
   "https://trial-login.netlify.app",
 
@@ -17,7 +17,7 @@ const allowedOrigins = [
 // Use PORT provided in environment or default to 3000
 const port = process.env.PORT || 3000;
 
-app.listen(port, "0.0.0.0", function () {
+app.listen(3001, "0.0.0.0", function () {
   console.log("Server running on port 3001");
 });
 
@@ -45,9 +45,17 @@ app.use(cors({
   credentials: true  
 }));
 
-const urlDB = `mysql://root:QjPtaHGxFzVMWVTfyLAwsPdsxdDsANwZ@junction.proxy.rlwy.net:57666/railway`;
+//const urlDB = `mysql://root:QjPtaHGxFzVMWVTfyLAwsPdsxdDsANwZ@junction.proxy.rlwy.net:57666/railway`;
 
-const con = mysql.createConnection(urlDB);
+//const con = mysql.createConnection(urlDB);
+
+const con = mysql.createConnection({
+  host: "sql5.freesqldatabase.com", //"jdbc:mysql://sql5.freesqldatabase.com:3306/sql5736909",
+  user: "sql5740447",
+  password: "rZkA74RPjE",
+  database: "sql5740447",
+  port: "3306"
+});
 
 module.exports = con;
 
@@ -83,18 +91,16 @@ app.post('/register', (req, res) => {
 
 app.post('/login', (req, res) => {
   const { name, password } = req.body;
-  
-  console.log("Session before login:", req.session);
 
   con.query("SELECT * FROM Login WHERE username = ? AND password = ?", [name, password], function(err, result) {
     if (err) {
-      console.log(err);
-      res.status(500).send('Database error');
-      return;
+      console.log('Database error:', err);
+      return res.status(500).send('Database error');
     }
 
     if (result.length > 0) {
-      req.session.user = name;  
+      req.session.user = name;
+      console.log("User logged in:", req.session.user); // Debugging session
       res.status(200).json({ message: 'Login successful' });
     } else {
       res.status(401).json({ message: 'Invalid credentials' });
@@ -102,23 +108,22 @@ app.post('/login', (req, res) => {
   });
 });
 
-// Define /dashboard route
-app.get('/dashboard', (req, res) => {
-  if (req.session.user) {
-    // Render or send data for dashboard here
-    res.json({ message: `Welcome ${req.session.user}` });
+
+app.get('/checkSession', (req, res) => {
+  if (req.session && req.session.user) {
+    // User is logged in
+    res.json({ isLoggedIn: true, user: req.session.user });
   } else {
-    res.status(401).json({ message: 'Unauthorized' });
+    // User is not logged in
+    res.json({ isLoggedIn: false });
   }
 });
 
-app.get('/dashboard', (req, res) => {
-  console.log('Session Details:', req.session);
-  console.log('Request Headers:', req.headers);
-  console.log('Cookies:', req.headers.cookie);
 
+// Define /dashboard route
+app.get('/dashboard', (req, res) => {
   if (req.session.user) {
-    con.query("SELECT * FROM Transactions", (err, results) => {
+    con.query("SELECT * FROM Transactions", function(err, results) {
       if (err) {
         console.error('Database error:', err);
         return res.status(500).json({ message: 'Error fetching transactions' });

@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 
-import LogoutButton from '../components/LogoutButton';
 import DataTable from '../items/DataTable';
+import NavBar from '../items/NavBar';
 
 import '../App.css';
 
@@ -22,67 +21,40 @@ const Dashboard = () => {
     });
   };
 
-  const navigate = useNavigate();
-
   const [transactions, setTransactions] = useState([]);
   const [message, setMessage] = useState('');
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/dashboard`, {
+        const response = await fetch(/* `${process.env.REACT_APP_BACKEND_URL}/dashboard` */ 'http://localhost:3001/dashboard', {
           method: 'GET',
           credentials: 'include',
         });
   
         if (response.ok) {
           const data = await response.json();
-          console.log('API Response:', data); // Log the API response
           setMessage(data.message);
-          setTransactions(data.transactions);  // Set transactions from the API
+          setTransactions(data.transactions || []);  // Fallback to an empty array if undefined
         } else {
-          // If response is not ok, try to parse the error response
           const errorData = await response.json();
           setMessage(`Error: ${errorData.message || 'Unauthorized access'}`);
         }
       } catch (error) {
-        // Capture network or unexpected errors
         console.error('Error:', error);
         setMessage(`Network or unexpected error: ${error.message}`);
       }
     };
-    fetchData();
-  }, []);  
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/dashboard`  /*'http://localhost:3001/dashboard'*/, {
-          method: 'GET',
-          credentials: 'include',
-        });
-
-        if (response.ok) {
-          const data = await response.json();
-          setMessage(data.message);
-        } else {
-          setMessage('Unauthorized');
-        }
-      } catch (error) {
-        console.error('Error:', error);
-        setMessage('Error fetching data');
-      }
-    };
-
+  
     fetchData();
   }, []);
+  
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/dashboard` /*'http://localhost:3001/dashboard'*/, {
+      const response = await fetch(/* `${process.env.REACT_APP_BACKEND_URL}/dashboard` */ 'http://localhost:3001/dashboard', {
         method: 'POST',
-        //credentials: 'include',
         headers: {
           'Content-Type': 'application/json'
         },
@@ -102,30 +74,9 @@ const Dashboard = () => {
     }
   };
 
-  const handleRedirectHome = () => {
-    navigate('/');
-  };
-
-  const handleRedirectAbout = () => {
-    navigate('/login');
-  };
-
-  const handleRedirectContact = () => {
-    navigate('/login');
-  };
-
   return (
     <div className='main'>
-      <nav className="navbar">
-        <div className="navbar-container">
-          <ul className="nav-links">
-            <li><button onClick={handleRedirectHome}>Home</button></li>
-            <li><button onClick={handleRedirectAbout}>About</button></li>
-            <li><button onClick={handleRedirectContact}>Contact</button></li>
-            <li><LogoutButton /></li>
-          </ul>
-        </div>
-      </nav>
+      <NavBar />
       <h1>{message}</h1>
       <div className="register">
         <form onSubmit={handleSubmit}>

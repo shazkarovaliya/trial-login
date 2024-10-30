@@ -3,6 +3,8 @@ import { useNavigate } from 'react-router-dom';
 
 import '../App.css';
 
+import NavBar from '../items/NavBar';
+
 const Login = () => {
   const [formData, setFormData] = useState({ name: '', password: '' });
   const navigate = useNavigate();
@@ -18,7 +20,7 @@ const Login = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/login` /*'http://localhost:3001/login'*/, {
+      const response = await fetch(/* `${process.env.REACT_APP_BACKEND_URL}/login` */ 'http://localhost:3001/login', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -31,6 +33,7 @@ const Login = () => {
         const data = await response.json();
         if (data.message === 'Login successful') {
           navigate('/dashboard');
+          window.location.reload();
         } else {
           console.error('Invalid credentials');
         }
@@ -42,39 +45,9 @@ const Login = () => {
     }
   };
 
-  const handleRedirectHome = () => {
-    navigate('/');
-  };
-
-  const handleRedirectAbout = () => {
-    navigate('/login');
-  };
-
-  const handleRedirectContact = () => {
-    navigate('/login');
-  };
-
-  const handleRedirectLogin = () => {
-    navigate('/login');
-  };
-
-  const handleRedirectRegister = () => {
-    navigate('/register');
-  };
-
   return (
     <div className='main'>
-      <nav class="navbar">
-        <div class="navbar-container">
-          <ul class="nav-links">
-            <li><button onClick={handleRedirectHome}>Home</button></li>
-            <li><button onClick={handleRedirectAbout}>About</button></li>
-            <li><button onClick={handleRedirectContact}>Contact</button></li>
-            <li><button class="active" onClick={handleRedirectLogin}>Login</button></li>
-            <li><button onClick={handleRedirectRegister}>Register</button></li>
-          </ul>
-        </div>
-      </nav>
+      <NavBar />
       <form onSubmit={handleSubmit}>
         <div className='name'>
           <label htmlFor='name'>Enter Username:</label>

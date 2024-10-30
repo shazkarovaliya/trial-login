@@ -6,19 +6,22 @@ import Login from './pages/Login';
 import Dashboard from './pages/Dashboard';
 import Error from './pages/Error';
 import Main from './pages/Main';
+import { UserProvider } from './components/UserContext'; // Import UserProvider
 
 function App() {
   return (
     <div className="App">
-      <Router>
-        <Routes>
-          <Route path='/' element={<Main />}/>
-          <Route path="/register" element={<Register />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/dashboard" element={<Dashboard />} />
-          <Route path="*" element={<Error />} />
-        </Routes>
-      </Router>
+      <UserProvider> {/* Wrap the Router with UserProvider */}
+        <Router>
+          <Routes>
+            <Route path='/' element={<Main />}/>
+            <Route path="/register" element={<Register />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/dashboard" element={<Dashboard />} />
+            <Route path="*" element={<Error />} />
+          </Routes>
+        </Router>
+      </UserProvider>
     </div>
   );
 }
