@@ -17,9 +17,15 @@ const allowedOrigins = [
 // Use PORT provided in environment or default to 3000
 const port = process.env.PORT || 3000;
 
-app.listen(3001, "0.0.0.0", function () {
+//for online server deployment use
+app.listen(port, "0.0.0.0", function () {
   console.log("Server running on port 3001");
 });
+
+//for localhost use
+// app.listen(3001, "0.0.0.0", function () {
+//   console.log("Server running on port 3001");
+// });
 
 app.use(session({
   secret: 'your_secret_key',
