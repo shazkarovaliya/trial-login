@@ -45,17 +45,17 @@ app.use(cors({
   credentials: true  
 }));
 
-//const urlDB = `mysql://root:QjPtaHGxFzVMWVTfyLAwsPdsxdDsANwZ@junction.proxy.rlwy.net:57666/railway`;
+const urlDB = `mysql://root:QjPtaHGxFzVMWVTfyLAwsPdsxdDsANwZ@junction.proxy.rlwy.net:57666/railway`;
 
-//const con = mysql.createConnection(urlDB);
+const con = mysql.createConnection(urlDB);
 
-const con = mysql.createConnection({
+/* const con = mysql.createConnection({
   host: "sql5.freesqldatabase.com", //"jdbc:mysql://sql5.freesqldatabase.com:3306/sql5736909",
   user: "sql5740447",
   password: "rZkA74RPjE",
   database: "sql5740447",
   port: "3306"
-});
+}); */
 
 module.exports = con;
 
