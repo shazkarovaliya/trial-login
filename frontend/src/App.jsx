@@ -6,6 +6,10 @@ import Login from './pages/Login';
 import Dashboard from './pages/Dashboard';
 import Error from './pages/Error';
 import Main from './pages/Main';
+import Settings from './pages/Settings';
+import ReportCategory from './pages/ReportCategory';
+import ReportDescription from './pages/ReportDescription';
+import BankReport from './pages/BankReport';
 import { UserProvider } from './components/UserContext'; // Import UserProvider
 
 function App() {
@@ -18,6 +22,10 @@ function App() {
             <Route path="/register" element={<Register />} />
             <Route path="/login" element={<Login />} />
             <Route path="/dashboard" element={<Dashboard />} />
+            <Route path="/settings" element={<Settings />} />
+            <Route path="/category/:category" element={<ReportCategory />} />
+            <Route path="/description/:description" element={<ReportDescription />} />
+            <Route path='/report/bank/:bank' element={<BankReport />} />
             <Route path="*" element={<Error />} />
           </Routes>
         </Router>
