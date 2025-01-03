@@ -8,6 +8,7 @@ import NavBar from '../items/NavBar';
 const Register = () => {
   const [formData, setFormData] = useState({
     name: '',
+    username: '',
     password: '',
     phone: '',
     email: '',
@@ -54,8 +55,12 @@ const Register = () => {
       <NavBar />
         <form onSubmit={handleSubmit}>
           <div className='name'>
-            <label htmlFor='name'>Enter Username:</label>
+            <label htmlFor='name'>Enter Name:</label>
             <input type='text' name='name' value={formData.name} onChange={handleChange} />
+          </div>
+          <div className='name'>
+            <label htmlFor='username'>Enter Username:</label>
+            <input type='text' name='username' value={formData.username} onChange={handleChange} />
           </div>
           <div className='password'>
             <label htmlFor='password'>Enter Password:</label>

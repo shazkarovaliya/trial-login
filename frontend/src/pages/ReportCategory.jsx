@@ -15,12 +15,21 @@ const ReportCategory = () => {
     setLoading(true); // Set loading to true when starting to fetch
     setError(null); // Reset any previous errors
 
-    fetch(`http://localhost:3001/category/${category}`)
+    fetch(`http://localhost:3001/category/${category}`, {
+      method: 'GET',
+      credentials: 'include', // Ensure cookies are sent
+    })
       .then((response) => response.json())
       .then((data) => {
         if (data.length > 0) {
-          setFilteredTransactions(data); // Set the fetched transactions
-          const total = data.reduce((sum, transaction) => sum + transaction.amount, 0); // Calculate total
+          // Ensure amount is a number
+          const transactions = data.map(transaction => ({
+            ...transaction,
+            amount: parseFloat(transaction.total), // Convert amount to a number
+          }));
+
+          setFilteredTransactions(transactions); // Set the fetched transactions
+          const total = transactions.reduce((sum, transaction) => sum + transaction.amount, 0); // Calculate total
           setTotalAmount(total);
         } else {
           setFilteredTransactions([]); // No data found for this category

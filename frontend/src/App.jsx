@@ -10,6 +10,8 @@ import Settings from './pages/Settings';
 import ReportCategory from './pages/ReportCategory';
 import ReportDescription from './pages/ReportDescription';
 import BankReport from './pages/BankReport';
+import Transfer from './pages/Transfer';
+
 import { UserProvider } from './components/UserContext'; // Import UserProvider
 
 function App() {
@@ -26,6 +28,7 @@ function App() {
             <Route path="/category/:category" element={<ReportCategory />} />
             <Route path="/description/:description" element={<ReportDescription />} />
             <Route path='/report/bank/:bank' element={<BankReport />} />
+            <Route path='/transfer' element={<Transfer />} />
             <Route path="*" element={<Error />} />
           </Routes>
         </Router>
