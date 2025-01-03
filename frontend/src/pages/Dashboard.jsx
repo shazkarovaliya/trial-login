@@ -24,7 +24,7 @@ const Dashboard = () => {
   const [transactions, setTransactions] = useState([]);
   const [message, setMessage] = useState('');
   const [tdOptions, setTdOptions] = useState([]);  // State to hold description options
-  const [bankOptions, setBankOptions] = useState([]);  // State to hold bank options
+  const [bank, setBankOptions] = useState([]);  // State to hold bank options
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -39,11 +39,12 @@ const Dashboard = () => {
       try {
         const response = await fetch('http://localhost:3001/settings', {
           method: 'GET',
-          credentials: 'include'
+          credentials: 'include',
         });
         if (response.ok) {
           const data = await response.json();
-          setTdOptions(data.td_options);  // Set options for description in state
+          // Ensure data.td_options is an array
+          setTdOptions(data.td_options || []);  // Default to empty array if undefined
         } else {
           console.error('Failed to fetch TDOptions');
         }
@@ -51,22 +52,29 @@ const Dashboard = () => {
         console.error('Error fetching TDOptions:', error);
       }
     };
+    
 
     const fetchBankOptions = async () => {
       try {
         const response = await fetch('http://localhost:3001/getBankOptions', {
           method: 'GET',
+          credentials: 'include', // Include cookies to send the session
         });
+  
         if (response.ok) {
           const data = await response.json();
-          setBankOptions(data.bankOptions);  // Set options for banks in state
+          console.log('Bank options data:', data); // Log to check if the response contains bank options
+          setMessage(data.message);
+          setBankOptions(data.bankOptions || []); // Ensure this is correctly populated
         } else {
-          console.error('Failed to fetch Bank Options');
+          console.error('Error fetching bank options');
+          setMessage('Error fetching bank options');
         }
       } catch (error) {
-        console.error('Error fetching Bank Options:', error);
+        console.error('Error fetching bank options:', error);
+        setMessage('Error fetching bank options');
       }
-    };
+    };  
 
     fetchTdOptions();
     fetchBankOptions();
@@ -133,50 +141,44 @@ const Dashboard = () => {
       <div className="register">
         <form onSubmit={handleSubmit}>
           <div className='name'>
-            <label htmlFor='date'>Enter Date:</label>
-            <input type='date' name='date' onChange={handleChange}/>
+            <label htmlFor='date'>Date:</label>
+            <input type='date' name='date' required onChange={handleChange}/>
           </div>
           <div className='password'>
-            <label htmlFor='item-name'>Enter Category:</label>
-            <select name="category" id="category" onChange={handleChange}>
+            <label htmlFor='item-name'>Category:</label>
+            <select name="category" id="category" required onChange={handleChange}>
               <option value="">Select a category</option>
-              <option value="Income">Income</option>
-              <option value="Expense">Expense</option>
-              <option value="Investment">Investment</option>
-              <option value="Borrower">Borrower</option>
+              <option value="Paid-In">Paid-In</option>
+              <option value="Paid-Out">Paid-Out</option>
             </select>
           </div>
           <div className='phonenum'>
-            <label htmlFor='description'>Enter Description:</label>
-            <div>
-              <select name="description" onChange={handleChange}>
-                <option value="">Select a description</option>
-                {tdOptions.map(option => (
-                  <option key={option.id} value={option.dd_option}>{option.dd_option}</option>
-                ))}
-              </select>
-              <a href="/settings" style={{ marginLeft: '10px', color: 'black' }}>
-                <FontAwesomeIcon icon={faPlus} />
-              </a>
-            </div>
+            <label htmlFor='description'>Description:</label>
+            <select name="description" required onChange={handleChange}>
+              <option value="">Select a description</option>
+              {tdOptions.map(option => (
+                <option key={option.id} value={option.dd_option}>{option.dd_option}</option>
+              ))}
+            </select>
+            <a href="/settings" style={{ marginLeft: '10px', color: 'black' }}>
+              <FontAwesomeIcon icon={faPlus} />
+            </a>
           </div>
           <div className='email'>
-            <label htmlFor='account'>Enter Account:</label>
-            <div>
-              <select name="account" onChange={handleChange}>
-                <option value="">Select an account</option>
-                {bankOptions.map(option => (
-                  <option key={option.id} value={option.bank}>{option.bank}</option>
-                ))}
-              </select>
-              <a href="/settings" style={{ marginLeft: '10px', color: 'black' }}>
-                <FontAwesomeIcon icon={faPlus} />
-              </a>
-            </div>
+            <label htmlFor='account'>Account:</label>
+            <select name="account" required onChange={handleChange}>
+              <option value="">Select an account</option>
+              {bank.map(option => (
+                <option key={option.id} value={option.bank}>{option.bank}</option>
+              ))}
+            </select>
+            <a href="/settings" style={{ marginLeft: '10px', color: 'black' }}>
+              <FontAwesomeIcon icon={faPlus} />
+            </a>
           </div>
           <div className='email'>
-            <label htmlFor='transmeth'>Enter Transaction Method:</label>
-            <select name="transmeth" id="transmeth" onChange={handleChange}>
+            <label htmlFor='transmeth'>Transaction Method:</label>
+            <select name="transmeth" id="transmeth" required onChange={handleChange}>
               <option value="">Select a transaction method</option>
               <option value="Cash">Cash</option>
               <option value="EFT">EFT</option>
@@ -197,7 +199,7 @@ const Dashboard = () => {
           )}
           <div className='email'>
             <label htmlFor='amount'>Enter Amount:</label>
-            <input type='number' name='amount' onChange={handleChange}/>
+            <input type='number' name='amount' step="0.01" required onChange={handleChange}/>
           </div>
           <div className='email'>
             <label htmlFor='memo'>Enter Memo:</label>

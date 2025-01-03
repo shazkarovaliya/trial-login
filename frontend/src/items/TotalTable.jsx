@@ -1,3 +1,4 @@
+
 import React from 'react';
 import PropTypes from 'prop-types';
 import { useNavigate } from 'react-router-dom'; // Import useNavigate for navigation
@@ -14,16 +15,16 @@ const TotalTable = ({ transactions }) => {
     total_amount: Number(row.total_amount)  // Convert to a number
   }));
 
-  // Adjust total_amount for Expenses and Investments to be negative
+  // Adjust total_amount for Expenses, Investments, and Paid-Out to be negative
   formattedData.forEach(row => {
-    if (row.category === "Expense" || row.category === "Investment") {
+    if (row.category === "Expense" || row.category === "Investment" || row.category === "Paid-Out") {
       row.total_amount = -Math.abs(row.total_amount);  // Make it negative
     }
   });
 
-  // Sort the data by category in a predefined order (Income, Borrower, Expense, Investment)
+  // Sort the data by category in a predefined order
   const sortedData = formattedData.sort((a, b) => {
-    const order = ['Income', 'Borrower', 'Expense', 'Investment'];
+    const order = ['Paid-In', 'Paid-Out'];
     return order.indexOf(a.category) - order.indexOf(b.category);
   });
 

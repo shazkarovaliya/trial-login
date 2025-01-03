@@ -10,11 +10,15 @@ const NavBar = () => {
   const [showReportDropdown, setShowReportDropdown] = useState(false);
   const [showBankDropdown, setShowBankDropdown] = useState(false);
   const [accounts, setAccounts] = useState([]);
+  const [bankOptions, setBankOptions] = useState([]);
 
   useEffect(() => {
     const fetchBankOptions = async () => {
       try {
-        const response = await fetch('http://localhost:3001/getBankOptions');
+        const response = await fetch('http://localhost:3001/getBankOptions', {
+          method: 'GET',
+          credentials: 'include'
+        });
         if (!response.ok) {
           throw new Error('Failed to fetch bank options');
         }
@@ -76,6 +80,7 @@ const NavBar = () => {
                     </ul>
                   )}
                 </li>
+                <li><button onClick={() => navigate('/transfer')}>Transfer</button></li>
                 <li><button onClick={() => navigate('/settings')}>Settings</button></li>
                 <li><LogoutButton /></li>
               </>

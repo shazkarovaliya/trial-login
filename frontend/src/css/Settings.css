@@ -1,0 +1,67 @@
+/* Settings.css */
+
+.dropdown-container {
+  max-width: 600px;
+  margin: 20px auto;
+  text-align: center;
+}
+
+h3 {
+  font-size: 22px;
+  margin-bottom: 15px;
+}
+
+.dropdown-list {
+  list-style: none;
+  padding: 0;
+}
+
+.dropdown-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 10px 0;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #f8f8f8;
+}
+
+.edit-input {
+  flex: 1;
+  margin-right: 10px;
+  padding: 5px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.button-container {
+  display: flex;
+  gap: 10px;
+}
+
+.edit-button,
+.delete-button,
+.save-button {
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  padding: 5px 10px;
+  cursor: pointer;
+  border-radius: 3px;
+  transition: background-color 0.3s;
+}
+
+.edit-button:hover,
+.delete-button:hover,
+.save-button:hover {
+  background-color: #0056b3;
+}
+
+.delete-button {
+  background-color: #dc3545;
+}
+
+.delete-button:hover {
+  background-color: #b02a37;
+}
