@@ -11,6 +11,7 @@ const allowedOrigins = [
   "http://localhost:3000",
   "https://trial-login-production-c2f7.up.railway.app",
   "https://trial-login.netlify.app",
+  "https://accounting-app-6e5bh.ondigitalocean.app/"
 ];
 
 // Use PORT provided in environment or default to 3000
@@ -32,7 +33,7 @@ app.use(session({
   saveUninitialized: true,
   cookie: {
     httpOnly: true,
-    secure: false, // Change to true if using HTTPS
+    secure: true, // Change to true if using HTTPS
     sameSite: 'lax',
     maxAge: 24 * 60 * 60 * 1000,
   },
@@ -55,13 +56,21 @@ app.use(cors({
 
 // const con = mysql.createConnection(urlDB);
 
-const con = mysql.createConnection({
-  host: "sql5.freesqldatabase.com",
-  user: "sql5740447",
-  password: "rZkA74RPjE",
-  database: "sql5740447",
-  port: "3306"
-});
+// const con = mysql.createConnection({
+//   host: "sql5.freesqldatabase.com",
+//   user: "sql5740447",
+//   password: "rZkA74RPjE",
+//   database: "sql5740447",
+//   port: "3306"
+// });
+
+ const con = mysql.createConnection({
+  user: "doadmin",
+  password: "AVNS_hn-9j4TZtNHDs1L0MDF",
+  host: "db-mysql-nyc3-12891-do-user-13444788-0.j.db.ondigitalocean.com",
+  port: "25060",
+  database: "defaultdb",
+ })
 
 module.exports = con;
 
