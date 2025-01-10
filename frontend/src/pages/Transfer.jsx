@@ -26,7 +26,7 @@
 //   useEffect(() => {
 //     const fetchAccountOptions = async () => {
 //       try {
-//         const response = await fetch('http://localhost:3001/getBankOptions', {
+//         const response = await fetch('https://vamsivemula.art/getBankOptions', {
 //           method: 'GET',
 //           credentials: 'include',
 //         });
@@ -63,7 +63,7 @@
 //   const handleSubmit = async (e) => {
 //     e.preventDefault();
 //     try {
-//       const response = await fetch('http://localhost:3001/transfer', {
+//       const response = await fetch('https://vamsivemula.art/transfer', {
 //         method: 'POST',
 //         headers: { 'Content-Type': 'application/json' },
 //         credentials: 'include',
@@ -94,7 +94,7 @@
 //   useEffect(() => {
 //     const fetchTdOptions = async () => {
 //       try {
-//         const response = await fetch('http://localhost:3001/settings', {
+//         const response = await fetch('https://vamsivemula.art/settings', {
 //           method: 'GET',
 //           credentials: 'include',
 //         });
@@ -113,7 +113,7 @@
 
 //     const fetchBankOptions = async () => {
 //       try {
-//         const response = await fetch('http://localhost:3001/getBankOptions', {
+//         const response = await fetch('https://vamsivemula.art/getBankOptions', {
 //           method: 'GET',
 //           credentials: 'include', // Include cookies to send the session
 //         });
@@ -140,7 +140,7 @@
 //   useEffect(() => {
 //     const fetchData = async () => {
 //       try {
-//         const response = await fetch('http://localhost:3001/dashboard', {
+//         const response = await fetch('https://vamsivemula.art/dashboard', {
 //           method: 'GET',
 //           credentials: 'include',
 //         });
@@ -169,7 +169,7 @@
 //   const handleTransactionSubmit = async (e) => {
 //     e.preventDefault();
 //     try {
-//       const response = await fetch('http://localhost:3001/dashboard', {
+//       const response = await fetch('https://vamsivemula.art/dashboard', {
 //         method: 'POST',
 //         headers: {
 //           'Content-Type': 'application/json'
@@ -396,7 +396,7 @@ const Transfer = () => {
   useEffect(() => {
     const fetchAccountOptions = async () => {
       try {
-        const response = await fetch('http://localhost:3001/getBankOptions', {
+        const response = await fetch('https://vamsivemula.art/getBankOptions', {
           method: 'GET',
           credentials: 'include',
         });
@@ -433,7 +433,7 @@ const Transfer = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch('http://localhost:3001/transfer', {
+      const response = await fetch('https://vamsivemula.art/transfer', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         credentials: 'include',
@@ -464,7 +464,7 @@ const Transfer = () => {
   useEffect(() => {
     const fetchTdOptions = async () => {
       try {
-        const response = await fetch('http://localhost:3001/settings', {
+        const response = await fetch('https://vamsivemula.art/settings', {
           method: 'GET',
           credentials: 'include',
         });
@@ -481,7 +481,7 @@ const Transfer = () => {
 
     const fetchBankOptions = async () => {
       try {
-        const response = await fetch('http://localhost:3001/getBankOptions', {
+        const response = await fetch('https://vamsivemula.art/getBankOptions', {
           method: 'GET',
           credentials: 'include', // Include cookies to send the session
         });
@@ -508,7 +508,7 @@ const Transfer = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch('http://localhost:3001/dashboard', {
+        const response = await fetch('https://vamsivemula.art/dashboard', {
           method: 'GET',
           credentials: 'include',
         });
@@ -537,7 +537,7 @@ const Transfer = () => {
   const handleTransactionSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch('http://localhost:3001/dashboard', {
+      const response = await fetch('https://vamsivemula.art/dashboard', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

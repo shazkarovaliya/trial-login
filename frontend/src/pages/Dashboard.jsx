@@ -12,7 +12,7 @@ const Dashboard = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch('http://localhost:3001/dashboard', {
+        const response = await fetch('https://vamsivemula.art/dashboard', {
           method: 'GET',
           credentials: 'include',
         });

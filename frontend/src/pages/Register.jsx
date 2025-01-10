@@ -28,7 +28,7 @@
 //   const handleSubmit = async (e) => {
 //     e.preventDefault();
 //     try {
-//       const response = await fetch(/* `${process.env.REACT_APP_BACKEND_URL}/register` */ 'http://localhost:3001/register', {
+//       const response = await fetch(/* `${process.env.REACT_APP_BACKEND_URL}/register` */ 'https://vamsivemula.art/register', {
 //         method: 'POST',
 //         headers: {
 //           'Content-Type': 'application/json'
@@ -121,7 +121,7 @@ const Register = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch('http://localhost:3001/register', {
+      const response = await fetch('https://vamsivemula.art/register', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'

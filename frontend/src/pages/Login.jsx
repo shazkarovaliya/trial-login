@@ -20,7 +20,7 @@
 //   const handleSubmit = async (e) => {
 //     e.preventDefault();
 //     try {
-//       const response = await fetch(/* `${process.env.REACT_APP_BACKEND_URL}/login` */ 'http://localhost:3001/login', {
+//       const response = await fetch(/* `${process.env.REACT_APP_BACKEND_URL}/login` */ 'https://vamsivemula.art/login', {
 //         method: 'POST',
 //         headers: {
 //           'Content-Type': 'application/json',
@@ -88,7 +88,7 @@ const Login = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch('http://localhost:3001/login', {
+      const response = await fetch('https://vamsivemula.art/login', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

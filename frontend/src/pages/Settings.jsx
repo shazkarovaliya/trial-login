@@ -23,7 +23,7 @@ const Settings = () => {
 
   const fetchData = async () => {
     try {
-      const response = await fetch('http://localhost:3001/settings', { method: 'GET', credentials: 'include' });
+      const response = await fetch('https://vamsivemula.art/settings', { method: 'GET', credentials: 'include' });
       const data = await response.json();
       set_td_options(data.td_options || []);
       setMessage(data.message || '');
@@ -35,7 +35,7 @@ const Settings = () => {
 
   const fetchBankOptions = async () => {
     try {
-      const response = await fetch('http://localhost:3001/getBankOptions', { method: 'GET', credentials: 'include' });
+      const response = await fetch('https://vamsivemula.art/getBankOptions', { method: 'GET', credentials: 'include' });
       const data = await response.json();
       setBankOptions(data.bankOptions || []);
       setMessage(data.message || '');
@@ -53,7 +53,7 @@ const Settings = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await fetch('http://localhost:3001/settings', {
+      await fetch('https://vamsivemula.art/settings', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         credentials: 'include',
@@ -69,7 +69,7 @@ const Settings = () => {
   const handleBankSubmit = async (e) => {
     e.preventDefault();
     try {
-      await fetch('http://localhost:3001/addBankOptions', {
+      await fetch('https://vamsivemula.art/addBankOptions', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         credentials: 'include',
@@ -84,7 +84,7 @@ const Settings = () => {
 
   const handleEdit = async (id, newValue, fieldName, endpoint) => {
     try {
-      const response = await fetch(`http://localhost:3001/${endpoint}/${id}`, {
+      const response = await fetch(`https://vamsivemula.art/${endpoint}/${id}`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         credentials: 'include',
@@ -106,7 +106,7 @@ const Settings = () => {
 
   const handleDelete = async (id, endpoint, stateUpdater) => {
     try {
-      await fetch(`http://localhost:3001/${endpoint}/${id}`, { method: 'DELETE', credentials: 'include' });
+      await fetch(`https://vamsivemula.art/${endpoint}/${id}`, { method: 'DELETE', credentials: 'include' });
       stateUpdater((prev) => prev.filter((option) => option.id !== id));
     } catch (error) {
       console.error('Error deleting option:', error);

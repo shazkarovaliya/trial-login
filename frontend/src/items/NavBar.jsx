@@ -15,7 +15,7 @@ const NavBar = () => {
   useEffect(() => {
     const fetchBankOptions = async () => {
       try {
-        const response = await fetch('http://localhost:3001/getBankOptions', {
+        const response = await fetch('https://vamsivemula.art/getBankOptions', {
           method: 'GET',
           credentials: 'include'
         });

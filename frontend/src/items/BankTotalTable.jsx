@@ -9,7 +9,7 @@
 //   useEffect(() => {
 //     const fetchBankTotals = async () => {
 //       try {
-//         const response = await fetch('http://localhost:3001/totalByBank', { 
+//         const response = await fetch('https://vamsivemula.art/totalByBank', { 
 //           method: 'GET', 
 //           credentials: 'include',
 //         });
@@ -72,7 +72,7 @@ const BankTotalTable = () => {
   useEffect(() => {
     const fetchBankTotals = async () => {
       try {
-        const response = await fetch('http://localhost:3001/totalByBank', { 
+        const response = await fetch('https://vamsivemula.art/totalByBank', { 
           method: 'GET', 
           credentials: 'include',
         });

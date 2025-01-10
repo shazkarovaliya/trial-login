@@ -12,7 +12,7 @@ const BankReport = () => {
   useEffect(() => {
     const fetchBankReport = async () => {
       try {
-        const response = await fetch(`http://localhost:3001/report/bank/${bank}`, {
+        const response = await fetch(`https://vamsivemula.art/report/bank/${bank}`, {
           method: 'GET',
           credentials: 'include',
         });

@@ -9,7 +9,7 @@ export const UserProvider = ({ children }) => {
     // Check session status with backend on mount
     const checkLoginStatus = async () => {
       try {
-        const response = await fetch(/* `${process.env.REACT_APP_BACKEND_URL}/checkSession` */ 'http://localhost:3001/checkSession', {
+        const response = await fetch(/* `${process.env.REACT_APP_BACKEND_URL}/checkSession` */ 'https://vamsivemula.art/checkSession', {
           method: 'GET',
           credentials: 'include'
         });

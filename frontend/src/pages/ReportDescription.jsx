@@ -19,7 +19,7 @@
 //   }, [description]);
 
 //   const fetchTransactions = () => {
-//     fetch(`http://localhost:3001/description/${description}`, {
+//     fetch(`https://vamsivemula.art/description/${description}`, {
 //       method: 'GET',
 //       credentials: 'include',
 //     })
@@ -51,7 +51,7 @@
 
 //   const fetchTdOptions = async () => {
 //     try {
-//       const response = await fetch('http://localhost:3001/settings', {
+//       const response = await fetch('https://vamsivemula.art/settings', {
 //         method: 'GET',
 //         credentials: 'include',
 //       });
@@ -68,7 +68,7 @@
 
 //   const fetchBankOptions = async () => {
 //     try {
-//       const response = await fetch('http://localhost:3001/getBankOptions', {
+//       const response = await fetch('https://vamsivemula.art/getBankOptions', {
 //         method: 'GET',
 //         credentials: 'include',
 //       });
@@ -86,7 +86,7 @@
 //   const handleDeleteClick = (id) => {
 //     if (!window.confirm('Are you sure you want to delete this transaction?')) return;
 
-//     fetch(`http://localhost:3001/transactions/${id}`, {
+//     fetch(`https://vamsivemula.art/transactions/${id}`, {
 //       method: 'DELETE',
 //       credentials: 'include',
 //     })
@@ -117,7 +117,7 @@
 //       return;
 //     }
 
-//     fetch(`http://localhost:3001/transactions/${editingRow}`, {
+//     fetch(`https://vamsivemula.art/transactions/${editingRow}`, {
 //       method: 'PUT',
 //       headers: { 'Content-Type': 'application/json' },
 //       credentials: 'include',
@@ -282,7 +282,7 @@ const ReportDescription = () => {
   }, [description]);
 
   const fetchTransactions = () => {
-    fetch(`http://localhost:3001/description/${description}`, {
+    fetch(`https://vamsivemula.art/description/${description}`, {
       method: 'GET',
       credentials: 'include',
     })
@@ -314,7 +314,7 @@ const ReportDescription = () => {
 
   const fetchTdOptions = async () => {
     try {
-      const response = await fetch('http://localhost:3001/settings', {
+      const response = await fetch('https://vamsivemula.art/settings', {
         method: 'GET',
         credentials: 'include',
       });
@@ -331,7 +331,7 @@ const ReportDescription = () => {
 
   const fetchBankOptions = async () => {
     try {
-      const response = await fetch('http://localhost:3001/getBankOptions', {
+      const response = await fetch('https://vamsivemula.art/getBankOptions', {
         method: 'GET',
         credentials: 'include',
       });
@@ -349,7 +349,7 @@ const ReportDescription = () => {
   const handleDeleteClick = (id) => {
     if (!window.confirm('Are you sure you want to delete this transaction?')) return;
 
-    fetch(`http://localhost:3001/transactions/${id}`, {
+    fetch(`https://vamsivemula.art/transactions/${id}`, {
       method: 'DELETE',
       credentials: 'include',
     })
@@ -375,7 +375,7 @@ const ReportDescription = () => {
       return;
     }
 
-    fetch(`http://localhost:3001/transactions/${editingRow}`, {
+    fetch(`https://vamsivemula.art/transactions/${editingRow}`, {
       method: 'PUT',
       headers: { 'Content-Type': 'application/json' },
       credentials: 'include',
