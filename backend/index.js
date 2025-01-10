@@ -66,7 +66,7 @@ app.use(cors({
 
  const con = mysql.createConnection({
   user: "doadmin",
-  password: DG-PASSWORD,
+  password: "AVNS_hn-9j4TZtNHDs1L0MDF",
   host: "db-mysql-nyc3-12891-do-user-13444788-0.j.db.ondigitalocean.com",
   port: "25060",
   database: "defaultdb",
