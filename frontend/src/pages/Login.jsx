@@ -1,8 +1,76 @@
+// import React, { useState } from 'react';
+// import { useNavigate } from 'react-router-dom';
+
+// import '../css/Login.css';
+
+// import NavBar from '../items/NavBar';
+
+// const Login = () => {
+//   const [formData, setFormData] = useState({ name: '', password: '' });
+//   const navigate = useNavigate();
+
+//   const handleChange = (e) => {
+//     const { name, value } = e.target;
+//     setFormData({
+//       ...formData,
+//       [name]: value
+//     });
+//   };
+
+//   const handleSubmit = async (e) => {
+//     e.preventDefault();
+//     try {
+//       const response = await fetch(/* `${process.env.REACT_APP_BACKEND_URL}/login` */ 'http://localhost:3001/login', {
+//         method: 'POST',
+//         headers: {
+//           'Content-Type': 'application/json',
+//         },
+//         credentials: 'include', // Include credentials in the request
+//         body: JSON.stringify(formData)
+//       });
+
+//       if (response.ok) {
+//         const data = await response.json();
+//         if (data.message === 'Login successful') {
+//           navigate('/dashboard');
+//           window.location.reload();
+//         } else {
+//           console.error('Invalid credentials');
+//         }
+//       } else {
+//         console.error('Login failed');
+//       }
+//     } catch (error) {
+//       console.error('Error:', error);
+//     }
+//   };
+
+//   return (
+//     <div className='main'>
+//       <NavBar />
+//       <form onSubmit={handleSubmit}>
+//         <div className='name'>
+//           <label htmlFor='name'>Enter Username:</label>
+//           <input type='text' name='name' value={formData.name} onChange={handleChange} />
+//         </div>
+//         <div className='password'>
+//           <label htmlFor='password'>Enter Password:</label>
+//           <input type='password' name='password' value={formData.password} onChange={handleChange} />
+//         </div>
+//         <div className='submit'>
+//           <input type='submit' />
+//         </div>
+//       </form>
+      
+//     </div>
+//   );
+// }
+
+// export default Login;
+
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-
-import '../App.css';
-
+import '../css/Login.css'; // Import the login-specific CSS
 import NavBar from '../items/NavBar';
 
 const Login = () => {
@@ -20,7 +88,7 @@ const Login = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch(/* `${process.env.REACT_APP_BACKEND_URL}/login` */ 'http://localhost:3001/login', {
+      const response = await fetch('http://localhost:3001/login', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -46,24 +114,23 @@ const Login = () => {
   };
 
   return (
-    <div className='main'>
+    <div className="login-page">
       <NavBar />
       <form onSubmit={handleSubmit}>
-        <div className='name'>
-          <label htmlFor='name'>Enter Username:</label>
-          <input type='text' name='name' value={formData.name} onChange={handleChange} />
+        <div className="name">
+          <label htmlFor="name">Username:</label>
+          <input type="text" name="name" value={formData.name} onChange={handleChange} />
         </div>
-        <div className='password'>
-          <label htmlFor='password'>Enter Password:</label>
-          <input type='password' name='password' value={formData.password} onChange={handleChange} />
+        <div className="password">
+          <label htmlFor="password">Password:</label>
+          <input type="password" name="password" value={formData.password} onChange={handleChange} />
         </div>
-        <div className='submit'>
-          <input type='submit' />
+        <div className="submit">
+          <input type="submit" />
         </div>
       </form>
-      
     </div>
   );
-}
+};
 
 export default Login;

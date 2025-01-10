@@ -1,5 +1,379 @@
+// import React, { useState, useEffect } from 'react';
+// import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+// import { faPlus } from '@fortawesome/free-solid-svg-icons';
+// import NavBar from '../items/NavBar';
+
+// import '../css/Transfer.css';
+
+// const Transfer = () => {
+//   const [formData, setFormData] = useState({
+//     date: '',
+//     fromAccount: '',
+//     toAccount: '',
+//     method: '',
+//     checkNumber: '',
+//     amount: '',
+//     memo: '',
+//   });
+
+//   const [accountOptions, setAccountOptions] = useState([]);
+//   const [loading, setLoading] = useState(true);
+//   const [transactions, setTransactions] = useState([]);
+//   const [message, setMessage] = useState('');
+//   const [tdOptions, setTdOptions] = useState([]);  // State to hold description options
+//   const [bank, setBankOptions] = useState([]);  // State to hold bank options
+
+//   useEffect(() => {
+//     const fetchAccountOptions = async () => {
+//       try {
+//         const response = await fetch('http://localhost:3001/getBankOptions', {
+//           method: 'GET',
+//           credentials: 'include',
+//         });
+//         if (response.ok) {
+//           const data = await response.json();
+//           setAccountOptions(data.bankOptions || []);
+//         } else {
+//           console.error('Error fetching account options');
+//         }
+//       } catch (error) {
+//         console.error('Network error fetching account options:', error);
+//       }
+//     };
+
+//     fetchAccountOptions();
+//   }, []);
+
+//   const handleChange = (e) => {
+//     const { name, value } = e.target;
+//     setFormData({
+//       ...formData,
+//       [name]: value,
+//     });
+//   };
+
+//   const handleTransactionChange = (e) => {
+//     const { name, value } = e.target;
+//     setFormData({
+//       ...formData,
+//       [name]: value,
+//     });
+//   };
+
+//   const handleSubmit = async (e) => {
+//     e.preventDefault();
+//     try {
+//       const response = await fetch('http://localhost:3001/transfer', {
+//         method: 'POST',
+//         headers: { 'Content-Type': 'application/json' },
+//         credentials: 'include',
+//         body: JSON.stringify(formData),
+//       });
+
+//       if (response.ok) {
+//         const result = await response.json();
+//         alert('Transfer recorded successfully!');
+//         setFormData({
+//           date: '',
+//           fromAccount: '',
+//           toAccount: '',
+//           method: '',
+//           checkNumber: '',
+//           amount: '',
+//           memo: '',
+//         });
+//       } else {
+//         const error = await response.json();
+//         alert(`Error: ${error.message || 'Transfer failed'}`);
+//       }
+//     } catch (error) {
+//       alert('Network error. Please try again.');
+//     }
+//   };
+
+//   useEffect(() => {
+//     const fetchTdOptions = async () => {
+//       try {
+//         const response = await fetch('http://localhost:3001/settings', {
+//           method: 'GET',
+//           credentials: 'include',
+//         });
+//         if (response.ok) {
+//           const data = await response.json();
+//           // Ensure data.td_options is an array
+//           setTdOptions(data.td_options || []);  // Default to empty array if undefined
+//         } else {
+//           console.error('Failed to fetch TDOptions');
+//         }
+//       } catch (error) {
+//         console.error('Error fetching TDOptions:', error);
+//       }
+//     };
+    
+
+//     const fetchBankOptions = async () => {
+//       try {
+//         const response = await fetch('http://localhost:3001/getBankOptions', {
+//           method: 'GET',
+//           credentials: 'include', // Include cookies to send the session
+//         });
+  
+//         if (response.ok) {
+//           const data = await response.json();
+//           console.log('Bank options data:', data); // Log to check if the response contains bank options
+//           setMessage(data.message);
+//           setBankOptions(data.bankOptions || []); // Ensure this is correctly populated
+//         } else {
+//           console.error('Error fetching bank options');
+//           setMessage('Error fetching bank options');
+//         }
+//       } catch (error) {
+//         console.error('Error fetching bank options:', error);
+//         setMessage('Error fetching bank options');
+//       }
+//     };  
+
+//     fetchTdOptions();
+//     fetchBankOptions();
+//   }, []);
+
+//   useEffect(() => {
+//     const fetchData = async () => {
+//       try {
+//         const response = await fetch('http://localhost:3001/dashboard', {
+//           method: 'GET',
+//           credentials: 'include',
+//         });
+
+//         if (response.ok) {
+//           const data = await response.json();
+//           setMessage(data.message);
+//           setTransactions(data.transactions || []);
+//         } else {
+//           const errorData = await response.json();
+//           setMessage(`Error: ${errorData.message || 'Unauthorized access'}`);
+//           setTransactions([]);
+//         }
+//       } catch (error) {
+//         console.error('Error:', error);
+//         setMessage(`Network or unexpected error: ${error.message}`);
+//         setTransactions([]);
+//       } finally {
+//         setLoading(false);
+//       }
+//     };
+
+//     fetchData();
+//   }, []);
+
+//   const handleTransactionSubmit = async (e) => {
+//     e.preventDefault();
+//     try {
+//       const response = await fetch('http://localhost:3001/dashboard', {
+//         method: 'POST',
+//         headers: {
+//           'Content-Type': 'application/json'
+//         },
+//         credentials: 'include',
+//         body: JSON.stringify(formData)
+//       });
+
+//       const result = await response.json();
+//       if (response.ok) {
+//         console.log('Form submission successful:', result);
+//         window.location.reload();
+//       } else {
+//         console.error('Form submission failed:', result);
+//       }
+//     } catch (error) {
+//       console.error('Database insertion error details:', error.message);
+//       console.error('Error:', error);
+//     }
+//   };
+
+//   return (
+//     <div className="main">
+//       <NavBar />
+//       <h2>Add Transaction</h2>
+//       <form onSubmit={handleTransactionSubmit}>
+//         <div className='name'>
+//           <label htmlFor='date'>Date:</label>
+//           <input type='date' name='date' required onChange={handleTransactionChange}/>
+//         </div>
+//         <div className='password'>
+//           <label htmlFor='item-name'>Category:</label>
+//           <select name="category" id="category" required onChange={handleTransactionChange}>
+//             <option value="">Select a category</option>
+//             <option value="Paid-In">Paid-In</option>
+//             <option value="Paid-Out">Paid-Out</option>
+//           </select>
+//         </div>
+//         <div className='phonenum'>
+//           <label htmlFor='description'>Description:</label>
+//           <select name="description" required onChange={handleTransactionChange}>
+//             <option value="">Select a description</option>
+//             {tdOptions.map(option => (
+//             <option key={option.id} value={option.dd_option}>{option.dd_option}</option>
+//             ))}
+//           </select>
+//           <a href="/settings" style={{ marginLeft: '10px', color: 'black' }}>
+//             <FontAwesomeIcon icon={faPlus} />
+//           </a>
+//         </div>
+//         <div className='email'>
+//           <label htmlFor='account'>Account:</label>
+//           <select name="account" required onChange={handleTransactionChange}>
+//             <option value="">Select an account</option>
+//             {bank.map(option => (
+//               <option key={option.id} value={option.bank}>{option.bank}</option>
+//             ))}
+//           </select>
+//           <a href="/settings" style={{ marginLeft: '10px', color: 'black' }}>
+//             <FontAwesomeIcon icon={faPlus} />
+//           </a>
+//         </div>
+//         <div className='email'>
+//           <label htmlFor='transmeth'>Transaction Method:</label>
+//           <select name="transmeth" id="transmeth" required onChange={handleTransactionChange}>
+//             <option value="">Select a transaction method</option>
+//             <option value="Cash">Cash</option>
+//             <option value="EFT">EFT</option>
+//             <option value="Check">Check</option>
+//             <option value="Withdrawal">Withdrawal</option>
+//           </select>
+//         </div>
+//         {formData.transmeth === "Check" && (
+//           <div className='email'>
+//             <label htmlFor='checkNum'>Enter Check Number:</label>
+//             <input
+//               type='text'
+//               name='checkNum'
+//               onChange={handleTransactionChange}
+//               value={formData.checkNum}
+//             />
+//           </div>
+//         )}
+//         <div className='email'>
+//           <label htmlFor='amount'>Enter Amount:</label>
+//           <input type='number' name='amount' step="0.01" required onChange={handleTransactionChange}/>
+//         </div>
+//         <div className='email'>
+//           <label htmlFor='memo'>Enter Memo:</label>
+//           <input type='text' name='memo' onChange={handleTransactionChange}/>
+//         </div>
+//         <div className='submit'>
+//           <input id="submit" type='submit' />
+//         </div>
+//       </form>
+//       <h2>Transfer Funds</h2>
+//       <form onSubmit={handleSubmit}>
+//         <div className="form-group">
+//           <label>Date:</label>
+//           <input
+//             type="date"
+//             name="date"
+//             value={formData.date}
+//             onChange={handleChange}
+//             required
+//           />
+//         </div>
+//         <div className="form-group">
+//           <label>From Account:</label>
+//           <select
+//             name="fromAccount"
+//             value={formData.fromAccount}
+//             onChange={handleChange}
+//             required
+//           >
+//             <option value="">Select Account</option>
+//             {accountOptions.map((account) => (
+//               <option key={account.id} value={account.bank}>
+//                 {account.bank}
+//               </option>
+//             ))}
+//           </select>
+//         </div>
+//         <div className="form-group">
+//           <label>To Account:</label>
+//           <select
+//             name="toAccount"
+//             value={formData.toAccount}
+//             onChange={handleChange}
+//             required
+//           >
+//             <option value="">Select Account</option>
+//             {accountOptions.map((account) => (
+//               <option key={account.id} value={account.bank}>
+//                 {account.bank}
+//               </option>
+//             ))}
+//           </select>
+//         </div>
+//         <div className="form-group">
+//           <label>Transaction Method:</label>
+//           <select
+//             name="method"
+//             value={formData.method}
+//             onChange={handleChange}
+//             required
+//           >
+//             <option value="">Select Method</option>
+//             <option value="transfer">Transfer</option>
+//             <option value="check">Check</option>
+//             <option value="online">Online</option>
+//             <option value="cash">Cash</option>
+//           </select>
+//         </div>
+//         {formData.method === 'check' && (
+//           <div className="form-group">
+//             <label>Check Number:</label>
+//             <input
+//               type="text"
+//               name="checkNumber"
+//               value={formData.checkNumber}
+//               onChange={handleChange}
+//               required
+//             />
+//           </div>
+//         )}
+//         <div className="form-group">
+//           <label>Amount:</label>
+//           <input
+//             type="number"
+//             name="amount"
+//             value={formData.amount}
+//             onChange={handleChange}
+//             required
+//             min="0"
+//             step="0.01"
+//           />
+//         </div>
+//         <div className="form-group">
+//           <label>Memo:</label>
+//           <input
+//             type="text"
+//             name="memo"
+//             value={formData.memo}
+//             onChange={handleChange}
+//             placeholder="Add a memo (optional)"
+//           />
+//         </div>
+//         <div className="form-group">
+//           <button type="submit">Submit Transfer</button>
+//         </div>
+//       </form>
+//     </div>
+//   );
+// };
+
+// export default Transfer;
+
 import React, { useState, useEffect } from 'react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faPlus } from '@fortawesome/free-solid-svg-icons';
 import NavBar from '../items/NavBar';
+
+import '../css/Transfer.css';
 
 const Transfer = () => {
   const [formData, setFormData] = useState({
@@ -13,8 +387,12 @@ const Transfer = () => {
   });
 
   const [accountOptions, setAccountOptions] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [transactions, setTransactions] = useState([]);
+  const [message, setMessage] = useState('');
+  const [tdOptions, setTdOptions] = useState([]); // State to hold description options
+  const [bank, setBankOptions] = useState([]); // State to hold bank options
 
-  // Fetch account options on component mount
   useEffect(() => {
     const fetchAccountOptions = async () => {
       try {
@@ -37,6 +415,14 @@ const Transfer = () => {
   }, []);
 
   const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({
+      ...formData,
+      [name]: value,
+    });
+  };
+
+  const handleTransactionChange = (e) => {
     const { name, value } = e.target;
     setFormData({
       ...formData,
@@ -75,12 +461,186 @@ const Transfer = () => {
     }
   };
 
+  useEffect(() => {
+    const fetchTdOptions = async () => {
+      try {
+        const response = await fetch('http://localhost:3001/settings', {
+          method: 'GET',
+          credentials: 'include',
+        });
+        if (response.ok) {
+          const data = await response.json();
+          setTdOptions(data.td_options || []);
+        } else {
+          console.error('Failed to fetch TDOptions');
+        }
+      } catch (error) {
+        console.error('Error fetching TDOptions:', error);
+      }
+    };
+
+    const fetchBankOptions = async () => {
+      try {
+        const response = await fetch('http://localhost:3001/getBankOptions', {
+          method: 'GET',
+          credentials: 'include', // Include cookies to send the session
+        });
+
+        if (response.ok) {
+          const data = await response.json();
+          console.log('Bank options data:', data); // Log to check if the response contains bank options
+          setMessage(data.message);
+          setBankOptions(data.bankOptions || []); // Ensure this is correctly populated
+        } else {
+          console.error('Error fetching bank options');
+          setMessage('Error fetching bank options');
+        }
+      } catch (error) {
+        console.error('Error fetching bank options:', error);
+        setMessage('Error fetching bank options');
+      }
+    };
+
+    fetchTdOptions();
+    fetchBankOptions();
+  }, []);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch('http://localhost:3001/dashboard', {
+          method: 'GET',
+          credentials: 'include',
+        });
+
+        if (response.ok) {
+          const data = await response.json();
+          setMessage(data.message);
+          setTransactions(data.transactions || []);
+        } else {
+          const errorData = await response.json();
+          setMessage(`Error: ${errorData.message || 'Unauthorized access'}`);
+          setTransactions([]);
+        }
+      } catch (error) {
+        console.error('Error:', error);
+        setMessage(`Network or unexpected error: ${error.message}`);
+        setTransactions([]);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchData();
+  }, []);
+
+  const handleTransactionSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await fetch('http://localhost:3001/dashboard', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        credentials: 'include',
+        body: JSON.stringify(formData),
+      });
+
+      const result = await response.json();
+      if (response.ok) {
+        console.log('Form submission successful:', result);
+        window.location.reload();
+      } else {
+        console.error('Form submission failed:', result);
+      }
+    } catch (error) {
+      console.error('Database insertion error details:', error.message);
+      console.error('Error:', error);
+    }
+  };
+
   return (
     <div className="main">
       <NavBar />
-      <h2>Transfer Funds</h2>
-      <form onSubmit={handleSubmit}>
-        <div className="form-group">
+      <h2 className="section-header">Add Transaction</h2>
+      <form className="transaction-form" onSubmit={handleTransactionSubmit}>
+        <div className="form-field">
+          <label htmlFor="date">Date:</label>
+          <input type="date" name="date" required onChange={handleTransactionChange} />
+        </div>
+        <div className="form-field">
+          <label htmlFor="item-name">Category:</label>
+          <select name="category" id="category" required onChange={handleTransactionChange}>
+            <option value="">Select a category</option>
+            <option value="Paid-In">Paid-In</option>
+            <option value="Paid-Out">Paid-Out</option>
+          </select>
+        </div>
+        <div className="form-field">
+          <label htmlFor="description">Description:</label>
+          <select name="description" required onChange={handleTransactionChange}>
+            <option value="">Select a description</option>
+            {tdOptions.map((option) => (
+              <option key={option.id} value={option.dd_option}>
+                {option.dd_option}
+              </option>
+            ))}
+          </select>
+          <a href="/settings" className="add-link">
+            <FontAwesomeIcon icon={faPlus} />
+          </a>
+        </div>
+        <div className="form-field">
+          <label htmlFor="account">Account:</label>
+          <select name="account" required onChange={handleTransactionChange}>
+            <option value="">Select an account</option>
+            {bank.map((option) => (
+              <option key={option.id} value={option.bank}>
+                {option.bank}
+              </option>
+            ))}
+          </select>
+          <a href="/settings" className="add-link">
+            <FontAwesomeIcon icon={faPlus} />
+          </a>
+        </div>
+        <div className="form-field">
+          <label htmlFor="transmeth">Transaction Method:</label>
+          <select name="transmeth" id="transmeth" required onChange={handleTransactionChange}>
+            <option value="">Select a transaction method</option>
+            <option value="Cash">Cash</option>
+            <option value="EFT">EFT</option>
+            <option value="Check">Check</option>
+            <option value="Withdrawal">Withdrawal</option>
+          </select>
+        </div>
+        {formData.transmeth === 'Check' && (
+          <div className="form-field">
+            <label htmlFor="checkNum">Enter Check Number:</label>
+            <input
+              type="text"
+              name="checkNum"
+              onChange={handleTransactionChange}
+              value={formData.checkNum}
+            />
+          </div>
+        )}
+        <div className="form-field">
+          <label htmlFor="amount">Enter Amount:</label>
+          <input type="number" name="amount" step="0.01" required onChange={handleTransactionChange} />
+        </div>
+        <div className="form-field">
+          <label htmlFor="memo">Enter Memo:</label>
+          <input type="text" name="memo" onChange={handleTransactionChange} />
+        </div>
+        <div className="form-action">
+          <input id="submit" type="submit" />
+        </div>
+      </form>
+
+      <h2 className="section-header">Transfer Funds</h2>
+      <form className="transfer-form" onSubmit={handleSubmit}>
+        <div className="form-field">
           <label>Date:</label>
           <input
             type="date"
@@ -90,7 +650,7 @@ const Transfer = () => {
             required
           />
         </div>
-        <div className="form-group">
+        <div className="form-field">
           <label>From Account:</label>
           <select
             name="fromAccount"
@@ -106,7 +666,7 @@ const Transfer = () => {
             ))}
           </select>
         </div>
-        <div className="form-group">
+        <div className="form-field">
           <label>To Account:</label>
           <select
             name="toAccount"
@@ -122,7 +682,7 @@ const Transfer = () => {
             ))}
           </select>
         </div>
-        <div className="form-group">
+        <div className="form-field">
           <label>Transaction Method:</label>
           <select
             name="method"
@@ -138,18 +698,18 @@ const Transfer = () => {
           </select>
         </div>
         {formData.method === 'check' && (
-          <div className="form-group">
+          <div className="form-field">
             <label>Check Number:</label>
             <input
               type="text"
               name="checkNumber"
               value={formData.checkNumber}
               onChange={handleChange}
-              required={formData.method === 'check'}
+              required
             />
           </div>
         )}
-        <div className="form-group">
+        <div className="form-field">
           <label>Amount:</label>
           <input
             type="number"
@@ -161,7 +721,7 @@ const Transfer = () => {
             step="0.01"
           />
         </div>
-        <div className="form-group">
+        <div className="form-field">
           <label>Memo:</label>
           <input
             type="text"
@@ -171,7 +731,7 @@ const Transfer = () => {
             placeholder="Add a memo (optional)"
           />
         </div>
-        <div className="form-group">
+        <div className="form-action">
           <button type="submit">Submit Transfer</button>
         </div>
       </form>

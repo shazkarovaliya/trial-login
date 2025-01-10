@@ -56,7 +56,7 @@ app.use(cors({
 // const con = mysql.createConnection(urlDB);
 
 const con = mysql.createConnection({
-  host: "sql5.freesqldatabase.com", //"jdbc:mysql://sql5.freesqldatabase.com:3306/sql5736909",
+  host: "sql5.freesqldatabase.com",
   user: "sql5740447",
   password: "rZkA74RPjE",
   database: "sql5740447",

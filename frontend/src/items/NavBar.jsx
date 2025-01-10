@@ -80,7 +80,7 @@ const NavBar = () => {
                     </ul>
                   )}
                 </li>
-                <li><button onClick={() => navigate('/transfer')}>Transfer</button></li>
+                <li><button onClick={() => navigate('/transfer')}>Entry</button></li>
                 <li><button onClick={() => navigate('/settings')}>Settings</button></li>
                 <li><LogoutButton /></li>
               </>

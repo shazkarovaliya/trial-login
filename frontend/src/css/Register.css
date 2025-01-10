@@ -1,0 +1,72 @@
+/* Register.css */
+.register-page {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: #f1f6ff;
+  opacity: 0.8;
+  background-image:  repeating-radial-gradient( circle at 0 0, transparent 0, #f1f6ff 17px ), repeating-linear-gradient( #444cf755, #444cf7 );
+  font-family: Arial, sans-serif;
+}
+
+.register-page .register {
+  background: #ffffff;
+  padding: 2.5rem;
+  border-radius: 10px;
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.15);
+  width: 100%;
+  max-width: 450px;
+  margin-top: 100px;
+}
+
+.register-page form div {
+  margin-bottom: 1.5rem;
+}
+
+.register-page label {
+  display: block;
+  font-size: 0.9rem;
+  color: #444444;
+  margin-bottom: 0.5rem;
+}
+
+.register-page input[type='text'],
+.register-page input[type='password'],
+.register-page input[type='number'],
+.register-page input[type='email'] {
+  width: 100%;
+  padding: 0.8rem;
+  border: 1px solid #c4c4c4;
+  border-radius: 4px;
+  font-size: 0.9rem;
+  box-sizing: border-box; /* Ensures padding doesn't affect the width */
+}
+
+/* Remove the spinner for number inputs (for phone number field) */
+.register-page input[type='number']::-webkit-outer-spin-button,
+.register-page input[type='number']::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.register-page input[type='number'] {
+  -moz-appearance: textfield; /* For Firefox */
+  appearance: textfield; /* For other browsers */
+}
+
+.register-page input[type='submit'] {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 0.8rem;
+  border-radius: 4px;
+  font-size: 1rem;
+  cursor: pointer;
+  width: 100%;
+  transition: background-color 0.3s ease;
+}
+
+.register-page input[type='submit']:hover {
+  background-color: #0056b3;
+}

@@ -1,13 +1,16 @@
-.main {
+/* Login.css */
+.login-page {
   display: flex;
   justify-content: center;
   align-items: center;
   height: 100vh;
-  background-color: #f4f5f7;
+  background-color: #f1f6ff;
+  opacity: 0.8;
+  background-image:  repeating-radial-gradient( circle at 0 0, transparent 0, #f1f6ff 17px ), repeating-linear-gradient( #05812e55, #05812e );
   font-family: Arial, sans-serif;
 }
 
-form {
+.login-page form {
   background: #ffffff;
   padding: 2rem;
   border-radius: 8px;
@@ -16,27 +19,28 @@ form {
   max-width: 400px;
 }
 
-form div {
+.login-page form div {
   margin-bottom: 1.5rem;
 }
 
-label {
+.login-page label {
   display: block;
   font-size: 0.9rem;
   color: #333333;
   margin-bottom: 0.5rem;
 }
 
-input[type='text'],
-input[type='password'] {
+.login-page input[type='text'],
+.login-page input[type='password'] {
   width: 100%;
   padding: 0.8rem;
   border: 1px solid #dcdcdc;
   border-radius: 4px;
   font-size: 0.9rem;
+  box-sizing: border-box; /* Ensures padding doesn't affect the width */
 }
 
-input[type='submit'] {
+.login-page input[type='submit'] {
   background-color: #4caf50;
   color: white;
   border: none;
@@ -48,6 +52,6 @@ input[type='submit'] {
   transition: background-color 0.3s ease;
 }
 
-input[type='submit']:hover {
+.login-page input[type='submit']:hover {
   background-color: #45a049;
 }
