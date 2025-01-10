@@ -15,7 +15,7 @@ const allowedOrigins = [
 ];
 
 // Use PORT provided in environment or default to 3000
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 8080;
 
 //for online server deployment use
 // app.listen(port, "0.0.0.0", function () {
@@ -23,7 +23,7 @@ const port = process.env.PORT || 3000;
 // });
 
 //for localhost use
-app.listen(3001, "0.0.0.0", function () {
+app.listen(port, "0.0.0.0", function () {
   console.log("Server running on port 3001");
 });
 
