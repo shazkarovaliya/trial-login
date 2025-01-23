@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import '../css/Login.css'; // Import the login-specific CSS
 import NavBar from '../items/NavBar';
-import { setUser } from '../variables'; // Import setUser to store user data
+import { setUser } from '../components/variables.js'; // Import setUser to store user data
 
 const Login = () => {
   const [formData, setFormData] = useState({ name: '', password: '' });

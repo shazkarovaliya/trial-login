@@ -1,6 +1,6 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import { clearUser } from '../variables'; // Import clearUser to clear user data
+import { clearUser } from '../components/variables.js'; // Import clearUser to clear user data
 
 const LogoutButton = () => {
   const navigate = useNavigate();

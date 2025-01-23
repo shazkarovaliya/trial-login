@@ -5,7 +5,7 @@ const session = require('express-session');
 const MySQLStore = require('express-mysql-session')(session);
 const mysql = require('mysql2');
 
-const { setUser, getUser, clearUser } = require('../frontend/src/components/variables');
+const { setUser, getUser, clearUser } = require('../frontend/src/components/variables.js');
 
 const app = express();
 app.use(bodyParser.json());
