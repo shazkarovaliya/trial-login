@@ -10,4 +10,4 @@ const clearUser = () => {
   user = null; // Clear the user data
 };
 
-export { setUser, getUser, clearUser };
+module.exports = { setUser, getUser, clearUser };

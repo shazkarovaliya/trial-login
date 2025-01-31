@@ -3,6 +3,8 @@ import { useNavigate } from 'react-router-dom';
 import LogoutButton from './LogoutButton';
 import { UserContext } from '../components/UserContext';
 
+import '../css/Navbar.css';
+
 const NavBar = () => {
   const navigate = useNavigate();
   const { isLoggedIn } = useContext(UserContext);

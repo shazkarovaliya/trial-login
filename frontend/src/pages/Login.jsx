@@ -19,7 +19,7 @@ const Login = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch('https://vamsivemula.art/login', {
+      const response = await fetch('https://vamsivemula.art/login' /* 'http://localhost:3001/login' */, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

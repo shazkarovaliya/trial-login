@@ -7,7 +7,7 @@ const LogoutButton = () => {
 
   const handleLogout = async () => {
     try {
-      const response = await fetch('https://vamsivemula.art/logout', {
+      const response = await fetch('https://vamsivemula.art/logout' /* 'http://localhost:3001/logout' */, {
         method: 'POST',
         credentials: 'include', // Ensure credentials are sent (cookies)
         headers: {
