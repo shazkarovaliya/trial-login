@@ -709,7 +709,8 @@ const allowedOrigins = [
   "http://localhost:3000",
   "https://trial-login-production-c2f7.up.railway.app",
   "https://trial-login.netlify.app",
-  "https://accounting-app-6e5bh.ondigitalocean.app"
+  "https://accounting-app-6e5bh.ondigitalocean.app",
+  "https://vamsivemula.art/"
 ];
 
 // Use PORT provided in environment or default to 3000
@@ -722,7 +723,7 @@ const port = process.env.PORT || 8080;
 
 //for localhost use
 app.listen(port, "0.0.0.0", function () {
-  console.log("Server running on port 3001");
+  console.log(`Server running on port ${port}`);
 });
 
 app.use(session({
