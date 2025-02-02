@@ -115,23 +115,22 @@ const Login = () => {
   };
 
   return (
-    <div className='main'>
-      <NavBar />
-      <form onSubmit={handleSubmit}>
-        <div className='name'>
-          <label htmlFor='name'>Enter Username:</label>
-          <input type='text' name='name' value={formData.name} onChange={handleChange} />
-        </div>
-        <div className='password'>
-          <label htmlFor='password'>Enter Password:</label>
-          <input type='password' name='password' value={formData.password} onChange={handleChange} />
-        </div>
-        <div className='submit'>
-          <input type='submit' />
-        </div>
-      </form>
-      
-    </div>
+    <div className="login-page">
+       <NavBar />
+       <form onSubmit={handleSubmit}>
+         <div className="name">
+           <label htmlFor="name">Username:</label>
+           <input type="text" name="name" value={formData.name} onChange={handleChange} />
+         </div>
+         <div className="password">
+           <label htmlFor="password">Password:</label>
+           <input type="password" name="password" value={formData.password} onChange={handleChange} />
+         </div>
+         <div className="submit">
+           <input type="submit" />
+         </div>
+       </form>
+     </div>
   );
 }
 
