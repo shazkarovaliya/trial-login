@@ -704,8 +704,6 @@ const MySQLStore = require('express-mysql-session')(session);
 const mysql = require('mysql2');
 
 const app = express();
-
-/* DO NOT TOUCH BELOW */
 app.use(bodyParser.json());
 const allowedOrigins = [
   "http://localhost:3000",
@@ -782,8 +780,6 @@ con.connect(function(err) {
   }
   console.log('Database connection successful');
 });
-
-/* DO NOT TOUCH ABOVE */
 
 app.get('/register', (req, res) => {
   res.json('OK');
