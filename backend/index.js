@@ -703,6 +703,8 @@ const session = require('express-session');
 const MySQLStore = require('express-mysql-session')(session);
 const mysql = require('mysql2');
 
+const { setUser, getUser, clearUser } = require('../frontend/src/components/variables.js');
+
 /* ------------------------------------------ DO NOT TOUCH BELOW ------------------------------------------ */
 
 const app = express();
@@ -864,7 +866,7 @@ app.post('/login', (req, res) => {
 app.get('/checkSession', (req, res) => {
   if (getUser != null) {
     // User is logged in
-    res.json({ isLoggedIn: true, user: req.session.user });
+    res.json({ isLoggedIn: true, user:  });
   } else {
     // User is not logged in
     res.json({ isLoggedIn: false });
