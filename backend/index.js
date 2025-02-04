@@ -866,7 +866,7 @@ app.post('/login', (req, res) => {
 app.get('/checkSession', (req, res) => {
   if (getUser != null) {
     // User is logged in
-    res.json({ isLoggedIn: true, user:  });
+    res.json({ isLoggedIn: true, user: userData });
   } else {
     // User is not logged in
     res.json({ isLoggedIn: false });
