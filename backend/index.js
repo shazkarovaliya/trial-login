@@ -819,9 +819,9 @@ app.post('/login', (req, res) => {
     }
 
     if (result.length > 0) {
-      // Store the user ID and username in the session
-      console.log("User logged in:", 1==1); // Debugging session
-      res.status(200).json({ message: 'Login successful', user: 1 });
+      // Store the user ID and username in the session  
+      console.log("User logged in:", req.session.user); // Debugging session
+      res.status(200).json({ message: 'Login successful', user: req.session.user });
     } else {
       res.status(401).json({ message: 'Invalid credentials' });
     }
@@ -831,16 +831,32 @@ app.post('/login', (req, res) => {
 app.get('/checkSession', (req, res) => {
   if (1==1) {
     // User is logged in
-    res.json({ isLoggedIn: true});
+    res.json({ isLoggedIn: true });
   } else {
     // User is not logged in
     res.json({ isLoggedIn: false });
   }
 });
 
+app.get('/health', (req, res) => {
+  try {
+con.connect(function(err) {
+  if (err) {
+    console.log('Database connection failed:', err);
+    throw err;
+  }
+  console.log('Database connection successful');
+});
+  } catch (error) {
+    console.error("Health check error:", error);
+    res.status(500).json({ status: 'error', message: 'Health check failed' });
+  }
+});
+
+
 app.get('/settings', (req, res) => {
-  if (1==1) {
-    const userId = 1; //1
+  if ( 1) {
+    const userId = '1';
     con.query("SELECT * FROM TDOptions WHERE user_id = ?", [userId], function(err, results) {
       if (err) {
         console.error('Database error:', err);
@@ -858,7 +874,7 @@ app.get('/settings', (req, res) => {
 
 app.post('/settings', (req, res) => {
   const { dd_option } = req.body;
-  const userId = 1; // Get the logged-in user's ID
+  const userId = '1'; // Get the logged-in user's ID
 
   if (dd_option != null && userId) {
     const records = [[dd_option, userId]];
@@ -878,7 +894,7 @@ app.post('/settings', (req, res) => {
 
 app.delete('/settings/:id', (req, res) => {
   const { id } = req.params;
-  const userId = 1;
+  const userId = '1';
 
   if (userId) {
     con.query("DELETE FROM TDOptions WHERE id = ? AND user_id = ?", [id, userId], function(err, result) {
@@ -896,7 +912,7 @@ app.delete('/settings/:id', (req, res) => {
 app.put('/settings/:id', (req, res) => {
   const { id } = req.params;
   const { dd_option } = req.body;
-  const userId = 1;
+  const userId = '1';
 
   if (userId) {
     con.query(
@@ -919,11 +935,11 @@ app.put('/settings/:id', (req, res) => {
 app.put('/editOption/:id', (req, res) => {
   const { id } = req.params;
   const { bank, dd_option } = req.body; // Assuming the request body will have either 'bank' or 'dd_option'
-  const userId = 1;
+  const userId = '1';
 
-  // if (!userId) {
-  //   return res.status(401).json({ message: 'Unauthorized access' });
-  // }
+  if (!userId) {
+    return res.status(401).json({ message: 'Unauthorized access' });
+  }
 
   let tableName = '';
   let fieldToUpdate = '';
@@ -981,7 +997,7 @@ app.put('/editOption/:id', (req, res) => {
 
 app.get('/getBankOptions', (req, res) => {
   if (1==1) {
-    const userId = 1;
+    const userId ='1';
     con.query("SELECT * FROM BankOptions WHERE user_id = ?", [userId], function(err, results) {
       if (err) {
         console.error('Database error:', err);
@@ -1000,7 +1016,7 @@ app.get('/getBankOptions', (req, res) => {
 
 app.post('/addBankOptions', (req, res) => {
   const { bank } = req.body;
-  const userId = 1; // Get the logged-in user's ID
+  const userId = '1'; // Get the logged-in user's ID
 
   if (bank != null && userId) {
     const records = [[userId, bank]];
@@ -1020,7 +1036,7 @@ app.post('/addBankOptions', (req, res) => {
 
 app.delete('/getBankOptions/:id', (req, res) => {
   const { id } = req.params;
-  const userId = 1;
+  const userId = '1';
 
   if (userId) {
     con.query("DELETE FROM BankOptions WHERE id = ? AND user_id = ?", [id, userId], function(err, result) {
@@ -1038,7 +1054,7 @@ app.delete('/getBankOptions/:id', (req, res) => {
 app.put('/getBankOptions/:id', (req, res) => {
   const { id } = req.params;
   const { bank } = req.body;
-  const userId = 1;
+  const userId = '1';
 
   if (userId) {
     con.query(
@@ -1060,7 +1076,7 @@ app.put('/getBankOptions/:id', (req, res) => {
 app.put('/editBankOption/:id', (req, res) => {
   const { id } = req.params;
   const { newBank } = req.body;
-  const userId = 1;
+  const userId = '1';
 
   if (newBank && userId) {
     con.beginTransaction((err) => {
@@ -1104,7 +1120,7 @@ app.put('/editBankOption/:id', (req, res) => {
 
 app.get('/dashboard', (req, res) => {
   if (1==1) {
-    const userId = 1; // Access the user ID from session
+    const userId = '1'; // Access the user ID from session
     const query = `
       SELECT category, SUM(amount) AS total_amount
       FROM Transactions
@@ -1120,7 +1136,7 @@ app.get('/dashboard', (req, res) => {
 
       //console.log("Category Totals:", result);  // Log result to verify
       res.json({
-        message: `Welcome shaz`, // Display the username
+        message: `Welcome Vamsi`, // Display the username
         transactions: result
       });
     });
@@ -1133,12 +1149,9 @@ app.get('/dashboard', (req, res) => {
 });
 
 app.post('/dashboard', (req, res) => {
-  // if (!1==1) {
-  //   return res.status(401).json({ message: 'Unauthorized access' });
-  // }
-
+  
   const { date, category, description, account, transmeth, checkNum, memo, amount } = req.body;
-  const userId = 1; // Get the user ID from session
+  const userId =1; // Get the user ID from session
   const records = [[date, category, description, account, transmeth, checkNum, memo, amount, userId]];
 
   if (records[0][0] != null) {
@@ -1157,13 +1170,10 @@ app.post('/dashboard', (req, res) => {
 
 app.get('/category/:category', (req, res) => {
   // Check if the user is logged in
-  // if (!req.session || !1==1) {
-  //   console.log('Unauthorized request:', req.session);
-  //   return res.status(401).json({ message: 'Unauthorized: No active user session' });
-  // }
+  
 
   const { category } = req.params; // Get the category from the URL parameter
-  const userId = 1; // Access the user ID from the session object
+  const userId = '1'; // Access the user ID from the session object
 
   console.log('Fetching category for userId:', userId); // Debug logging
 
@@ -1188,13 +1198,9 @@ app.get('/category/:category', (req, res) => {
 
 app.get('/description/:description', (req, res) => {
   // Check if the user is logged in
-  // if (!req.session || !1==1) {
-  //   console.log('Unauthorized request:', req.session);
-  //   return res.status(401).json({ message: 'Unauthorized: No active user session' });
-  // }
-
+ 
   const { description } = req.params;
-  const userId = 1;
+  const userId = '1';
 
   console.log('Fetching transactions for description:', description, 'userId:', userId);
 
@@ -1225,9 +1231,7 @@ app.get('/description/:description', (req, res) => {
 });
 
 app.put('/transactions/:id', (req, res) => {
-  // if (!req.session || !1==1) {
-  //   return res.status(401).json({ message: 'Unauthorized: No active user session' });
-  // }
+ 
 
   const { id } = req.params;
   const { date, category, description, account, amount, memo } = req.body;
@@ -1238,7 +1242,7 @@ app.put('/transactions/:id', (req, res) => {
     WHERE id = ? AND user_id = ?
   `;
 
-  const userId = 1;
+  const userId = '1';
 
   con.query(query, [date, category, description, account, amount, memo, id, userId], (err, result) => {
     if (err) {
@@ -1252,7 +1256,7 @@ app.put('/transactions/:id', (req, res) => {
 
 app.delete('/transactions/:id', (req, res) => {
   const { id } = req.params;
-  const userId = req.session?.user?.user_id;
+  const userId = '1';
 
   if (!userId) {
     return res.status(401).json({ message: 'Unauthorized: No active user session' });
@@ -1275,13 +1279,9 @@ app.delete('/transactions/:id', (req, res) => {
 });
 
 app.get('/totalByBank', (req, res) => {
-  // Check if the user is logged in
-  // if (!req.session || !1==1) {
-  //   console.log('Unauthorized request:', req.session);
-  //   return res.status(401).json({ message: 'Unauthorized: No active user session' });
-  // }
+ 
 
-  const userId = 1; // Access the logged-in user's ID from the session
+  const userId = '1'; // Access the logged-in user's ID from the session
 
   console.log('Fetching total by bank for userId:', userId); // Debug logging
 
@@ -1327,13 +1327,9 @@ app.get('/totalByBank', (req, res) => {
 
 app.get('/report/bank/:bank', (req, res) => {
   // Check if the user is logged in
-  // if (!req.session || !1==1) {
-  //   console.log('Unauthorized request:', req.session);
-  //   return res.status(401).json({ message: 'Unauthorized: No active user session' });
-  // }
-
+ 
   const { bank } = req.params; // Get the bank parameter from the URL
-  const userId = 1; // Extract the logged-in user's ID from the session
+  const userId = '1'; // Extract the logged-in user's ID from the session
 
   console.log('Fetching report for bank:', bank, 'for userId:', userId); // Debug logging
 
@@ -1355,7 +1351,7 @@ app.get('/report/bank/:bank', (req, res) => {
 
 app.post('/transfer', (req, res) => {
   const { date, fromAccount, toAccount, method, checkNumber, amount, memo } = req.body;
-  const userId = 1;
+  const userId = '1';
 
   if (!userId || !date || !fromAccount || !toAccount || !amount) {
     return res.status(400).json({ message: 'Invalid input data or unauthorized user' });
