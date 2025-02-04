@@ -19,7 +19,6 @@ const NavBar = () => {
       try {
         const response = await fetch('https://vamsivemula.art/getBankOptions', {
           method: 'GET',
-          credentials: 'include'
         });
         if (!response.ok) {
           throw new Error('Failed to fetch bank options');
