@@ -23,7 +23,7 @@ const Settings = () => {
 
   const fetchData = async () => {
     try {
-      const response = await fetch('https://vamsivemula.art/settings', { method: 'GET', credentials: 'include' });
+      const response = await fetch('https://vamsivemula.art/settings', { method: 'GET' });
       const data = await response.json();
       set_td_options(data.td_options || []);
       setMessage(data.message || '');
@@ -35,7 +35,7 @@ const Settings = () => {
 
   const fetchBankOptions = async () => {
     try {
-      const response = await fetch('https://vamsivemula.art/getBankOptions', { method: 'GET', credentials: 'include' });
+      const response = await fetch('https://vamsivemula.art/getBankOptions', { method: 'GET' });
       const data = await response.json();
       setBankOptions(data.bankOptions || []);
       setMessage(data.message || '');
