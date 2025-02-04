@@ -703,6 +703,8 @@ const session = require('express-session');
 const MySQLStore = require('express-mysql-session')(session);
 const mysql = require('mysql2');
 
+/* ------------------------------------------ DO NOT TOUCH BELOW ------------------------------------------ */
+
 const app = express();
 app.use(bodyParser.json());
 const allowedOrigins = [
@@ -781,6 +783,8 @@ con.connect(function(err) {
   console.log('Database connection successful');
 });
 
+/* ------------------------------------------ DO NOT TOUCH ABOVE ------------------------------------------ */
+
 app.get('/register', (req, res) => {
   res.json('OK');
 });
@@ -827,7 +831,7 @@ app.post('/login', (req, res) => {
 app.get('/checkSession', (req, res) => {
   if (1==1) {
     // User is logged in
-    res.json({ isLoggedIn: true, user: 1 });
+    res.json({ isLoggedIn: true});
   } else {
     // User is not logged in
     res.json({ isLoggedIn: false });
