@@ -11,7 +11,6 @@ export const UserProvider = ({ children }) => {
       try {
         const response = await fetch('https://vamsivemula.art/checkSession' /* 'http://localhost:3001/checkSession' */, {
           method: 'GET',
-          credentials: 'include'
         });
         if (response.ok) {
           const data = await response.json();
