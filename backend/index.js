@@ -807,21 +807,54 @@ app.post('/register', (req, res) => {
   }
 });
 
+// app.post('/login', (req, res) => {
+//   const { name, password } = req.body;
+
+//   const query = "SELECT user_id, username FROM Login WHERE username = ? AND password = ?";
+  
+//   con.query(query, [name, password], function(err, result) {
+//     if (err) {
+//       console.error('Database error:', err);
+//       return res.status(500).send('Database error');
+//     }
+
+//     if (result.length > 0) {
+//       // Store the user ID and username in the session  
+//       console.log("User logged in:", req.session.user); // Debugging session
+//       res.status(200).json({ message: 'Login successful', user: req.session.user });
+//     } else {
+//       res.status(401).json({ message: 'Invalid credentials' });
+//     }
+//   });
+// });
+
+// app.get('/checkSession', (req, res) => {
+//   if (1==1) {
+//     // User is logged in
+//     res.json({ isLoggedIn: true });
+//   } else {
+//     // User is not logged in
+//     res.json({ isLoggedIn: false });
+//   }
+// });
+
 app.post('/login', (req, res) => {
   const { name, password } = req.body;
 
   const query = "SELECT user_id, username FROM Login WHERE username = ? AND password = ?";
-  
-  con.query(query, [name, password], function(err, result) {
+  con.query(query, [name, password], (err, result) => {
     if (err) {
       console.error('Database error:', err);
       return res.status(500).send('Database error');
     }
 
     if (result.length > 0) {
-      // Store the user ID and username in the session  
-      console.log("User logged in:", req.session.user); // Debugging session
-      res.status(200).json({ message: 'Login successful', user: req.session.user });
+      const userData = {
+        user_id: result[0].user_id,
+        username: result[0].username,
+      };
+      setUser(userData);
+      res.status(200).json({ message: 'Login successful', user: userData });
     } else {
       res.status(401).json({ message: 'Invalid credentials' });
     }
@@ -829,9 +862,9 @@ app.post('/login', (req, res) => {
 });
 
 app.get('/checkSession', (req, res) => {
-  if (1==1) {
+  if (getUser != null) {
     // User is logged in
-    res.json({ isLoggedIn: true });
+    res.json({ isLoggedIn: true, user: req.session.user });
   } else {
     // User is not logged in
     res.json({ isLoggedIn: false });
