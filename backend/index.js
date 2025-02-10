@@ -864,14 +864,17 @@ app.post('/login', (req, res) => {
 });
 
 app.get('/checkSession', (req, res) => {
-  if (getUser() != null) {
-    // User is logged in
+  const userData = getUser();
+  
+  if (userData) {
+    console.log('User is logged in:', userData);
     res.json({ isLoggedIn: true, user: userData });
   } else {
-    // User is not logged in
+    console.log('User is not logged in:', userData);
     res.json({ isLoggedIn: false });
   }
 });
+
 
 app.get('/health', (req, res) => {
   try {
