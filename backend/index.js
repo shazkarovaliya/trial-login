@@ -707,6 +707,7 @@ const { setUser, getUser, clearUser } = require('../frontend/src/components/vari
 
 /* ------------------------------------------ DO NOT TOUCH BELOW ------------------------------------------ */
 
+const userData = getUser();
 const app = express();
 app.use(bodyParser.json());
 const allowedOrigins = [
@@ -864,8 +865,6 @@ app.post('/login', (req, res) => {
 });
 
 app.get('/checkSession', (req, res) => {
-  const userData = getUser();
-  
   if (userData) {
     console.log('User is logged in:', userData);
     res.json({ isLoggedIn: true, user: userData });
@@ -878,13 +877,13 @@ app.get('/checkSession', (req, res) => {
 
 app.get('/health', (req, res) => {
   try {
-con.connect(function(err) {
-  if (err) {
-    console.log('Database connection failed:', err);
-    throw err;
-  }
-  console.log('Database connection successful');
-});
+    con.connect(function(err) {
+      if (err) {
+        console.log('Database connection failed:', err);
+        throw err;
+      }
+      console.log('Database connection successful');
+    });
   } catch (error) {
     console.error("Health check error:", error);
     res.status(500).json({ status: 'error', message: 'Health check failed' });
