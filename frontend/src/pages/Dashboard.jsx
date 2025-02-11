@@ -39,38 +39,29 @@ const Dashboard = () => {
   // }, []);
 
   const fetchData = async () => {
-    console.log("Fetching dashboard data...");
-  
     try {
       const response = await fetch('https://vamsivemula.art/dashboard', {
         method: 'GET',
-//        credentials: 'include', // Ensures session data is sent
+        credentials: 'include', // Ensures cookies are sent
       });
   
-      console.log("Response status:", response.status);
-  
-      if (!response.ok) {
-        const errorData = await response.json();
-        console.error("Error fetching data:", errorData);
-        setMessage(`Error: ${errorData.message || 'Unauthorized access'}`);
-        setTransactions([]);
-      } else {
+      if (response.ok) {
         const data = await response.json();
-        console.log("Fetched data:", data);
-  
         setMessage(data.message);
         setTransactions(data.transactions || []);
+      } else {
+        const errorData = await response.json();
+        setMessage(`Error: ${errorData.message || 'Unauthorized access'}`);
+        setTransactions([]);
       }
     } catch (error) {
-      console.error("Network error:", error);
+      console.error('Error:', error);
       setMessage(`Network or unexpected error: ${error.message}`);
       setTransactions([]);
     } finally {
-      console.log("Finished fetching data, setting loading to false.");
       setLoading(false);
     }
   };
-  
   
 
   // return (
