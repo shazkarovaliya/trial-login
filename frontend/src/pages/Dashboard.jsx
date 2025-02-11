@@ -9,34 +9,60 @@ const Dashboard = () => {
   const [transactions, setTransactions] = useState([]);
   const [message, setMessage] = useState('');
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await fetch('https://vamsivemula.art/dashboard' /* 'http://localhost:3001/dashboard' */, {
-          method: 'GET',
-          credentials: 'include',
-        });
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     try {
+  //       const response = await fetch('https://vamsivemula.art/dashboard' /* 'http://localhost:3001/dashboard' */, {
+  //         method: 'GET',
+  //         credentials: 'include',
+  //       });
 
-        if (response.ok) {
-          const data = await response.json();
-          setMessage(data.message);
-          setTransactions(data.transactions || []);
-        } else {
-          const errorData = await response.json();
-          setMessage(`Error: ${errorData.message || 'Unauthorized access'}`);
-          setTransactions([]);
-        }
-      } catch (error) {
-        console.error('Error:', error);
-        setMessage(`Network or unexpected error: ${error.message}`);
+  //       if (response.ok) {
+  //         const data = await response.json();
+  //         setMessage(data.message);
+  //         setTransactions(data.transactions || []);
+  //       } else {
+  //         const errorData = await response.json();
+  //         setMessage(`Error: ${errorData.message || 'Unauthorized access'}`);
+  //         setTransactions([]);
+  //       }
+  //     } catch (error) {
+  //       console.error('Error:', error);
+  //       setMessage(`Network or unexpected error: ${error.message}`);
+  //       setTransactions([]);
+  //     } finally {
+  //       setLoading(false);
+  //     }
+  //   };
+
+  //   fetchData();
+  // }, []);
+
+  const fetchData = async () => {
+    try {
+      const response = await fetch('https://vamsivemula.art/dashboard', {
+        method: 'GET',
+        credentials: 'include', // Ensures cookies are sent
+      });
+  
+      if (response.ok) {
+        const data = await response.json();
+        setMessage(data.message);
+        setTransactions(data.transactions || []);
+      } else {
+        const errorData = await response.json();
+        setMessage(`Error: ${errorData.message || 'Unauthorized access'}`);
         setTransactions([]);
-      } finally {
-        setLoading(false);
       }
-    };
-
-    fetchData();
-  }, []);
+    } catch (error) {
+      console.error('Error:', error);
+      setMessage(`Network or unexpected error: ${error.message}`);
+      setTransactions([]);
+    } finally {
+      setLoading(false);
+    }
+  };
+  
 
   return (
     <div className='main'>
