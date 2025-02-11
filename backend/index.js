@@ -1156,8 +1156,8 @@ app.put('/editBankOption/:id', (req, res) => {
 });
 
 app.get('/dashboard', (req, res) => {
-  if (1==1) {
-    const userId = '1'; // Access the user ID from session
+  if (userData) {
+    const userId = userData.user_id; // Extract the user's ID
     const query = `
       SELECT category, SUM(amount) AS total_amount
       FROM Transactions
@@ -1165,15 +1165,16 @@ app.get('/dashboard', (req, res) => {
       GROUP BY category;
     `;
 
-    con.query(query, [userId], function(err, result) {
+    con.query(query, [userId], function (err, result) {
       if (err) {
         console.error('Database error:', err);
         return res.status(500).json({ message: 'Error fetching transactions' });
       }
 
-      //console.log("Category Totals:", result);  // Log result to verify
+      console.log(`Dashboard data for user ${userId}:`, result); // Log user-specific result
+
       res.json({
-        message: `Welcome Vamsi`, // Display the username
+        message: `Welcome ${userData.username}`, // Display dynamic username
         transactions: result
       });
     });
