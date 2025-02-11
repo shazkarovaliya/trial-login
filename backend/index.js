@@ -707,7 +707,6 @@ const { setUser, getUser, clearUser } = require('../frontend/src/components/vari
 
 /* ------------------------------------------ DO NOT TOUCH BELOW ------------------------------------------ */
 
-const userData = getUser();
 const app = express();
 app.use(bodyParser.json());
 const allowedOrigins = [
@@ -865,6 +864,8 @@ app.post('/login', (req, res) => {
 });
 
 app.get('/checkSession', (req, res) => {
+  const userData = getUser();
+  
   if (userData) {
     console.log('User is logged in:', userData);
     res.json({ isLoggedIn: true, user: userData });
