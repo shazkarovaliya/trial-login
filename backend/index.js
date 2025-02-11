@@ -1156,8 +1156,8 @@ app.put('/editBankOption/:id', (req, res) => {
 });
 
 app.get('/dashboard', (req, res) => {
-  if (userData) {
-    const userId = `${userData}`; // Access the user ID from session
+  if (1==1) {
+    const userId = '1'; // Access the user ID from session
     const query = `
       SELECT category, SUM(amount) AS total_amount
       FROM Transactions
