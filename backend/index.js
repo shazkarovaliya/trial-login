@@ -1188,16 +1188,18 @@ app.put('/editBankOption/:id', (req, res) => {
 app.get('/dashboard', (req, res) => {
   const userData = getUser();
 
-  console.log('Dashboard Access Attempt:', userData);
+  console.log("Dashboard API called. Current user:", userData);
 
   if (!userData) {
+    console.log("Unauthorized access - No user found.");
     return res.status(401).json({
-      message: 'Unauthorized access: No active session found. Please log in to access the dashboard.',
+      message: 'Unauthorized access: No active session found. Please log in.',
       error: 'Session not found or expired',
     });
   }
 
-  const userId = userData.user_id; // Extract the user ID
+  const userId = userData.user_id;
+  console.log(`Fetching transactions for user_id: ${userId}`);
 
   const query = `
     SELECT category, SUM(amount) AS total_amount
@@ -1206,9 +1208,9 @@ app.get('/dashboard', (req, res) => {
     GROUP BY category;
   `;
 
-  con.query(query, [userId], function (err, result) {
+  con.query(query, [userId], (err, result) => {
     if (err) {
-      console.error('Database error:', err);
+      console.error("Database error:", err);
       return res.status(500).json({ message: 'Error fetching transactions' });
     }
 

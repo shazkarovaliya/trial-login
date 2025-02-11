@@ -39,43 +39,71 @@ const Dashboard = () => {
   // }, []);
 
   const fetchData = async () => {
+    console.log("Fetching dashboard data...");
+  
     try {
       const response = await fetch('https://vamsivemula.art/dashboard', {
         method: 'GET',
-        credentials: 'include', // Ensures cookies are sent
+        credentials: 'include', // Ensures session data is sent
       });
   
-      if (response.ok) {
-        const data = await response.json();
-        setMessage(data.message);
-        setTransactions(data.transactions || []);
-      } else {
+      console.log("Response status:", response.status);
+  
+      if (!response.ok) {
         const errorData = await response.json();
+        console.error("Error fetching data:", errorData);
         setMessage(`Error: ${errorData.message || 'Unauthorized access'}`);
         setTransactions([]);
+      } else {
+        const data = await response.json();
+        console.log("Fetched data:", data);
+  
+        setMessage(data.message);
+        setTransactions(data.transactions || []);
       }
     } catch (error) {
-      console.error('Error:', error);
+      console.error("Network error:", error);
       setMessage(`Network or unexpected error: ${error.message}`);
       setTransactions([]);
     } finally {
+      console.log("Finished fetching data, setting loading to false.");
       setLoading(false);
     }
   };
   
+  
 
+  // return (
+  //   <div className='main'>
+  //     <NavBar />
+  //     <h1>{message}</h1>
+  //     {loading ? <p>Loading...</p> : (
+  //       <>
+  //         <TotalTable transactions={transactions} />
+  //         <BankTotalTable />
+  //       </>
+  //     )}
+  //   </div>
+  // );
   return (
     <div className='main'>
       <NavBar />
       <h1>{message}</h1>
       {loading ? <p>Loading...</p> : (
         <>
-          <TotalTable transactions={transactions} />
-          <BankTotalTable />
+          {transactions.length > 0 ? (
+            <>
+              <TotalTable transactions={transactions} />
+              <BankTotalTable />
+            </>
+          ) : (
+            <p>No transactions found.</p>
+          )}
         </>
       )}
     </div>
   );
+  
 };
 
 export default Dashboard;
