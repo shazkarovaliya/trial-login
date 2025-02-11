@@ -44,7 +44,7 @@ const Dashboard = () => {
     try {
       const response = await fetch('https://vamsivemula.art/dashboard', {
         method: 'GET',
-        credentials: 'include', // Ensures session data is sent
+//        credentials: 'include', // Ensures session data is sent
       });
   
       console.log("Response status:", response.status);
