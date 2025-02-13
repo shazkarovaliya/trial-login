@@ -976,9 +976,10 @@ app.put('/settings/:id', (req, res) => {
 
 // Update description or bank options
 app.put('/editOption/:id', (req, res) => {
+  const userData = getUser();
   const { id } = req.params;
   const { bank, dd_option } = req.body; // Assuming the request body will have either 'bank' or 'dd_option'
-  const userId = '1';
+  const userId = userData.user_id;
 
   if (!userId) {
     return res.status(401).json({ message: 'Unauthorized access' });
@@ -1039,8 +1040,10 @@ app.put('/editOption/:id', (req, res) => {
 });
 
 app.get('/getBankOptions', (req, res) => {
-  if (1==1) {
-    const userId ='1';
+  const userData = getUser();
+
+  if (userData) {
+    const userId = userData.user_id;
     con.query("SELECT * FROM BankOptions WHERE user_id = ?", [userId], function(err, results) {
       if (err) {
         console.error('Database error:', err);
@@ -1058,8 +1061,9 @@ app.get('/getBankOptions', (req, res) => {
 });
 
 app.post('/addBankOptions', (req, res) => {
+  const userData = getUser();
   const { bank } = req.body;
-  const userId = '1'; // Get the logged-in user's ID
+  const userId = userData.user_id; // Get the logged-in user's ID
 
   if (bank != null && userId) {
     const records = [[userId, bank]];
@@ -1078,8 +1082,9 @@ app.post('/addBankOptions', (req, res) => {
 });
 
 app.delete('/getBankOptions/:id', (req, res) => {
+  const userData = getUser();
   const { id } = req.params;
-  const userId = '1';
+  const userId = userData.user_id;
 
   if (userId) {
     con.query("DELETE FROM BankOptions WHERE id = ? AND user_id = ?", [id, userId], function(err, result) {
@@ -1095,9 +1100,10 @@ app.delete('/getBankOptions/:id', (req, res) => {
 });
 
 app.put('/getBankOptions/:id', (req, res) => {
+  const userData = getUser();
   const { id } = req.params;
   const { bank } = req.body;
-  const userId = '1';
+  const userId = userData.user_id;
 
   if (userId) {
     con.query(
@@ -1117,9 +1123,10 @@ app.put('/getBankOptions/:id', (req, res) => {
 });
 
 app.put('/editBankOption/:id', (req, res) => {
+  const userData = getUser();
   const { id } = req.params;
   const { newBank } = req.body;
-  const userId = '1';
+  const userId = userData.user_id;
 
   if (newBank && userId) {
     con.beginTransaction((err) => {
