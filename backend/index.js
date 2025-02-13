@@ -865,7 +865,7 @@ app.post('/login', (req, res) => {
 
 app.get('/checkSession', (req, res) => {
   const userData = getUser();
-  
+
   if (userData) {
     console.log('User is logged in:', userData);
     res.json({ isLoggedIn: true, user: userData });
@@ -1156,36 +1156,6 @@ app.put('/editBankOption/:id', (req, res) => {
   }
 });
 
-// app.get('/dashboard', (req, res) => {
-//   if (1==1) {
-//     const userId = '1'; // Access the user ID from session
-//     const query = `
-//       SELECT category, SUM(amount) AS total_amount
-//       FROM Transactions
-//       WHERE user_id = ?  
-//       GROUP BY category;
-//     `;
-
-//     con.query(query, [userId], function(err, result) {
-//       if (err) {
-//         console.error('Database error:', err);
-//         return res.status(500).json({ message: 'Error fetching transactions' });
-//       }
-
-//       //console.log("Category Totals:", result);  // Log result to verify
-//       res.json({
-//         message: `Welcome Vamsi`, // Display the username
-//         transactions: result
-//       });
-//     });
-//   } else {
-//     res.status(401).json({
-//       message: 'Unauthorized access: No active session found. Please log in to access the dashboard.',
-//       error: 'Session not found or expired'
-//     });
-//   }
-// });
-
 app.get('/dashboard', (req, res) => {
   const userData = getUser();
 
@@ -1354,12 +1324,66 @@ app.delete('/transactions/:id', (req, res) => {
   });
 });
 
-app.get('/totalByBank', (req, res) => {
+// app.get('/totalByBank', (req, res) => {
  
 
-  const userId = '1'; // Access the logged-in user's ID from the session
+//   const userId = '1'; // Access the logged-in user's ID from the session
 
-  console.log('Fetching total by bank for userId:', userId); // Debug logging
+//   console.log('Fetching total by bank for userId:', userId); // Debug logging
+
+//   const query = `
+//     SELECT account, category, SUM(amount) AS total
+//     FROM Transactions
+//     WHERE user_id = ?
+//     GROUP BY account, category;
+//   `;
+
+//   con.query(query, [userId], (err, results) => {
+//     if (err) {
+//       console.error('Database query error in /totalByBank:', err.message, err.stack);
+//       return res.status(500).json({ message: 'Internal server error' });
+//     }
+
+//     // Process results to combine Paid-In and Paid-Out amounts for the same account
+//     const combinedTotals = {};
+
+//     results.forEach(row => {
+//       // Initialize account if not already in the combinedTotals object
+//       if (!combinedTotals[row.account]) {
+//         combinedTotals[row.account] = 0;
+//       }
+
+//       // Adjust total based on category
+//       if (row.category === 'Paid-Out') {
+//         combinedTotals[row.account] -= Math.abs(row.total); // Subtract Paid-Out amounts
+//       } else if (row.category === 'Paid-In') {
+//         combinedTotals[row.account] += Math.abs(row.total); // Add Paid-In amounts
+//       }
+//     });
+
+//     // Convert the combined totals object into an array of results
+//     const finalResults = Object.keys(combinedTotals).map(account => ({
+//       account,
+//       total: combinedTotals[account] // Only include account and total in the response
+//     }));
+
+//     res.json(finalResults);
+//   });
+// });
+
+app.get('/totalByBank', (req, res) => {
+  const userData = getUser();
+  
+  if (!userData) {
+    console.log('Unauthorized access - No user found.');
+    return res.status(401).json({
+      message: 'Unauthorized access: No active session found. Please log in.',
+      error: 'Session not found or expired',
+    });
+  }
+
+  const userId = userData.user_id;
+  console.log('Fetching total by bank for userId:', userId);
 
   const query = `
     SELECT account, category, SUM(amount) AS total
@@ -1374,29 +1398,29 @@ app.get('/totalByBank', (req, res) => {
       return res.status(500).json({ message: 'Internal server error' });
     }
 
-    // Process results to combine Paid-In and Paid-Out amounts for the same account
+    console.log('Raw bank totals data:', results);
+
+    // Process results to combine Paid-In and Paid-Out amounts per account
     const combinedTotals = {};
 
     results.forEach(row => {
-      // Initialize account if not already in the combinedTotals object
       if (!combinedTotals[row.account]) {
         combinedTotals[row.account] = 0;
       }
 
-      // Adjust total based on category
       if (row.category === 'Paid-Out') {
-        combinedTotals[row.account] -= Math.abs(row.total); // Subtract Paid-Out amounts
+        combinedTotals[row.account] -= Math.abs(row.total);
       } else if (row.category === 'Paid-In') {
-        combinedTotals[row.account] += Math.abs(row.total); // Add Paid-In amounts
+        combinedTotals[row.account] += Math.abs(row.total);
       }
     });
 
-    // Convert the combined totals object into an array of results
     const finalResults = Object.keys(combinedTotals).map(account => ({
       account,
-      total: combinedTotals[account] // Only include account and total in the response
+      total: combinedTotals[account]
     }));
 
+    console.log('Final bank totals:', finalResults);
     res.json(finalResults);
   });
 });
