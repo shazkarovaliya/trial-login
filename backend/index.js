@@ -1195,9 +1195,10 @@ app.get('/dashboard', (req, res) => {
 });
 
 app.post('/dashboard', (req, res) => {
+  const userData = getUser();
   
   const { date, category, description, account, transmeth, checkNum, memo, amount } = req.body;
-  const userId =1; // Get the user ID from session
+  const userId = userData.user_id; // Get the user ID from session
   const records = [[date, category, description, account, transmeth, checkNum, memo, amount, userId]];
 
   if (records[0][0] != null) {
@@ -1323,53 +1324,6 @@ app.delete('/transactions/:id', (req, res) => {
     res.json({ message: 'Transaction deleted successfully' });
   });
 });
-
-// app.get('/totalByBank', (req, res) => {
- 
-
-//   const userId = '1'; // Access the logged-in user's ID from the session
-
-//   console.log('Fetching total by bank for userId:', userId); // Debug logging
-
-//   const query = `
-//     SELECT account, category, SUM(amount) AS total
-//     FROM Transactions
-//     WHERE user_id = ?
-//     GROUP BY account, category;
-//   `;
-
-//   con.query(query, [userId], (err, results) => {
-//     if (err) {
-//       console.error('Database query error in /totalByBank:', err.message, err.stack);
-//       return res.status(500).json({ message: 'Internal server error' });
-//     }
-
-//     // Process results to combine Paid-In and Paid-Out amounts for the same account
-//     const combinedTotals = {};
-
-//     results.forEach(row => {
-//       // Initialize account if not already in the combinedTotals object
-//       if (!combinedTotals[row.account]) {
-//         combinedTotals[row.account] = 0;
-//       }
-
-//       // Adjust total based on category
-//       if (row.category === 'Paid-Out') {
-//         combinedTotals[row.account] -= Math.abs(row.total); // Subtract Paid-Out amounts
-//       } else if (row.category === 'Paid-In') {
-//         combinedTotals[row.account] += Math.abs(row.total); // Add Paid-In amounts
-//       }
-//     });
-
-//     // Convert the combined totals object into an array of results
-//     const finalResults = Object.keys(combinedTotals).map(account => ({
-//       account,
-//       total: combinedTotals[account] // Only include account and total in the response
-//     }));
-
-//     res.json(finalResults);
-//   });
-// });
 
 app.get('/totalByBank', (req, res) => {
   const userData = getUser();
