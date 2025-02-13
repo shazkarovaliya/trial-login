@@ -893,8 +893,10 @@ app.get('/health', (req, res) => {
 
 
 app.get('/settings', (req, res) => {
-  if ( 1) {
-    const userId = '1';
+  const userData = getUser();
+
+  if (userData) {
+    const userId = userData.user_id;
     con.query("SELECT * FROM TDOptions WHERE user_id = ?", [userId], function(err, results) {
       if (err) {
         console.error('Database error:', err);
@@ -911,8 +913,9 @@ app.get('/settings', (req, res) => {
 });
 
 app.post('/settings', (req, res) => {
+  const userData = getUser();
   const { dd_option } = req.body;
-  const userId = '1'; // Get the logged-in user's ID
+  const userId = userData.user_id; // Get the logged-in user's ID
 
   if (dd_option != null && userId) {
     const records = [[dd_option, userId]];
