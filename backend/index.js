@@ -934,8 +934,9 @@ app.post('/settings', (req, res) => {
 });
 
 app.delete('/settings/:id', (req, res) => {
+  const userData = getUser();
   const { id } = req.params;
-  const userId = '1';
+  const userId = userData.user_id;
 
   if (userId) {
     con.query("DELETE FROM TDOptions WHERE id = ? AND user_id = ?", [id, userId], function(err, result) {
@@ -951,9 +952,10 @@ app.delete('/settings/:id', (req, res) => {
 });
 
 app.put('/settings/:id', (req, res) => {
+  const userData = getUser();
   const { id } = req.params;
   const { dd_option } = req.body;
-  const userId = '1';
+  const userId = userData.user_id;
 
   if (userId) {
     con.query(
