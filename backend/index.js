@@ -1398,7 +1398,7 @@ app.get('/report/bank/:bank', (req, res) => {
   const userData = getUser();
  
   const { bank } = req.params; // Get the bank parameter from the URL
-  const userId = '1'; // Extract the logged-in user's ID from the session
+  const userId = userData.user_id; // Extract the logged-in user's ID from the session
 
   console.log('Fetching report for bank:', bank, 'for userId:', userId); // Debug logging
 
