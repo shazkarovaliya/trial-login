@@ -144,22 +144,45 @@ const ReportDescription = () => {
     setFormData({ ...formData, [name]: value });
   };
 
+  // const filterByDate = () => {
+  //   const filtered = transactions.filter((transaction) => {
+  //     const transactionDate = new Date(transaction.date);
+  //     const isAfterStartDate = startDate ? transactionDate >= new Date(startDate) : true;
+  //     const isBeforeEndDate = endDate ? transactionDate <= new Date(endDate) : true;
+  //     return isAfterStartDate && isBeforeEndDate;
+  //   });
+
+  //   setFilteredTransactions(filtered);
+
+  //   const totalAmount = filtered.reduce(
+  //     (sum, transaction) => sum + transaction.adjusted_amount,
+  //     0
+  //   );
+  //   setTotal(totalAmount);
+  // };
+
   const filterByDate = () => {
     const filtered = transactions.filter((transaction) => {
       const transactionDate = new Date(transaction.date);
-      const isAfterStartDate = startDate ? transactionDate >= new Date(startDate) : true;
-      const isBeforeEndDate = endDate ? transactionDate <= new Date(endDate) : true;
+      
+      // Normalize start date and end date to remove timezone shifts
+      const start = startDate ? new Date(startDate + "T00:00:00") : null;
+      const end = endDate ? new Date(endDate + "T23:59:59") : null;
+  
+      const isAfterStartDate = start ? transactionDate >= start : true;
+      const isBeforeEndDate = end ? transactionDate <= end : true;
+  
       return isAfterStartDate && isBeforeEndDate;
     });
-
+  
     setFilteredTransactions(filtered);
-
+  
     const totalAmount = filtered.reduce(
       (sum, transaction) => sum + transaction.adjusted_amount,
       0
     );
     setTotal(totalAmount);
-  };
+  };  
 
   const handleStartDateChange = (e) => {
     setStartDate(e.target.value);
