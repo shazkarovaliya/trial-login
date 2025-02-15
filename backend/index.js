@@ -1229,10 +1229,10 @@ app.post('/dashboard', (req, res) => {
 
 app.get('/category/:category', (req, res) => {
   // Check if the user is logged in
-  
+  const userData = getUser();
 
   const { category } = req.params; // Get the category from the URL parameter
-  const userId = '1'; // Access the user ID from the session object
+  const userId = userData.user_id; // Access the user ID from the session object
 
   console.log('Fetching category for userId:', userId); // Debug logging
 
@@ -1257,9 +1257,10 @@ app.get('/category/:category', (req, res) => {
 
 app.get('/description/:description', (req, res) => {
   // Check if the user is logged in
+  const userData = getUser();
  
   const { description } = req.params;
-  const userId = '1';
+  const userId = userData.user_id;
 
   console.log('Fetching transactions for description:', description, 'userId:', userId);
 
@@ -1290,7 +1291,7 @@ app.get('/description/:description', (req, res) => {
 });
 
 app.put('/transactions/:id', (req, res) => {
- 
+  const userData = getUser();
 
   const { id } = req.params;
   const { date, category, description, account, amount, memo } = req.body;
@@ -1301,7 +1302,7 @@ app.put('/transactions/:id', (req, res) => {
     WHERE id = ? AND user_id = ?
   `;
 
-  const userId = '1';
+  const userId = userData.user_id;
 
   con.query(query, [date, category, description, account, amount, memo, id, userId], (err, result) => {
     if (err) {
@@ -1314,8 +1315,9 @@ app.put('/transactions/:id', (req, res) => {
 });
 
 app.delete('/transactions/:id', (req, res) => {
+  const userData = getUser();
   const { id } = req.params;
-  const userId = '1';
+  const userId = userData.user_id;
 
   if (!userId) {
     return res.status(401).json({ message: 'Unauthorized: No active user session' });
@@ -1393,6 +1395,7 @@ app.get('/totalByBank', (req, res) => {
 
 app.get('/report/bank/:bank', (req, res) => {
   // Check if the user is logged in
+  const userData = getUser();
  
   const { bank } = req.params; // Get the bank parameter from the URL
   const userId = '1'; // Extract the logged-in user's ID from the session
@@ -1416,8 +1419,9 @@ app.get('/report/bank/:bank', (req, res) => {
 });
 
 app.post('/transfer', (req, res) => {
+  const userData = getUser();
   const { date, fromAccount, toAccount, method, checkNumber, amount, memo } = req.body;
-  const userId = '1';
+  const userId = userData.user_id;
 
   if (!userId || !date || !fromAccount || !toAccount || !amount) {
     return res.status(400).json({ message: 'Invalid input data or unauthorized user' });
@@ -1446,15 +1450,30 @@ app.post('/transfer', (req, res) => {
   });
 });
 
+// app.post('/logout', (req, res) => {
+//   // Destroy the session
+//   req.session.destroy(err => {
+//     if (err) {
+//       console.error('Error destroying session:', err);
+//       res.status(500).send('Error logging out');
+//     } else {
+//       res.clearCookie('connect.sid'); // Clear the session cookie
+//       res.json({ message: 'Logout successful'});
+//     }
+//   });
+// });
+
 app.post('/logout', (req, res) => {
   // Destroy the session
   req.session.destroy(err => {
     if (err) {
       console.error('Error destroying session:', err);
-      res.status(500).send('Error logging out');
-    } else {
-      res.clearCookie('connect.sid'); // Clear the session cookie
-      res.json({ message: 'Logout successful'});
-    }
+      return res.status(500).send('Error logging out');
+    } 
+
+    res.clearCookie('connect.sid'); // Clear the session cookie
+    clearUser(); // Ensure user data is reset
+
+    res.json({ message: 'Logout successful' });
   });
 });
