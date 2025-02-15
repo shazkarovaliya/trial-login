@@ -204,8 +204,8 @@
 //           <label htmlFor='item-name'>Category:</label>
 //           <select name="category" id="category" required onChange={handleTransactionChange}>
 //             <option value="">Select a category</option>
-//             <option value="Paid-In">Paid-In</option>
-//             <option value="Paid-Out">Paid-Out</option>
+//             <option value="Income">Income</option>
+//             <option value="Expense">Expense</option>
 //           </select>
 //         </div>
 //         <div className='phonenum'>
@@ -572,8 +572,8 @@ const Transfer = () => {
           <label htmlFor="item-name">Category:</label>
           <select name="category" id="category" required onChange={handleTransactionChange}>
             <option value="">Select a category</option>
-            <option value="Paid-In">Paid-In</option>
-            <option value="Paid-Out">Paid-Out</option>
+            <option value="Income">Income</option>
+            <option value="Expense">Expense</option>
           </select>
         </div>
         <div className="form-field">
