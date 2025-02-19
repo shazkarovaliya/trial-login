@@ -157,6 +157,7 @@ const NavBar = () => {
       <div className="menu-icon" onClick={toggleMenu}>
         ☰
       </div>
+      <ul className={`nav-links ${isMenuOpen ? 'active' : ''}`}></ul>
 
       <nav className={`navbar ${isMenuOpen ? 'open' : ''}`}>
         {/* Close Button */}
