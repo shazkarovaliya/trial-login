@@ -108,8 +108,9 @@ button:hover {
   }
 
   /* Hamburger Menu */
+  /* Hides the menu icon on larger screens */
   .menu-icon {
-    display: block;
+    display: none; /* Hidden by default */
     font-size: 28px;
     cursor: pointer;
     color: white;
@@ -117,6 +118,14 @@ button:hover {
     left: 20px;
     top: 10px;
   }
+
+  /* Shows the menu icon only on mobile */
+  @media (max-width: 768px) {
+    .menu-icon {
+      display: block; /* Appears on mobile */
+    }
+  }
+
 
   /* Hidden by default */
   .nav-links {
