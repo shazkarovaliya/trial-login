@@ -4,23 +4,23 @@
   display: flex;
   justify-content: center;
   padding: 10px 20px;
-  box-sizing: border-box; /* Ensures padding is included in the element's total width */
-  margin: 0 auto; /* Center the navbar horizontally */
+  box-sizing: border-box;
+  margin: 0 auto;
   margin-top: 10px;
   border-radius: 15px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Adds shadow to the navbar */
-  position: fixed; /* Fix the navbar position */
-  top: 10px; /* Position from the top of the viewport */
-  left: 50%; /* Center the navbar horizontally */
-  transform: translateX(-50%); /* Center the navbar */
-  z-index: 1000; /* Ensure the navbar is above other content */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  position: fixed;
+  top: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1000;
 }
 
 .navbar-container {
   display: flex;
   justify-content: flex-end;
   align-items: center;
-  flex-wrap: wrap; /* Allows the items to wrap to the next line if necessary */
+  flex-wrap: wrap;
 }
 
 .nav-links {
@@ -37,9 +37,9 @@
 /* Dropdown Menu */
 .dropdown-menu {
   position: absolute;
-  top: 62.5px; /* Moves dropdown directly below the Report button */
-  left: 43%; /* Aligns it with the button */
-  transform: translateX(-50%); /* Centers it under the button */
+  top: 62.5px;
+  left: 43%;
+  transform: translateX(-50%);
   background-color: #222;
   color: white;
   padding: 10px 0;
@@ -49,10 +49,9 @@
   opacity: 0;
   visibility: hidden;
   transition: opacity 0.3s ease, visibility 0.3s ease;
-  list-style: none; /* Removes bullet points */
+  list-style: none;
 }
 
-/* Show dropdown when active */
 .nav-links li:hover .dropdown-menu,
 .nav-links li:focus-within .dropdown-menu {
   opacity: 1;
@@ -62,7 +61,7 @@
 /* Dropdown Items */
 .dropdown-menu li {
   padding: 8px 15px;
-  list-style: none; /* Ensures no bullets on list items */
+  list-style: none;
 }
 
 .dropdown-menu li button {
@@ -95,14 +94,18 @@
   opacity: 0;
   visibility: hidden;
   transition: opacity 0.3s ease, visibility 0.3s ease;
-  list-style: none; /* Removes bullet points */
+  list-style: none;
 }
 
-/* Show Bank Dropdown when active */
 .dropdown-menu li:hover .dropdown-submenu,
 .dropdown-menu li:focus-within .dropdown-submenu {
   opacity: 1;
   visibility: visible;
+}
+
+/* Hide Menu Icon and Close Button on Larger Screens */
+.menu-icon, .close-btn {
+  display: none;
 }
 
 /* Mobile Styles */
@@ -112,7 +115,7 @@
     height: 100vh;
     position: fixed;
     top: 0;
-    left: -100%; /* Hidden initially */
+    left: -100%;
     background-color: black;
     padding: 20px;
     display: flex;
@@ -124,7 +127,7 @@
   }
 
   .navbar.open {
-    left: 0; /* Slide in */
+    left: 0;
   }
 
   .navbar-container {
@@ -143,18 +146,7 @@
     padding: 10px 0;
   }
 
-  .nav-links li button {
-    width: 100%;
-    text-align: left;
-    background: none;
-    border: none;
-    color: white;
-    font-size: 1rem;
-    padding: 10px;
-    cursor: pointer;
-  }
-
-  /* Hamburger Menu */
+  /* Show Menu Icon on Mobile */
   .menu-icon {
     display: block;
     position: fixed;
@@ -166,8 +158,9 @@
     z-index: 1100;
   }
 
-  /* Close Button */
+  /* Show Close Button in Mobile Menu */
   .close-btn {
+    display: block;
     align-self: flex-end;
     font-size: 1.8rem;
     background: none;

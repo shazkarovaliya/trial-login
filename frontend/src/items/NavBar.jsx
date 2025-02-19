@@ -153,14 +153,13 @@ const NavBar = () => {
 
   return (
     <div>
-      {/* Hamburger Menu Icon */}
+      {/* Hamburger Menu Icon - Only for Mobile */}
       <div className="menu-icon" onClick={toggleMenu}>
         ☰
       </div>
-      <ul className={`nav-links ${isMenuOpen ? 'active' : ''}`}></ul>
 
       <nav className={`navbar ${isMenuOpen ? 'open' : ''}`}>
-        {/* Close Button */}
+        {/* Close Button - Only for Mobile */}
         <button className="close-btn" onClick={toggleMenu}>×</button>
 
         <div className="navbar-container">
