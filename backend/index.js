@@ -1428,11 +1428,11 @@ app.post('/transfer', (req, res) => {
   }
 
   const fromTransaction = {
-    user_id: userId, date, category: 'Paid-Out', description: 'transfer', account: fromAccount, method, check_number: method === 'check' ? checkNumber : null, memo,  amount: amount, //-Math.abs(amount),
+    user_id: userId, date, category: 'Expense', description: 'transfer', account: fromAccount, method, check_number: method === 'check' ? checkNumber : null, memo,  amount: amount, //-Math.abs(amount),
   };
 
   const toTransaction = {
-    user_id: userId, date, category: 'Paid-In', description: 'transfer', account: toAccount, method, check_number: method === 'check' ? checkNumber : null, memo,  amount: amount, //Math.abs(amount),
+    user_id: userId, date, category: 'Income', description: 'transfer', account: toAccount, method, check_number: method === 'check' ? checkNumber : null, memo,  amount: amount, //Math.abs(amount),
   };
 
   const sql = "INSERT INTO Transactions (user_id, date, category, description, account, transmeth, checkNum, memo, amount) VALUES ?";
