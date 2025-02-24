@@ -65,8 +65,8 @@
 }
 
 /* Mobile Styles */
+/*
 @media screen and (max-width: 768px) {
-  /* Ensure the hamburger icon is visible */
   .menu-icon {
     display: block;
     position: fixed;
@@ -78,7 +78,6 @@
     z-index: 1100;
   }
 
-  /* Ensure the close button is visible */
   .close-btn {
     display: block;
     align-self: flex-end;
@@ -90,7 +89,6 @@
     margin-bottom: 20px;
   }
 
-  /* Mobile Navbar */
   .navbar {
     width: 250px;
     height: 100vh;
@@ -127,3 +125,4 @@
     padding: 10px 0;
   }
 }
+*/

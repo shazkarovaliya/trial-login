@@ -64,6 +64,7 @@ p {
 }
 
 /* Mobile Adjustments */
+/*
 @media (max-width: 768px) {
   .block {
     flex-direction: column;
@@ -105,3 +106,4 @@ p {
     padding: 8px 15px;
   }
 }
+*/
