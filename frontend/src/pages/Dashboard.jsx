@@ -9,35 +9,6 @@ const Dashboard = () => {
   const [transactions, setTransactions] = useState([]);
   const [message, setMessage] = useState('');
 
-  // useEffect(() => {
-  //   const fetchData = async () => {
-  //     try {
-  //       const response = await fetch('https://vamsivemula.art/dashboard' /* 'http://localhost:3001/dashboard' */, {
-  //         method: 'GET',
-  //         credentials: 'include',
-  //       });
-
-  //       if (response.ok) {
-  //         const data = await response.json();
-  //         setMessage(data.message);
-  //         setTransactions(data.transactions || []);
-  //       } else {
-  //         const errorData = await response.json();
-  //         setMessage(`Error: ${errorData.message || 'Unauthorized access'}`);
-  //         setTransactions([]);
-  //       }
-  //     } catch (error) {
-  //       console.error('Error:', error);
-  //       setMessage(`Network or unexpected error: ${error.message}`);
-  //       setTransactions([]);
-  //     } finally {
-  //       setLoading(false);
-  //     }
-  //   };
-
-  //   fetchData();
-  // }, []);
-
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -66,21 +37,6 @@ const Dashboard = () => {
     fetchData();
   }, []);
 
-  
-  
-
-  // return (
-  //   <div className='main'>
-  //     <NavBar />
-  //     <h1>{message}</h1>
-  //     {loading ? <p>Loading...</p> : (
-  //       <>
-  //         <TotalTable transactions={transactions} />
-  //         <BankTotalTable />
-  //       </>
-  //     )}
-  //   </div>
-  // );
   return (
     <div className='main'>
       <NavBar />
@@ -89,7 +45,6 @@ const Dashboard = () => {
         <>
           {transactions.length > 0 ? (
             <>
-              <TotalTable transactions={transactions} />
               <BankTotalTable />
             </>
           ) : (
