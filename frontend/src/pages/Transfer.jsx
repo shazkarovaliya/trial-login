@@ -285,7 +285,7 @@ const Transfer = () => {
       </form>
 
       <h2 className="section-header">Loan Transactions</h2>
-      <form className="loan-form" >
+      <form className="transaction-form">
         <div className="form-field">
           <input type="date" name="date" value={formData.date} onChange={handleLoanChange} required />
         </div>
@@ -315,11 +315,11 @@ const Transfer = () => {
       </form>
 
       <h2 className="section-header">General Transactions</h2>
-      <form className="general-form" >
-        <div>
+      <form className="transaction-form">
+        <div className="form-field">
           <input type="date" name="date" value={formData.date} onChange={handleGeneralChange} required />
         </div>
-        <div>
+        <div className="form-field">
           <input type="text" name="category" value={formData.category} onChange={handleGeneralChange} required placeholder="Category" />
         </div>
         <div className="form-field">
@@ -336,7 +336,7 @@ const Transfer = () => {
             <FontAwesomeIcon icon={faPlus} />
           </a>
         </div>
-        <div>
+        <div className="form-field">
           <input type="number" name="amount" value={formData.amount} onChange={handleGeneralChange} required min="0" step="0.01" placeholder="Amount" />
         </div>
         <div className="form-action">
