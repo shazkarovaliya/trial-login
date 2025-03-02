@@ -151,34 +151,34 @@ const Transfer = () => {
     fetchBankOptions();
   }, []);
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await fetch('https://vamsivemula.art/dashboard', {
-          method: 'GET',
-          credentials: 'include',
-        });
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     try {
+  //       const response = await fetch('https://vamsivemula.art/dashboard', {
+  //         method: 'GET',
+  //         credentials: 'include',
+  //       });
 
-        if (response.ok) {
-          const data = await response.json();
-          setMessage(data.message);
-          setTransactions(data.transactions || []);
-        } else {
-          const errorData = await response.json();
-          setMessage(`Error: ${errorData.message || 'Unauthorized access'}`);
-          setTransactions([]);
-        }
-      } catch (error) {
-        console.error('Error:', error);
-        setMessage(`Network or unexpected error: ${error.message}`);
-        setTransactions([]);
-      } finally {
-        setLoading(false);
-      }
-    };
+  //       if (response.ok) {
+  //         const data = await response.json();
+  //         setMessage(data.message);
+  //         setTransactions(data.transactions || []);
+  //       } else {
+  //         const errorData = await response.json();
+  //         setMessage(`Error: ${errorData.message || 'Unauthorized access'}`);
+  //         setTransactions([]);
+  //       }
+  //     } catch (error) {
+  //       console.error('Error:', error);
+  //       setMessage(`Network or unexpected error: ${error.message}`);
+  //       setTransactions([]);
+  //     } finally {
+  //       setLoading(false);
+  //     }
+  //   };
 
-    fetchData();
-  }, []);
+  //   fetchData();
+  // }, []);
 
   const handleTransactionSubmit = async (e) => {
     e.preventDefault();
