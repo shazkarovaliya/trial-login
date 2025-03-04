@@ -367,6 +367,7 @@ const Transfer = () => {
           </a>
         </div>
         <div className="form-field">
+          <label htmlFor="amount">Enter Amount:</label>
           <input type="number" name="amount" value={loanFormData.amount} onChange={handleTransactionChange} required min="0" step="0.01" placeholder="Amount" />
         </div>
         <div className="form-action">
@@ -403,6 +404,7 @@ const Transfer = () => {
           </a>
         </div>
         <div className="form-field">
+          <label htmlFor="amount">Enter Amount:</label>
           <input type="number" name="amount" value={generalFormData.amount} onChange={handleGeneralChange} required min="0" step="0.01" placeholder="Amount" />
         </div>
         <div className="form-action">
