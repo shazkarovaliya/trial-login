@@ -342,9 +342,6 @@ const Transfer = () => {
           <input type="date" name="date" value={loanFormData.date} onChange={handleLoanChange} required />
         </div>
         <div className="form-field">
-          <input type="text" name="payment_type" value={loanFormData.payment_type} onChange={handleLoanChange} required placeholder="Payment Type" />
-        </div>
-        <div className="form-field">
           <label htmlFor="item-name">Payment Type:</label>
           <select name="payment" id="payment" required onChange={handleLoanChange}>
             <option value="">Select a payment type:</option>
