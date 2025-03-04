@@ -76,8 +76,8 @@ const Transfer = () => {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData({
-      ...formData,
+    setTransferFormData({
+      ...transferFormData,
       [name]: value,
     });
   };
@@ -92,16 +92,16 @@ const Transfer = () => {
 
   const handleLoanChange = (e) => {
     const { name, value } = e.target;
-    setFormData({
-      ...formData,
+    setLoanFormData({
+      ...loanFormData,
       [name]: value,
     });
   };
 
   const handleGeneralChange = (e) => {
     const { name, value } = e.target;
-    setFormData({
-      ...formData,
+    setGeneralFormData({
+      ...generalFormData,
       [name]: value,
     });
   };
