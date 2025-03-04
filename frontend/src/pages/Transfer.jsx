@@ -16,6 +16,36 @@ const Transfer = () => {
     memo: '',
   });
 
+  const [loanFormData, setLoanFormData] = useState({
+    date: '',
+    fromAccount: '',
+    toAccount: '',
+    method: '',
+    checkNumber: '',
+    amount: '',
+    memo: '',
+  });
+
+  const [generalFormData, setGeneralFormData] = useState({
+    date: '',
+    fromAccount: '',
+    toAccount: '',
+    method: '',
+    checkNumber: '',
+    amount: '',
+    memo: '',
+  });
+
+  const [transferFormData, setTransferFormData] = useState({
+    date: '',
+    fromAccount: '',
+    toAccount: '',
+    method: '',
+    checkNumber: '',
+    amount: '',
+    memo: '',
+  });
+
   const [accountOptions, setAccountOptions] = useState([]);
   const [loading, setLoading] = useState(true);
   const [transactions, setTransactions] = useState([]);
@@ -76,37 +106,6 @@ const Transfer = () => {
     });
   };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    try {
-      const response = await fetch('https://vamsivemula.art/transfer', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        credentials: 'include',
-        body: JSON.stringify(formData),
-      });
-
-      if (response.ok) {
-        const result = await response.json();
-        alert('Transfer recorded successfully!');
-        setFormData({
-          date: '',
-          fromAccount: '',
-          toAccount: '',
-          method: '',
-          checkNumber: '',
-          amount: '',
-          memo: '',
-        });
-      } else {
-        const error = await response.json();
-        alert(`Error: ${error.message || 'Transfer failed'}`);
-      }
-    } catch (error) {
-      alert('Network error. Please try again.');
-    }
-  };
-
   useEffect(() => {
     const fetchTdOptions = async () => {
       try {
@@ -151,35 +150,6 @@ const Transfer = () => {
     fetchBankOptions();
   }, []);
 
-  // useEffect(() => {
-  //   const fetchData = async () => {
-  //     try {
-  //       const response = await fetch('https://vamsivemula.art/dashboard', {
-  //         method: 'GET',
-  //         credentials: 'include',
-  //       });
-
-  //       if (response.ok) {
-  //         const data = await response.json();
-  //         setMessage(data.message);
-  //         setTransactions(data.transactions || []);
-  //       } else {
-  //         const errorData = await response.json();
-  //         setMessage(`Error: ${errorData.message || 'Unauthorized access'}`);
-  //         setTransactions([]);
-  //       }
-  //     } catch (error) {
-  //       console.error('Error:', error);
-  //       setMessage(`Network or unexpected error: ${error.message}`);
-  //       setTransactions([]);
-  //     } finally {
-  //       setLoading(false);
-  //     }
-  //   };
-
-  //   fetchData();
-  // }, []);
-
   const handleTransactionSubmit = async (e) => {
     e.preventDefault();
     try {
@@ -202,6 +172,87 @@ const Transfer = () => {
     } catch (error) {
       console.error('Database insertion error details:', error.message);
       console.error('Error:', error);
+    }
+  };
+
+  const handleLoanSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await fetch('https://vamsivemula.art/loan', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        credentials: 'include',
+        body: JSON.stringify(formData),
+      });
+
+      const result = await response.json();
+      if (response.ok) {
+        console.log('Form submission successful:', result);
+        window.location.reload();
+      } else {
+        console.error('Form submission failed:', result);
+      }
+    } catch (error) {
+      console.error('Database insertion error details:', error.message);
+      console.error('Error:', error);
+    }
+  }
+
+  const handleGeneralSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await fetch('https://vamsivemula.art/general', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        credentials: 'include',
+        body: JSON.stringify(formData),
+      });
+
+      const result = await response.json();
+      if (response.ok) {
+        console.log('Form submission successful:', result);
+        window.location.reload();
+      } else {
+        console.error('Form submission failed:', result);
+      }
+    } catch (error) {
+      console.error('Database insertion error details:', error.message);
+      console.error('Error:', error);
+    }
+  }
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await fetch('https://vamsivemula.art/transfer', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        credentials: 'include',
+        body: JSON.stringify(formData),
+      });
+
+      if (response.ok) {
+        const result = await response.json();
+        alert('Transfer recorded successfully!');
+        setFormData({
+          date: '',
+          fromAccount: '',
+          toAccount: '',
+          method: '',
+          checkNumber: '',
+          amount: '',
+          memo: '',
+        });
+      } else {
+        const error = await response.json();
+        alert(`Error: ${error.message || 'Transfer failed'}`);
+      }
+    } catch (error) {
+      alert('Network error. Please try again.');
     }
   };
 
@@ -285,12 +336,21 @@ const Transfer = () => {
       </form>
 
       <h2 className="section-header">Loan Transactions</h2>
-      <form className="transaction-form">
+      <form className="transaction-form" onSubmit={handleLoanSubmit}>
         <div className="form-field">
-          <input type="date" name="date" value={formData.date} onChange={handleLoanChange} required />
+          <label htmlFor="date">Date:</label>
+          <input type="date" name="date" value={loanFormData.date} onChange={handleLoanChange} required />
         </div>
         <div className="form-field">
-          <input type="text" name="payment_type" value={formData.payment_type} onChange={handleLoanChange} required placeholder="Payment Type" />
+          <input type="text" name="payment_type" value={loanFormData.payment_type} onChange={handleLoanChange} required placeholder="Payment Type" />
+        </div>
+        <div className="form-field">
+          <label htmlFor="item-name">Payment Type:</label>
+          <select name="payment" id="payment" required onChange={handleLoanChange}>
+            <option value="">Select a payment type:</option>
+            <option value="Monthly">Monthly Payment</option>
+            <option value="Interest Free">Interest Free</option>
+          </select>
         </div>
         <div className="form-field">
           <label htmlFor="account">Account:</label>
@@ -307,7 +367,7 @@ const Transfer = () => {
           </a>
         </div>
         <div className="form-field">
-          <input type="number" name="amount" value={formData.amount} onChange={handleTransactionChange} required min="0" step="0.01" placeholder="Amount" />
+          <input type="number" name="amount" value={loanFormData.amount} onChange={handleTransactionChange} required min="0" step="0.01" placeholder="Amount" />
         </div>
         <div className="form-action">
           <input id="submit" type="submit" />
@@ -315,16 +375,22 @@ const Transfer = () => {
       </form>
 
       <h2 className="section-header">General Transactions</h2>
-      <form className="transaction-form">
+      <form className="transaction-form" onSubmit={handleGeneralSubmit}>
         <div className="form-field">
-          <input type="date" name="date" value={formData.date} onChange={handleGeneralChange} required />
+          <label htmlFor="date">Date:</label>
+          <input type="date" name="date" value={generalFormData.date} onChange={handleGeneralChange} required />
         </div>
         <div className="form-field">
-          <input type="text" name="category" value={formData.category} onChange={handleGeneralChange} required placeholder="Category" />
+          <label htmlFor="item-name">Category:</label>
+          <select name="category" id="category" required onChange={handleGeneralChange}>
+            <option value="">Select a category</option>
+            <option value="Paid-In">Paid-In</option>
+            <option value="Paid-Out">Paid-Out</option>
+          </select>
         </div>
         <div className="form-field">
           <label htmlFor="account">Account:</label>
-          <select name="account" required onChange={handleGeneralChange}>
+          <select name="account" required onChange={handleGeneralChange} value={generalFormData.method}>
             <option value="">Select an account</option>
             {bank.map((option) => (
               <option key={option.id} value={option.bank}>
@@ -337,7 +403,7 @@ const Transfer = () => {
           </a>
         </div>
         <div className="form-field">
-          <input type="number" name="amount" value={formData.amount} onChange={handleGeneralChange} required min="0" step="0.01" placeholder="Amount" />
+          <input type="number" name="amount" value={generalFormData.amount} onChange={handleGeneralChange} required min="0" step="0.01" placeholder="Amount" />
         </div>
         <div className="form-action">
           <input id="submit" type="submit" />
@@ -360,7 +426,7 @@ const Transfer = () => {
           <label>From Account:</label>
           <select
             name="fromAccount"
-            value={formData.fromAccount}
+            value={transferFormData.fromAccount}
             onChange={handleChange}
             required
           >
@@ -392,7 +458,7 @@ const Transfer = () => {
           <label>Transaction Method:</label>
           <select
             name="method"
-            value={formData.method}
+            value={transferFormData.method}
             onChange={handleChange}
             required
           >
@@ -409,7 +475,7 @@ const Transfer = () => {
             <input
               type="text"
               name="checkNumber"
-              value={formData.checkNumber}
+              value={transferFormData.checkNumber}
               onChange={handleChange}
               required
             />
@@ -420,7 +486,7 @@ const Transfer = () => {
           <input
             type="number"
             name="amount"
-            value={formData.amount}
+            value={transferFormData.amount}
             onChange={handleChange}
             required
             min="0"
@@ -432,7 +498,7 @@ const Transfer = () => {
           <input
             type="text"
             name="memo"
-            value={formData.memo}
+            value={transferFormData.memo}
             onChange={handleChange}
             placeholder="Add a memo (optional)"
           />
