@@ -184,7 +184,7 @@ const Transfer = () => {
           'Content-Type': 'application/json',
         },
         credentials: 'include',
-        body: JSON.stringify(formData),
+        body: JSON.stringify(loanFormData),
       });
 
       const result = await response.json();
@@ -209,7 +209,7 @@ const Transfer = () => {
           'Content-Type': 'application/json',
         },
         credentials: 'include',
-        body: JSON.stringify(formData),
+        body: JSON.stringify(generalFormData),
       });
 
       const result = await response.json();
@@ -232,7 +232,7 @@ const Transfer = () => {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         credentials: 'include',
-        body: JSON.stringify(formData),
+        body: JSON.stringify(transferFormData),
       });
 
       if (response.ok) {
@@ -365,7 +365,7 @@ const Transfer = () => {
         </div>
         <div className="form-field">
           <label htmlFor="amount">Enter Amount:</label>
-          <input type="number" name="amount" value={loanFormData.amount} onChange={handleTransactionChange} required min="0" step="0.01" placeholder="Amount" />
+          <input type="number" name="amount" value={loanFormData.amount} onChange={handleLoanChange} required min="0" step="0.01" placeholder="Amount" />
         </div>
         <div className="form-action">
           <input id="submit" type="submit" />
