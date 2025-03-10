@@ -498,6 +498,27 @@ app.post('/dashboard', (req, res) => {
   }
 });
 
+app.post('/general', (req, res) => {
+  const userData = getUser();
+  
+  const { date, category, account, amount, memo } = req.body;
+  const userId = userData.user_id; // Get the user ID from session
+  const records = [[ userId, date, category, account, amount, memo ]];
+
+  if (records[0][0] != null) {
+    con.query("INSERT INTO General (user_id, date, category, account, amount, memo) VALUES ?", [records], function(err, result) {
+      if (err) {
+        console.error('Database error:', err);
+        return res.status(500).json({ message: 'Database insertion error', err });
+      }
+      console.log(result);
+      res.json("General transaction added successfully");
+    });
+  } else {
+    res.status(400).json({ message: 'Invalid input data' });
+  }
+});
+
 app.get('/category/:category', (req, res) => {
   // Check if the user is logged in
   const userData = getUser();

@@ -18,20 +18,16 @@ const Transfer = () => {
 
   const [loanFormData, setLoanFormData] = useState({
     date: '',
-    fromAccount: '',
-    toAccount: '',
-    method: '',
-    checkNumber: '',
+    payment: '',
+    account: '',
     amount: '',
     memo: '',
   });
 
   const [generalFormData, setGeneralFormData] = useState({
     date: '',
-    fromAccount: '',
-    toAccount: '',
-    method: '',
-    checkNumber: '',
+    category: '',
+    account: '',
     amount: '',
     memo: '',
   });
@@ -367,6 +363,10 @@ const Transfer = () => {
           <label htmlFor="amount">Enter Amount:</label>
           <input type="number" name="amount" value={loanFormData.amount} onChange={handleLoanChange} required min="0" step="0.01" placeholder="Amount" />
         </div>
+        <div className="form-field">
+          <label htmlFor="memo">Enter Memo:</label>
+          <input type="text" name="memo" onChange={handleTransactionChange} />
+        </div>
         <div className="form-action">
           <input id="submit" type="submit" />
         </div>
@@ -403,6 +403,10 @@ const Transfer = () => {
         <div className="form-field">
           <label htmlFor="amount">Enter Amount:</label>
           <input type="number" name="amount" value={generalFormData.amount} onChange={handleGeneralChange} required min="0" step="0.01" placeholder="Amount" />
+        </div>
+        <div className="form-field">
+          <label htmlFor="memo">Enter Memo:</label>
+          <input type="text" name="memo" onChange={handleTransactionChange} />
         </div>
         <div className="form-action">
           <input id="submit" type="submit" />
