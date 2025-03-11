@@ -27,7 +27,10 @@ const Transfer = () => {
   const [generalFormData, setGeneralFormData] = useState({
     date: '',
     category: '',
-    account: '',
+    fromAccount: '',
+    toAccount: '',
+    payment: '',
+    checkNum: '',
     amount: '',
     memo: '',
   });
@@ -387,19 +390,58 @@ const Transfer = () => {
           </select>
         </div>
         <div className="form-field">
-          <label htmlFor="account">Account:</label>
-          <select name="account" required onChange={handleGeneralChange} value={generalFormData.method}>
-            <option value="">Select an account</option>
-            {bank.map((option) => (
-              <option key={option.id} value={option.bank}>
-                {option.bank}
+          <label>From Account:</label>
+          <select
+            name="fromAccount"
+            value={generalFormData.fromAccount}
+            onChange={handleGeneralChange}
+            required
+          >
+            <option value="">Select Account</option>
+            {accountOptions.map((account) => (
+              <option key={account.id} value={account.bank}>
+                {account.bank}
               </option>
             ))}
           </select>
-          <a href="/settings" className="add-link">
-            <FontAwesomeIcon icon={faPlus} />
-          </a>
         </div>
+        <div className="form-field">
+          <label>To Account:</label>
+          <select
+            name="toAccount"
+            value={generalFormData.toAccount}
+            onChange={handleGeneralChange}
+            required
+          >
+            <option value="">Select Account</option>
+            {accountOptions.map((account) => (
+              <option key={account.id} value={account.bank}>
+                {account.bank}
+              </option>
+            ))}
+          </select>
+        </div>
+        <div className="form-field">
+          <label htmlFor="paymentType">Payment Method:</label>
+          <select name="paymentType" id="paymentType" required onChange={handleGeneralChange}>
+            <option value="">Select a payment method</option>
+            <option value="Cash">Cash</option>
+            <option value="EFT">EFT</option>
+            <option value="Check">Check</option>
+            <option value="Withdrawal">Withdrawal</option>
+          </select>
+        </div>
+        {generalFormData.paymentType === 'Check' && (
+          <div className="form-field">
+            <label htmlFor="checkNum">Enter Check Number:</label>
+            <input
+              type="text"
+              name="checkNum"
+              onChange={handleGeneralChange}
+              value={generalFormData.checkNum}
+            />
+          </div>
+        )}
         <div className="form-field">
           <label htmlFor="amount">Enter Amount:</label>
           <input type="number" name="amount" value={generalFormData.amount} onChange={handleGeneralChange} required min="0" step="0.01" placeholder="Amount" />
