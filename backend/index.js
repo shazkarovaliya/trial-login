@@ -506,7 +506,7 @@ app.post('/general', (req, res) => {
   const records = [[ userId, date, category, amount, memo, toAccount, fromAccount, paymentType, checkNum ]];
 
   if (records[0][0] != null) {
-    con.query("INSERT INTO General (user_id, date, category, account, amount, memo, toAccount, fromAccount, paymentType, checkNum) VALUES ?", [records], function(err, result) {
+    con.query("INSERT INTO General (user_id, date, category, amount, memo, toAccount, fromAccount, paymentType, checkNum) VALUES ?", [records], function(err, result) {
       if (err) {
         console.error('Database error:', err);
         return res.status(500).json({ message: 'Database insertion error', err });
