@@ -131,13 +131,34 @@ const Settings = () => {
         onEdit={(id, newValue) => handleEdit(id, newValue, 'dd_option', 'settings')}
       />
 
-      <div>
+      {/* <div>
         <form onSubmit={handleBankSubmit}>
           <label htmlFor="bank">Enter Account Option:</label>
           <input type="text" name="bank" value={bankFormData.bank} onChange={handleBankChange} />
           <button type="submit">Add</button>
         </form>
+      </div> */}
+
+      <div>
+        <form onSubmit={handleBankSubmit}>
+          <label htmlFor="bank">Enter Account Option:</label>
+          <input type="text" name="bank" value={bankFormData.bank} onChange={handleBankChange} />
+
+          <label htmlFor="accountType">Select Account Type:</label>
+          <select name="accountType" value={bankFormData.accountType} onChange={handleBankChange}>
+            <option value="">--Select Type--</option>
+            <option value="General">General</option>
+            <option value="Loan">Loan</option>
+            <option value="Cash Flow">Cash Flow</option>
+          </select>
+
+          <label htmlFor="beginningBalance">Beginning Balance:</label>
+          <input type="number" name="beginningBalance" value={bankFormData.beginningBalance} onChange={handleBankChange} />
+
+          <button type="submit">Add</button>
+        </form>
       </div>
+
 
       <Dropdown
         title="Bank Options"
