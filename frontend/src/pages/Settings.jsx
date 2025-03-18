@@ -5,7 +5,7 @@ import Dropdown from '../items/Dropdown';
 
 const Settings = () => {
   const [formData, setFormData] = useState({ dd_option: '' });
-  const [bankFormData, setBankFormData] = useState({ bank: '' });
+  const [bankFormData, setBankFormData] = useState({ bank: '', accountType: '', beginningBalance: '' });
   const [td_options, set_td_options] = useState([]);
   const [bankOptions, setBankOptions] = useState([]);
   const [message, setMessage] = useState('');
@@ -75,7 +75,7 @@ const Settings = () => {
         credentials: 'include',
         body: JSON.stringify(bankFormData),
       });
-      setBankFormData({ bank: '' });
+      setBankFormData({ bank: '', accountType: '', beginningBalance: '' });
       fetchBankOptions(); // Refresh data
     } catch (error) {
       console.error('Error submitting bank form:', error);

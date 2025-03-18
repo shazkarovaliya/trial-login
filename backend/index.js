@@ -333,13 +333,13 @@ app.get('/getBankOptions', (req, res) => {
 
 app.post('/addBankOptions', (req, res) => {
   const userData = getUser();
-  const { bank } = req.body;
+  const { bank, accountType, beginningBalance } = req.body;
   const userId = userData.user_id; // Get the logged-in user's ID
 
   if (bank != null && userId) {
-    const records = [[userId, bank]];
+    const records = [[userId, bank, accountType, beginningBalance]];
 
-    con.query("INSERT INTO BankOptions (user_id, bank) VALUES ?", [records], function(err, result) {
+    con.query("INSERT INTO BankOptions (user_id, bank, accountType, beginningBalance) VALUES ?", [records], function(err, result) {
       if (err) {
         console.error('Database error:', err);
         return res.status(500).json({ message: 'Database insertion error', err });
