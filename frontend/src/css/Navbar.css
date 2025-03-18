@@ -1,31 +1,28 @@
-/* General Navbar Styling */
 .navbar {
-  width: 100%;
+  width: 80%;
   background-color: black;
   display: flex;
   justify-content: center;
   padding: 10px 20px;
-  box-sizing: border-box;
-  margin: 0 auto;
+  box-sizing: border-box; /* Ensures padding is included in the element's total width */
+  margin: 0 auto; /* Center the navbar horizontally */
   margin-top: 10px;
   border-radius: 15px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-  position: fixed;
-  top: 10px;
-  left: 50%;
-  transform: translateX(-50%);
-  z-index: 1000;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Adds shadow to the navbar */
+  position: fixed; /* Fix the navbar position */
+  top: 10px; /* Position from the top of the viewport */
+  left: 50%; /* Center the navbar horizontally */
+  transform: translateX(-50%); /* Center the navbar */
+  z-index: 1000; /* Ensure the navbar is above other content */
 }
 
 .navbar-container {
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-end;
   align-items: center;
-  width: 100%;
-  max-width: 1200px;
+  flex-wrap: wrap; /* Allows the items to wrap to the next line if necessary */
 }
 
-/* Nav Links */
 .nav-links {
   list-style: none;
   display: flex;
@@ -40,9 +37,9 @@
 /* Dropdown Menu */
 .dropdown-menu {
   position: absolute;
-  top: 50px;
-  left: 50%;
-  transform: translateX(-50%);
+  top: 62.5px; /* Moves dropdown directly below the Report button */
+  left: 43%; /* Aligns it with the button */
+  transform: translateX(-50%); /* Centers it under the button */
   background-color: #222;
   color: white;
   padding: 10px 0;
@@ -52,72 +49,58 @@
   opacity: 0;
   visibility: hidden;
   transition: opacity 0.3s ease, visibility 0.3s ease;
+  list-style: none; /* Removes bullet points */
 }
 
+/* Show dropdown when active */
 .nav-links li:hover .dropdown-menu,
 .nav-links li:focus-within .dropdown-menu {
   opacity: 1;
   visibility: visible;
 }
 
-/* Mobile Menu */
-.menu-toggle {
-  display: none;
+/* Dropdown Items */
+.dropdown-menu li {
+  padding: 8px 15px;
+  list-style: none; /* Ensures no bullets on list items */
+}
+
+.dropdown-menu li button {
   background: none;
   border: none;
   color: white;
-  font-size: 2rem;
+  font-size: 1rem;
+  text-align: left;
+  width: 100%;
   cursor: pointer;
+  padding: 8px 12px;
+  border-radius: 5px;
+  transition: background-color 0.2s ease;
 }
 
-/* Responsive Styles */
-@media screen and (max-width: 768px) {
-  .navbar {
-    width: 95%;
-    padding: 10px;
-  }
+.dropdown-menu li button:hover {
+  background-color: #444;
+}
 
-  .menu-toggle {
-    display: block;
-    margin-left: auto;
-    cursor: pointer;
-  }
+/* Submenu (Bank Report Dropdown) */
+.dropdown-submenu {
+  position: absolute;
+  top: 0;
+  left: 100%;
+  background-color: #333;
+  padding: 10px 0;
+  min-width: 180px;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+  list-style: none; /* Removes bullet points */
+}
 
-  .nav-links {
-    display: none;
-    flex-direction: column;
-    background-color: black;
-    position: absolute;
-    top: 60px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 90%;
-    border-radius: 10px;
-    text-align: center;
-  }
-
-  .nav-links.active {
-    display: flex;
-  }
-
-  .nav-links li {
-    margin: 10px 0;
-  }
-
-  /* Dropdown for Mobile */
-  .dropdown-menu {
-    position: relative;
-    top: 0;
-    left: 0;
-    transform: none;
-    width: 100%;
-    box-shadow: none;
-  }
-
-  .dropdown-submenu {
-    position: relative;
-    top: 0;
-    left: 0;
-    width: 100%;
-  }
+/* Show Bank Dropdown when active */
+.dropdown-menu li:hover .dropdown-submenu,
+.dropdown-menu li:focus-within .dropdown-submenu {
+  opacity: 1;
+  visibility: visible;
 }
