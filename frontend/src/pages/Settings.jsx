@@ -84,7 +84,7 @@ const Settings = () => {
 
   const handleEdit = async (id, newValue, fieldName, endpoint) => {
     try {
-      const response = await fetch(`https://vamsivemula.art/${endpoint}/${id}`, {
+      const response = await fetch(`https://vamsivemula.art//editBankOption/:id`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         credentials: 'include',

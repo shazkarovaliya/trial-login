@@ -404,7 +404,7 @@ app.put('/editBankOption/:id', (req, res) => {
       if (err) {
         return res.status(500).json({ message: 'Transaction error', err });
       }
-
+ 
       // Update BankOptions table
       con.query(
         "UPDATE BankOptions SET bank = ? WHERE id = ? AND user_id = ?",
