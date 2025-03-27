@@ -315,7 +315,7 @@ app.get('/getBankOptions', (req, res) => {
 
   if (userData) {
     const userId = userData.user_id;
-    con.query("SELECT * FROM BankOptions WHERE user_id = ?", [userId], function(err, results) {
+    con.query("SELECT * FROM BankOptions WHERE user_id = ? AND accountType = 'Cash Flow'", [userId], function(err, results) {
       if (err) {
         console.error('Database error:', err);
         return res.status(500).json({ message: 'Error fetching options' });
