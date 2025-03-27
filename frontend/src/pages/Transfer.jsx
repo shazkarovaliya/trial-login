@@ -147,8 +147,27 @@ const Transfer = () => {
       }
     };
 
+    const fetchGeneralOptions = async () => {
+      try {
+        const response = await fetch('https://vamsivemula.art/getGeneralOptions', {
+          method: 'GET',
+          credentials: 'include',
+        });
+  
+        if (response.ok) {
+          const data = await response.json();
+          setGeneralOptions(data.generalOptions || []); // Store only general accounts
+        } else {
+          console.error('Error fetching general options');
+        }
+      } catch (error) {
+        console.error('Error fetching general options:', error);
+      }
+    };
+  
     fetchTdOptions();
     fetchBankOptions();
+    fetchGeneralOptions();
   }, []);
 
   const handleTransactionSubmit = async (e) => {
@@ -393,20 +412,16 @@ const Transfer = () => {
         </div>
         <div className="form-field">
           <label>From Account:</label>
-          <select
-            name="fromAccount"
-            value={generalFormData.fromAccount}
-            onChange={handleGeneralChange}
-            required
-          >
+          <select name="fromAccount" value={generalFormData.fromAccount} onChange={handleGeneralChange} required>
             <option value="">Select Account</option>
-            {accountOptions.map((account) => (
-              <option key={account.id} value={account.bank}>
-                {account.bank}
+            {general.map((option) => (
+              <option key={option.id} value={option.account}>
+                {option.account}
               </option>
             ))}
           </select>
         </div>
+
         <div className="form-field">
           <label>To Account:</label>
           <select

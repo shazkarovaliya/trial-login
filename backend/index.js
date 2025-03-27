@@ -310,6 +310,27 @@ app.put('/editOption/:id', (req, res) => {
   });
 });
 
+app.get('/getGeneralOptions', (req, res) => {
+  const userData = getUser();
+
+  if (userData) {
+    const userId = userData.user_id;
+    con.query("SELECT * FROM BankOptions WHERE user_id = ? AND accountType = 'Geneeral'", [userId], function(err, results) {
+      if (err) {
+        console.error('Database error:', err);
+        return res.status(500).json({ message: 'Error fetching options' });
+      }
+      console.log('General options:', results);  // Log the results to check if data is fetched correctly
+      res.json({ generalOptions: results });  // Ensure the correct property is sent to the frontend
+    });
+  } else {
+    res.status(401).json({
+      message: 'Unauthorized access:',
+      error: 'Session not found or expired',
+    });
+  }
+});
+
 app.get('/getBankOptions', (req, res) => {
   const userData = getUser();
 
