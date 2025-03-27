@@ -45,35 +45,35 @@ const Transfer = () => {
     memo: '',
   });
 
-  // const [accountOptions, setAccountOptions] = useState([]);
+  const [accountOptions, setAccountOptions] = useState([]);
   const [loading, setLoading] = useState(true);
   const [transactions, setTransactions] = useState([]);
   const [message, setMessage] = useState('');
   const [tdOptions, setTdOptions] = useState([]); // State to hold description options
   const [bank, setBankOptions] = useState([]); // State to hold bank options
   const [general, setGeneralOptions] = useState([]); // State to hold general options
-  const [loan, setLoanOptions] = useState([]); // State to hold loan options
+  const [loan, setLoanOptions] = useState([]); // State to hold bank options
 
-  // useEffect(() => {
-  //   const fetchAccountOptions = async () => {
-  //     try {
-  //       const response = await fetch('https://vamsivemula.art/getBankOptions', {
-  //         method: 'GET',
-  //         credentials: 'include',
-  //       });
-  //       if (response.ok) {
-  //         const data = await response.json();
-  //         setAccountOptions(data.bankOptions || []);
-  //       } else {
-  //         console.error('Error fetching account options');
-  //       }
-  //     } catch (error) {
-  //       console.error('Network error fetching account options:', error);
-  //     }
-  //   };
+  useEffect(() => {
+    const fetchAccountOptions = async () => {
+      try {
+        const response = await fetch('https://vamsivemula.art/getBankOptions', {
+          method: 'GET',
+          credentials: 'include',
+        });
+        if (response.ok) {
+          const data = await response.json();
+          setAccountOptions(data.bankOptions || []);
+        } else {
+          console.error('Error fetching account options');
+        }
+      } catch (error) {
+        console.error('Network error fetching account options:', error);
+      }
+    };
 
-  //   fetchAccountOptions();
-  // }, []);
+    fetchAccountOptions();
+  }, []);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
