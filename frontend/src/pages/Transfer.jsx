@@ -421,19 +421,13 @@ const Transfer = () => {
             ))}
           </select>
         </div>
-
         <div className="form-field">
           <label>To Account:</label>
-          <select
-            name="toAccount"
-            value={generalFormData.toAccount}
-            onChange={handleGeneralChange}
-            required
-          >
+          <select name="toAccount" value={generalFormData.toAccount} onChange={handleGeneralChange} required>
             <option value="">Select Account</option>
-            {accountOptions.map((account) => (
-              <option key={account.id} value={account.bank}>
-                {account.bank}
+            {general.map((option) => (
+              <option key={option.id} value={option.account}>
+                {option.account}
               </option>
             ))}
           </select>
