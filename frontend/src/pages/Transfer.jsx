@@ -354,7 +354,7 @@ const Transfer = () => {
           <input id="submit" type="submit" />
         </div>
       </form>
-{/* 
+
       <h2 className="section-header">Loan Transactions</h2>
       <form className="transaction-form" onSubmit={handleLoanSubmit}>
         <div className="form-field">
@@ -464,7 +464,7 @@ const Transfer = () => {
         <div className="form-action">
           <input id="submit" type="submit" />
         </div>
-      </form> */}
+      </form>
 
       <h2 className="section-header">Transfer Funds</h2>
       <form className="transfer-form" onSubmit={handleSubmit}>
