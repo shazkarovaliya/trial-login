@@ -6,8 +6,19 @@ import NavBar from '../items/NavBar';
 import '../css/Transfer.css';
 
 const Transfer = () => {
+  // const [formData, setFormData] = useState({
+  //   date: '',
+  //   fromAccount: '',
+  //   toAccount: '',
+  //   method: '',
+  //   checkNumber: '',
+  //   amount: '',
+  //   memo: '',
+  // });
+
   const [formData, setFormData] = useState({
     date: '',
+    accountType: '',
     fromAccount: '',
     toAccount: '',
     method: '',
@@ -280,7 +291,17 @@ const Transfer = () => {
     <div className="main">
       <NavBar />
       <h2 className="section-header">Add Transaction</h2>
+
       <form className="transaction-form" onSubmit={handleTransactionSubmit}>
+        <div className="form-field">
+          <label htmlFor="accountType">Select Account Type:</label>
+          <select name="accountType" value={formData.accountType} onChange={handleTransactionChange}>
+            <option value="">--Select Type--</option>
+            <option value="General">General</option>
+            <option value="Loan">Loan</option>
+            <option value="Cash Flow">Cash Flow</option>
+          </select>
+        </div>  
         <div className="form-field">
           <label htmlFor="date">Date:</label>
           <input type="date" name="date" required onChange={handleTransactionChange} />
@@ -355,6 +376,8 @@ const Transfer = () => {
         </div>
       </form>
 
+
+{/* 
       <h2 className="section-header">Loan Transactions</h2>
       <form className="transaction-form" onSubmit={handleLoanSubmit}>
         <div className="form-field">
@@ -395,6 +418,8 @@ const Transfer = () => {
           <input id="submit" type="submit" />
         </div>
       </form>
+
+
 
       <h2 className="section-header">General Transactions</h2>
       <form className="transaction-form" onSubmit={handleGeneralSubmit}>
@@ -464,7 +489,9 @@ const Transfer = () => {
         <div className="form-action">
           <input id="submit" type="submit" />
         </div>
-      </form>
+      </form> */}
+
+
 
       <h2 className="section-header">Transfer Funds</h2>
       <form className="transfer-form" onSubmit={handleSubmit}>
