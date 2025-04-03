@@ -97,89 +97,89 @@ app.post('/register', (req, res) => {
   }
 });
 
-app.post('/login', (req, res) => {
-  const { name, password } = req.body;
-
-  const query = "SELECT user_id, username FROM Login WHERE username = ? AND password = ?";
-  con.query(query, [name, password], (err, result) => {
-    if (err) {
-      console.error('Database error:', err);
-      return res.status(500).send('Database error');
-    }
-
-    if (result.length > 0) {
-      const userData = {
-        user_id: result[0].user_id,
-        username: result[0].username,
-      };
-      setUser(userData);
-      res.status(200).json({ message: 'Login successful', user: userData });
-    } else {
-      res.status(401).json({ message: 'Invalid credentials' });
-    }
-  });
-});
-
-// app.post('/login', async (req, res) => {
+// app.post('/login', (req, res) => {
 //   const { name, password } = req.body;
 
-//   try {
-//     const [rows] = await con.query('SELECT * FROM Login WHERE username = ?', [name]);
-
-//     if (rows.length === 0) {
-//       return res.status(401).json({ message: 'User not found' });
+//   const query = "SELECT user_id, username FROM Login WHERE username = ? AND password = ?";
+//   con.query(query, [name, password], (err, result) => {
+//     if (err) {
+//       console.error('Database error:', err);
+//       return res.status(500).send('Database error');
 //     }
 
-//     const user = rows[0];
-
-//     const isPasswordValid = await bcrypt.compare(password, user.password);
-//     if (!isPasswordValid) {
-//       return res.status(401).json({ message: 'Invalid password' });
+//     if (result.length > 0) {
+//       const userData = {
+//         user_id: result[0].user_id,
+//         username: result[0].username,
+//       };
+//       setUser(userData);
+//       res.status(200).json({ message: 'Login successful', user: userData });
+//     } else {
+//       res.status(401).json({ message: 'Invalid credentials' });
 //     }
-
-//     const token = jwt.sign({ id: user.id, username: user.username }, SECRET_KEY, { expiresIn: '1h' });
-
-//     res.json({
-//       message: 'Login successful',
-//       token,
-//       user: { id: user.id, name: user.username }
-//     });
-//   } catch (err) {
-//     console.error('Login error:', err);
-//     res.status(500).json({ message: 'Internal server error' });
-//   }
-// });
-
-// // JWT auth middleware
-// const authenticateToken = (req, res, next) => {
-//   const authHeader = req.headers['authorization'];
-//   const token = authHeader?.split(' ')[1];
-
-//   if (!token) return res.sendStatus(401);
-
-//   jwt.verify(token, SECRET_KEY, (err, user) => {
-//     if (err) return res.sendStatus(403);
-//     req.user = user;
-//     next();
 //   });
-// };
-
-// // Check session route
-// app.get('/checkSession', authenticateToken, (req, res) => {
-//   res.json({ isLoggedIn: true, user: req.user });
 // });
 
-app.get('/checkSession', (req, res) => {
-  const userData = getUser();
+app.post('/login', async (req, res) => {
+  const { name, password } = req.body;
 
-  if (userData) {
-    console.log('User is logged in:', userData);
-    res.json({ isLoggedIn: true, user: userData });
-  } else {
-    console.log('User is not logged in:', userData);
-    res.json({ isLoggedIn: false });
+  try {
+    const [rows] = await con.query('SELECT * FROM Login WHERE username = ?', [name]);
+
+    if (rows.length === 0) {
+      return res.status(401).json({ message: 'User not found' });
+    }
+
+    const user = rows[0];
+
+    const isPasswordValid = await bcrypt.compare(password, user.password);
+    if (!isPasswordValid) {
+      return res.status(401).json({ message: 'Invalid password' });
+    }
+
+    const token = jwt.sign({ id: user.id, username: user.username }, SECRET_KEY, { expiresIn: '1h' });
+
+    res.json({
+      message: 'Login successful',
+      token,
+      user: { id: user.id, name: user.username }
+    });
+  } catch (err) {
+    console.error('Login error:', err);
+    res.status(500).json({ message: 'Internal server error' });
   }
 });
+
+// JWT auth middleware
+const authenticateToken = (req, res, next) => {
+  const authHeader = req.headers['authorization'];
+  const token = authHeader?.split(' ')[1];
+
+  if (!token) return res.sendStatus(401);
+
+  jwt.verify(token, SECRET_KEY, (err, user) => {
+    if (err) return res.sendStatus(403);
+    req.user = user;
+    next();
+  });
+};
+
+// Check session route
+app.get('/checkSession', authenticateToken, (req, res) => {
+  res.json({ isLoggedIn: true, user: req.user });
+});
+
+// app.get('/checkSession', (req, res) => {
+//   const userData = getUser();
+
+//   if (userData) {
+//     console.log('User is logged in:', userData);
+//     res.json({ isLoggedIn: true, user: userData });
+//   } else {
+//     console.log('User is not logged in:', userData);
+//     res.json({ isLoggedIn: false });
+//   }
+// });
 
 
 app.get('/health', (req, res) => {
