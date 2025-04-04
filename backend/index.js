@@ -1,10 +1,9 @@
 const express = require('express');
-const jwt = require('jsonwebtoken');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const session = require('express-session');
 const MySQLStore = require('express-mysql-session')(session);
-const mysql = require('mysql2/promise');
+const mysql = require('mysql2');
 
 const { setUser, getUser, clearUser } = require('../frontend/src/components/variables.js');
 
@@ -24,11 +23,14 @@ const allowedOrigins = [
 const port = process.env.PORT || 8080;
 
 //for online server deployment use
+// app.listen(port, "0.0.0.0", function () {
+//   console.log("Server running on port 3001");
+// });
+
+//for localhost use
 app.listen(port, "0.0.0.0", function () {
   console.log(`Server running on port ${port}`);
 });
-
-//const SECRET_KEY = 'karovaliya4';
 
 app.use(session({
   secret: 'your-secret-key',
@@ -54,6 +56,18 @@ app.use(cors({
   },
   credentials: true  
 }));
+
+// const urlDB = `mysql://root:QjPtaHGxFzVMWVTfyLAwsPdsxdDsANwZ@junction.proxy.rlwy.net:57666/railway`;
+
+// const con = mysql.createConnection(urlDB);
+
+// const con = mysql.createConnection({
+//   host: "sql5.freesqldatabase.com",
+//   user: "sql5740447",
+//   password: "rZkA74RPjE",
+//   database: "sql5740447",
+//   port: "3306"
+// });
 
  const con = mysql.createConnection({
   user: "doadmin",
@@ -119,55 +133,6 @@ app.post('/login', (req, res) => {
     }
   });
 });
-
-// app.post('/login', async (req, res) => {
-//   const { name, password } = req.body;
-
-//   try {
-//     const [rows] = await con.query('SELECT * FROM Login WHERE username = ?', [name]);
-
-//     if (rows.length === 0) {
-//       return res.status(401).json({ message: 'User not found' });
-//     }
-
-//     const user = rows[0];
-
-//     const isPasswordValid = await bcrypt.compare(password, user.password);
-//     if (!isPasswordValid) {
-//       return res.status(401).json({ message: 'Invalid password' });
-//     }
-
-//     const token = jwt.sign({ id: user.id, username: user.username }, SECRET_KEY, { expiresIn: '1h' });
-
-//     res.json({
-//       message: 'Login successful',
-//       token,
-//       user: { id: user.id, name: user.username }
-//     });
-//   } catch (err) {
-//     console.error('Login error:', err);
-//     res.status(500).json({ message: 'Internal server error' });
-//   }
-// });
-
-// // JWT auth middleware
-// const authenticateToken = (req, res, next) => {
-//   const authHeader = req.headers['authorization'];
-//   const token = authHeader?.split(' ')[1];
-
-//   if (!token) return res.sendStatus(401);
-
-//   jwt.verify(token, SECRET_KEY, (err, user) => {
-//     if (err) return res.sendStatus(403);
-//     req.user = user;
-//     next();
-//   });
-// };
-
-// // Check session route
-// app.get('/checkSession', authenticateToken, (req, res) => {
-//   res.json({ isLoggedIn: true, user: req.user });
-// });
 
 app.get('/checkSession', (req, res) => {
   const userData = getUser();

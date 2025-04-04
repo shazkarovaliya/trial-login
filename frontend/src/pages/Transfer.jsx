@@ -6,19 +6,8 @@ import NavBar from '../items/NavBar';
 import '../css/Transfer.css';
 
 const Transfer = () => {
-  // const [formData, setFormData] = useState({
-  //   date: '',
-  //   fromAccount: '',
-  //   toAccount: '',
-  //   method: '',
-  //   checkNumber: '',
-  //   amount: '',
-  //   memo: '',
-  // });
-
   const [formData, setFormData] = useState({
     date: '',
-    accountType: '',
     fromAccount: '',
     toAccount: '',
     method: '',
@@ -377,7 +366,7 @@ const Transfer = () => {
       </form>
 
 
-{/* 
+
       <h2 className="section-header">Loan Transactions</h2>
       <form className="transaction-form" onSubmit={handleLoanSubmit}>
         <div className="form-field">
@@ -489,7 +478,7 @@ const Transfer = () => {
         <div className="form-action">
           <input id="submit" type="submit" />
         </div>
-      </form> */}
+      </form>
 
 
 
