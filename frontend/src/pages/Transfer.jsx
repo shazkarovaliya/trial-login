@@ -53,6 +53,7 @@ const Transfer = () => {
   const [bank, setBankOptions] = useState([]); // State to hold bank options
   const [general, setGeneralOptions] = useState([]); // State to hold general options
   const [loan, setLoanOptions] = useState([]); // State to hold bank options
+  const [transactionType, setTransactionType] = useState('');
 
   useEffect(() => {
     const fetchAccountOptions = async () => {
@@ -279,306 +280,332 @@ const Transfer = () => {
   return (
     <div className="main">
       <NavBar />
-      <h2 className="section-header">Add Transaction</h2>
 
-      <form className="transaction-form" onSubmit={handleTransactionSubmit}>
-        <div className="form-field">
-          <label htmlFor="accountType">Select Account Type:</label>
-          <select name="accountType" value={formData.accountType} onChange={handleTransactionChange}>
-            <option value="">--Select Type--</option>
-            <option value="General">General</option>
-            <option value="Loan">Loan</option>
-            <option value="Cash Flow">Cash Flow</option>
-          </select>
-        </div>  
-        <div className="form-field">
-          <label htmlFor="date">Date:</label>
-          <input type="date" name="date" required onChange={handleTransactionChange} />
-        </div>
-        <div className="form-field">
-          <label htmlFor="item-name">Category:</label>
-          <select name="category" id="category" required onChange={handleTransactionChange}>
-            <option value="">Select a category</option>
-            <option value="Income">Income</option>
-            <option value="Expense">Expense</option>
-          </select>
-        </div>
-        <div className="form-field">
-          <label htmlFor="description">Description:</label>
-          <select name="description" required onChange={handleTransactionChange}>
-            <option value="">Select a description</option>
-            {tdOptions.map((option) => (
-              <option key={option.id} value={option.dd_option}>
-                {option.dd_option}
-              </option>
-            ))}
-          </select>
-          <a href="/settings" className="add-link">
-            <FontAwesomeIcon icon={faPlus} />
-          </a>
-        </div>
-        <div className="form-field">
-          <label htmlFor="account">Account:</label>
-          <select name="account" required onChange={handleTransactionChange}>
-            <option value="">Select an account</option>
-            {bank.map((option) => (
-              <option key={option.id} value={option.bank}>
-                {option.bank}
-              </option>
-            ))}
-          </select>
-          <a href="/settings" className="add-link">
-            <FontAwesomeIcon icon={faPlus} />
-          </a>
-        </div>
-        <div className="form-field">
-          <label htmlFor="transmeth">Transaction Method:</label>
-          <select name="transmeth" id="transmeth" required onChange={handleTransactionChange}>
-            <option value="">Select a transaction method</option>
-            <option value="Cash">Cash</option>
-            <option value="EFT">EFT</option>
-            <option value="Check">Check</option>
-            <option value="Withdrawal">Withdrawal</option>
-          </select>
-        </div>
-        {formData.transmeth === 'Check' && (
-          <div className="form-field">
-            <label htmlFor="checkNum">Enter Check Number:</label>
-            <input
-              type="text"
-              name="checkNum"
-              onChange={handleTransactionChange}
-              value={formData.checkNum}
-            />
-          </div>
-        )}
-        <div className="form-field">
-          <label htmlFor="amount">Enter Amount:</label>
-          <input type="number" name="amount" step="0.01" required onChange={handleTransactionChange} />
-        </div>
-        <div className="form-field">
-          <label htmlFor="memo">Enter Memo:</label>
-          <input type="text" name="memo" onChange={handleTransactionChange} />
-        </div>
-        <div className="form-action">
-          <input id="submit" type="submit" />
-        </div>
-      </form>
+      <div className="form-field">
+        <label htmlFor="transactionType">Transaction Type:</label>
+        <select
+          name="transactionType"
+          value={transactionType}
+          onChange={(e) => setTransactionType(e.target.value)}
+        >
+          <option value="">--Select Transaction Type--</option>
+          <option value="normal">Normal</option>
+          <option value="general">General</option>
+          <option value="loan">Loan</option>
+          <option value="transfer">Transfer</option>
+        </select>
+      </div>
 
+      {transactionType === 'normal' && (
+        <>
+          <h2 className="section-header">Add Transaction</h2>
 
+          <form className="transaction-form" onSubmit={handleTransactionSubmit}>
+            <div className="form-field">
+              <label htmlFor="accountType">Select Account Type:</label>
+              <select name="accountType" value={formData.accountType} onChange={handleTransactionChange}>
+                <option value="">--Select Type--</option>
+                <option value="General">General</option>
+                <option value="Loan">Loan</option>
+                <option value="Cash Flow">Cash Flow</option>
+              </select>
+            </div>  
+            <div className="form-field">
+              <label htmlFor="date">Date:</label>
+              <input type="date" name="date" required onChange={handleTransactionChange} />
+            </div>
+            <div className="form-field">
+              <label htmlFor="item-name">Category:</label>
+              <select name="category" id="category" required onChange={handleTransactionChange}>
+                <option value="">Select a category</option>
+                <option value="Income">Income</option>
+                <option value="Expense">Expense</option>
+              </select>
+            </div>
+            <div className="form-field">
+              <label htmlFor="description">Description:</label>
+              <select name="description" required onChange={handleTransactionChange}>
+                <option value="">Select a description</option>
+                {tdOptions.map((option) => (
+                  <option key={option.id} value={option.dd_option}>
+                    {option.dd_option}
+                  </option>
+                ))}
+              </select>
+              <a href="/settings" className="add-link">
+                <FontAwesomeIcon icon={faPlus} />
+              </a>
+            </div>
+            <div className="form-field">
+              <label htmlFor="account">Account:</label>
+              <select name="account" required onChange={handleTransactionChange}>
+                <option value="">Select an account</option>
+                {bank.map((option) => (
+                  <option key={option.id} value={option.bank}>
+                    {option.bank}
+                  </option>
+                ))}
+              </select>
+              <a href="/settings" className="add-link">
+                <FontAwesomeIcon icon={faPlus} />
+              </a>
+            </div>
+            <div className="form-field">
+              <label htmlFor="transmeth">Transaction Method:</label>
+              <select name="transmeth" id="transmeth" required onChange={handleTransactionChange}>
+                <option value="">Select a transaction method</option>
+                <option value="Cash">Cash</option>
+                <option value="EFT">EFT</option>
+                <option value="Check">Check</option>
+                <option value="Withdrawal">Withdrawal</option>
+              </select>
+            </div>
+            {formData.transmeth === 'Check' && (
+              <div className="form-field">
+                <label htmlFor="checkNum">Enter Check Number:</label>
+                <input
+                  type="text"
+                  name="checkNum"
+                  onChange={handleTransactionChange}
+                  value={formData.checkNum}
+                />
+              </div>
+            )}
+            <div className="form-field">
+              <label htmlFor="amount">Enter Amount:</label>
+              <input type="number" name="amount" step="0.01" required onChange={handleTransactionChange} />
+            </div>
+            <div className="form-field">
+              <label htmlFor="memo">Enter Memo:</label>
+              <input type="text" name="memo" onChange={handleTransactionChange} />
+            </div>
+            <div className="form-action">
+              <input id="submit" type="submit" />
+            </div>
+          </form>
+        </>
+      )}
 
-      <h2 className="section-header">Loan Transactions</h2>
-      <form className="transaction-form" onSubmit={handleLoanSubmit}>
-        <div className="form-field">
-          <label htmlFor="date">Date:</label>
-          <input type="date" name="date" value={loanFormData.date} onChange={handleLoanChange} required />
-        </div>
-        <div className="form-field">
-          <label htmlFor="item-name">Payment Type:</label>
-          <select name="payment" id="payment" required onChange={handleLoanChange}>
-            <option value="">Select a payment type:</option>
-            <option value="Monthly">Monthly Payment</option>
-            <option value="Interest Free">Interest Free</option>
-          </select>
-        </div>
-        <div className="form-field">
-          <label htmlFor="account">Account:</label>
-          <select name="account" required onChange={handleTransactionChange}>
-            <option value="">Select an account</option>
-            {bank.map((option) => (
-              <option key={option.id} value={option.bank}>
-                {option.bank}
-              </option>
-            ))}
-          </select>
-          <a href="/settings" className="add-link">
-            <FontAwesomeIcon icon={faPlus} />
-          </a>
-        </div>
-        <div className="form-field">
-          <label htmlFor="amount">Enter Amount:</label>
-          <input type="number" name="amount" value={loanFormData.amount} onChange={handleLoanChange} required min="0" step="0.01" placeholder="Amount" />
-        </div>
-        <div className="form-field">
-          <label htmlFor="memo">Enter Memo:</label>
-          <input type="text" name="memo" onChange={handleTransactionChange} />
-        </div>
-        <div className="form-action">
-          <input id="submit" type="submit" />
-        </div>
-      </form>
+      {transactionType === 'loan' && (
+        <>
+          <h2 className="section-header">Loan Transactions</h2>
+          <form className="transaction-form" onSubmit={handleLoanSubmit}>
+            <div className="form-field">
+              <label htmlFor="date">Date:</label>
+              <input type="date" name="date" value={loanFormData.date} onChange={handleLoanChange} required />
+            </div>
+            <div className="form-field">
+              <label htmlFor="item-name">Payment Type:</label>
+              <select name="payment" id="payment" required onChange={handleLoanChange}>
+                <option value="">Select a payment type:</option>
+                <option value="Monthly">Monthly Payment</option>
+                <option value="Interest Free">Interest Free</option>
+              </select>
+            </div>
+            <div className="form-field">
+              <label htmlFor="account">Account:</label>
+              <select name="account" required onChange={handleTransactionChange}>
+                <option value="">Select an account</option>
+                {bank.map((option) => (
+                  <option key={option.id} value={option.bank}>
+                    {option.bank}
+                  </option>
+                ))}
+              </select>
+              <a href="/settings" className="add-link">
+                <FontAwesomeIcon icon={faPlus} />
+              </a>
+            </div>
+            <div className="form-field">
+              <label htmlFor="amount">Enter Amount:</label>
+              <input type="number" name="amount" value={loanFormData.amount} onChange={handleLoanChange} required min="0" step="0.01" placeholder="Amount" />
+            </div>
+            <div className="form-field">
+              <label htmlFor="memo">Enter Memo:</label>
+              <input type="text" name="memo" onChange={handleTransactionChange} />
+            </div>
+            <div className="form-action">
+              <input id="submit" type="submit" />
+            </div>
+          </form>
+        </>
+      )}
 
+      {transactionType === 'general' && (
+        <>
+          <h2 className="section-header">General Transactions</h2>
+          <form className="transaction-form" onSubmit={handleGeneralSubmit}>
+            <div className="form-field">
+              <label htmlFor="date">Date:</label>
+              <input type="date" name="date" value={generalFormData.date} onChange={handleGeneralChange} required />
+            </div>
+            <div className="form-field">
+              <label htmlFor="item-name">Category:</label>
+              <select name="category" id="category" required onChange={handleGeneralChange}>
+                <option value="">Select a category</option>
+                <option value="Paid-In">Paid-In</option>
+                <option value="Paid-Out">Paid-Out</option>
+              </select>
+            </div>
+            <div className="form-field">
+              <label>From Account:</label>
+              <select name="fromAccount" value={generalFormData.fromAccount} onChange={handleGeneralChange} required>
+                <option value="">Select Account</option>
+                {general.map((option) => (
+                  <option key={option.id} value={option.account}>
+                    {option.account}
+                  </option>
+                ))}
+              </select>
+            </div>
+            <div className="form-field">
+              <label>To Account:</label>
+              <select name="toAccount" value={generalFormData.toAccount} onChange={handleGeneralChange} required>
+                <option value="">Select Account</option>
+                {general.map((option) => (
+                  <option key={option.id} value={option.account}>
+                    {option.account}
+                  </option>
+                ))}
+              </select>
+            </div>
+            <div className="form-field">
+              <label htmlFor="paymentType">Payment Method:</label>
+              <select name="paymentType" id="paymentType" required onChange={handleGeneralChange}>
+                <option value="">Select a payment method</option>
+                <option value="Cash">Cash</option>
+                <option value="EFT">EFT</option>
+                <option value="Check">Check</option>
+                <option value="Withdrawal">Withdrawal</option>
+              </select>
+            </div>
+            {generalFormData.paymentType === 'Check' && (
+              <div className="form-field">
+                <label htmlFor="checkNum">Enter Check Number:</label>
+                <input
+                  type="text"
+                  name="checkNum"
+                  onChange={handleGeneralChange}
+                  value={generalFormData.checkNum}
+                />
+              </div>
+            )}
+            <div className="form-field">
+              <label htmlFor="amount">Enter Amount:</label>
+              <input type="number" name="amount" value={generalFormData.amount} onChange={handleGeneralChange} required min="0" step="0.01" placeholder="Amount" />
+            </div>
+            <div className="form-field">
+              <label htmlFor="memo">Enter Memo:</label>
+              <input type="text" name="memo" onChange={handleTransactionChange} />
+            </div>
+            <div className="form-action">
+              <input id="submit" type="submit" />
+            </div>
+          </form>
+        </>
+      )}
 
-
-      <h2 className="section-header">General Transactions</h2>
-      <form className="transaction-form" onSubmit={handleGeneralSubmit}>
-        <div className="form-field">
-          <label htmlFor="date">Date:</label>
-          <input type="date" name="date" value={generalFormData.date} onChange={handleGeneralChange} required />
-        </div>
-        <div className="form-field">
-          <label htmlFor="item-name">Category:</label>
-          <select name="category" id="category" required onChange={handleGeneralChange}>
-            <option value="">Select a category</option>
-            <option value="Paid-In">Paid-In</option>
-            <option value="Paid-Out">Paid-Out</option>
-          </select>
-        </div>
-        <div className="form-field">
-          <label>From Account:</label>
-          <select name="fromAccount" value={generalFormData.fromAccount} onChange={handleGeneralChange} required>
-            <option value="">Select Account</option>
-            {general.map((option) => (
-              <option key={option.id} value={option.account}>
-                {option.account}
-              </option>
-            ))}
-          </select>
-        </div>
-        <div className="form-field">
-          <label>To Account:</label>
-          <select name="toAccount" value={generalFormData.toAccount} onChange={handleGeneralChange} required>
-            <option value="">Select Account</option>
-            {general.map((option) => (
-              <option key={option.id} value={option.account}>
-                {option.account}
-              </option>
-            ))}
-          </select>
-        </div>
-        <div className="form-field">
-          <label htmlFor="paymentType">Payment Method:</label>
-          <select name="paymentType" id="paymentType" required onChange={handleGeneralChange}>
-            <option value="">Select a payment method</option>
-            <option value="Cash">Cash</option>
-            <option value="EFT">EFT</option>
-            <option value="Check">Check</option>
-            <option value="Withdrawal">Withdrawal</option>
-          </select>
-        </div>
-        {generalFormData.paymentType === 'Check' && (
-          <div className="form-field">
-            <label htmlFor="checkNum">Enter Check Number:</label>
-            <input
-              type="text"
-              name="checkNum"
-              onChange={handleGeneralChange}
-              value={generalFormData.checkNum}
-            />
-          </div>
-        )}
-        <div className="form-field">
-          <label htmlFor="amount">Enter Amount:</label>
-          <input type="number" name="amount" value={generalFormData.amount} onChange={handleGeneralChange} required min="0" step="0.01" placeholder="Amount" />
-        </div>
-        <div className="form-field">
-          <label htmlFor="memo">Enter Memo:</label>
-          <input type="text" name="memo" onChange={handleTransactionChange} />
-        </div>
-        <div className="form-action">
-          <input id="submit" type="submit" />
-        </div>
-      </form>
-
-
-
-      <h2 className="section-header">Transfer Funds</h2>
-      <form className="transfer-form" onSubmit={handleSubmit}>
-        <div className="form-field">
-          <label>Date:</label>
-          <input
-            type="date"
-            name="date"
-            value={formData.date}
-            onChange={handleChange}
-            required
-          />
-        </div>
-        <div className="form-field">
-          <label>From Account:</label>
-          <select
-            name="fromAccount"
-            value={transferFormData.fromAccount}
-            onChange={handleChange}
-            required
-          >
-            <option value="">Select Account</option>
-            {accountOptions.map((account) => (
-              <option key={account.id} value={account.bank}>
-                {account.bank}
-              </option>
-            ))}
-          </select>
-        </div>
-        <div className="form-field">
-          <label>To Account:</label>
-          <select
-            name="toAccount"
-            value={formData.toAccount}
-            onChange={handleChange}
-            required
-          >
-            <option value="">Select Account</option>
-            {accountOptions.map((account) => (
-              <option key={account.id} value={account.bank}>
-                {account.bank}
-              </option>
-            ))}
-          </select>
-        </div>
-        <div className="form-field">
-          <label>Transaction Method:</label>
-          <select
-            name="method"
-            value={transferFormData.method}
-            onChange={handleChange}
-            required
-          >
-            <option value="">Select Method</option>
-            <option value="transfer">Transfer</option>
-            <option value="check">Check</option>
-            <option value="online">Online</option>
-            <option value="cash">Cash</option>
-          </select>
-        </div>
-        {formData.method === 'check' && (
-          <div className="form-field">
-            <label>Check Number:</label>
-            <input
-              type="text"
-              name="checkNumber"
-              value={transferFormData.checkNumber}
-              onChange={handleChange}
-              required
-            />
-          </div>
-        )}
-        <div className="form-field">
-          <label>Amount:</label>
-          <input
-            type="number"
-            name="amount"
-            value={transferFormData.amount}
-            onChange={handleChange}
-            required
-            min="0"
-            step="0.01"
-          />
-        </div>
-        <div className="form-field">
-          <label>Memo:</label>
-          <input
-            type="text"
-            name="memo"
-            value={transferFormData.memo}
-            onChange={handleChange}
-            placeholder="Add a memo (optional)"
-          />
-        </div>
-        <div className="form-action">
-          <button type="submit">Submit Transfer</button>
-        </div>
-      </form>
+      {transactionType === 'transfer' && (
+        <>
+          <h2 className="section-header">Transfer Funds</h2>
+          <form className="transfer-form" onSubmit={handleSubmit}>
+            <div className="form-field">
+              <label>Date:</label>
+              <input
+                type="date"
+                name="date"
+                value={formData.date}
+                onChange={handleChange}
+                required
+              />
+            </div>
+            <div className="form-field">
+              <label>From Account:</label>
+              <select
+                name="fromAccount"
+                value={transferFormData.fromAccount}
+                onChange={handleChange}
+                required
+              >
+                <option value="">Select Account</option>
+                {accountOptions.map((account) => (
+                  <option key={account.id} value={account.bank}>
+                    {account.bank}
+                  </option>
+                ))}
+              </select>
+            </div>
+            <div className="form-field">
+              <label>To Account:</label>
+              <select
+                name="toAccount"
+                value={formData.toAccount}
+                onChange={handleChange}
+                required
+              >
+                <option value="">Select Account</option>
+                {accountOptions.map((account) => (
+                  <option key={account.id} value={account.bank}>
+                    {account.bank}
+                  </option>
+                ))}
+              </select>
+            </div>
+            <div className="form-field">
+              <label>Transaction Method:</label>
+              <select
+                name="method"
+                value={transferFormData.method}
+                onChange={handleChange}
+                required
+              >
+                <option value="">Select Method</option>
+                <option value="transfer">Transfer</option>
+                <option value="check">Check</option>
+                <option value="online">Online</option>
+                <option value="cash">Cash</option>
+              </select>
+            </div>
+            {formData.method === 'check' && (
+              <div className="form-field">
+                <label>Check Number:</label>
+                <input
+                  type="text"
+                  name="checkNumber"
+                  value={transferFormData.checkNumber}
+                  onChange={handleChange}
+                  required
+                />
+              </div>
+            )}
+            <div className="form-field">
+              <label>Amount:</label>
+              <input
+                type="number"
+                name="amount"
+                value={transferFormData.amount}
+                onChange={handleChange}
+                required
+                min="0"
+                step="0.01"
+              />
+            </div>
+            <div className="form-field">
+              <label>Memo:</label>
+              <input
+                type="text"
+                name="memo"
+                value={transferFormData.memo}
+                onChange={handleChange}
+                placeholder="Add a memo (optional)"
+              />
+            </div>
+            <div className="form-action">
+              <button type="submit">Submit Transfer</button>
+            </div>
+          </form>
+        </>
+      )}
     </div>
   );
 };
