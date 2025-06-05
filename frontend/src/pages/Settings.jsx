@@ -5,7 +5,7 @@ import Dropdown from '../items/Dropdown';
 
 const Settings = () => {
   const [formData, setFormData] = useState({ dd_option: '' });
-  const [bankFormData, setBankFormData] = useState({ bank: '' });
+  const [bankFormData, setBankFormData] = useState({ bank: '', accountType: '', beginningBalance: '' });
   const [td_options, set_td_options] = useState([]);
   const [bankOptions, setBankOptions] = useState([]);
   const [message, setMessage] = useState('');
@@ -23,7 +23,7 @@ const Settings = () => {
 
   const fetchData = async () => {
     try {
-      const response = await fetch('http://localhost:3001/settings', { method: 'GET', credentials: 'include' });
+      const response = await fetch('https://vamsivemula.art/settings', { method: 'GET' });
       const data = await response.json();
       set_td_options(data.td_options || []);
       setMessage(data.message || '');
@@ -35,7 +35,7 @@ const Settings = () => {
 
   const fetchBankOptions = async () => {
     try {
-      const response = await fetch('http://localhost:3001/getBankOptions', { method: 'GET', credentials: 'include' });
+      const response = await fetch('https://vamsivemula.art/getBankOptions', { method: 'GET' });
       const data = await response.json();
       setBankOptions(data.bankOptions || []);
       setMessage(data.message || '');
@@ -53,7 +53,7 @@ const Settings = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await fetch('http://localhost:3001/settings', {
+      await fetch('https://vamsivemula.art/settings', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         credentials: 'include',
@@ -69,13 +69,13 @@ const Settings = () => {
   const handleBankSubmit = async (e) => {
     e.preventDefault();
     try {
-      await fetch('http://localhost:3001/addBankOptions', {
+      await fetch('https://vamsivemula.art/addBankOptions', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         credentials: 'include',
         body: JSON.stringify(bankFormData),
       });
-      setBankFormData({ bank: '' });
+      setBankFormData({ bank: '', accountType: '', beginningBalance: '' });
       fetchBankOptions(); // Refresh data
     } catch (error) {
       console.error('Error submitting bank form:', error);
@@ -84,7 +84,7 @@ const Settings = () => {
 
   const handleEdit = async (id, newValue, fieldName, endpoint) => {
     try {
-      const response = await fetch(`http://localhost:3001/${endpoint}/${id}`, {
+      const response = await fetch(`https://vamsivemula.art//editBankOption/:id`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         credentials: 'include',
@@ -106,7 +106,7 @@ const Settings = () => {
 
   const handleDelete = async (id, endpoint, stateUpdater) => {
     try {
-      await fetch(`http://localhost:3001/${endpoint}/${id}`, { method: 'DELETE', credentials: 'include' });
+      await fetch(`https://vamsivemula.art/${endpoint}/${id}`, { method: 'DELETE', credentials: 'include' });
       stateUpdater((prev) => prev.filter((option) => option.id !== id));
     } catch (error) {
       console.error('Error deleting option:', error);
@@ -131,13 +131,34 @@ const Settings = () => {
         onEdit={(id, newValue) => handleEdit(id, newValue, 'dd_option', 'settings')}
       />
 
-      <div>
+      {/* <div>
         <form onSubmit={handleBankSubmit}>
           <label htmlFor="bank">Enter Account Option:</label>
           <input type="text" name="bank" value={bankFormData.bank} onChange={handleBankChange} />
           <button type="submit">Add</button>
         </form>
+      </div> */}
+
+      <div>
+        <form onSubmit={handleBankSubmit}>
+          <label htmlFor="bank">Enter Account Option:</label>
+          <input type="text" name="bank" value={bankFormData.bank} onChange={handleBankChange} />
+
+          <label htmlFor="accountType">Select Account Type:</label>
+          <select name="accountType" value={bankFormData.accountType} onChange={handleBankChange}>
+            <option value="">--Select Type--</option>
+            <option value="General">General</option>
+            <option value="Loan">Loan</option>
+            <option value="Cash Flow">Cash Flow</option>
+          </select>
+
+          <label htmlFor="beginningBalance">Beginning Balance:</label>
+          <input type="number" name="beginningBalance" value={bankFormData.beginningBalance} onChange={handleBankChange} />
+
+          <button type="submit">Add</button>
+        </form>
       </div>
+
 
       <Dropdown
         title="Bank Options"

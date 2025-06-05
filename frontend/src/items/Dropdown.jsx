@@ -16,7 +16,7 @@ const Dropdown = ({ title, data, onDelete, onEdit }) => {
 
   const handleSaveEdit = async () => {
     try {
-      const response = await fetch(`http://localhost:3001/editOption/${editableOption.id}`, {
+      const response = await fetch(`https://vamsivemula.art/editOption/${editableOption.id}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',

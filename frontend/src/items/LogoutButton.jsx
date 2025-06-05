@@ -1,12 +1,13 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
+import { clearUser } from '../components/variables.js'; // Import clearUser to clear user data
 
 const LogoutButton = () => {
   const navigate = useNavigate();
 
   const handleLogout = async () => {
     try {
-      const response = await fetch(/* `${process.env.REACT_APP_BACKEND_URL}/logout` */'http://localhost:3001/logout', {
+      const response = await fetch('https://vamsivemula.art/logout' /* 'http://localhost:3001/logout' */, {
         method: 'POST',
         credentials: 'include', // Ensure credentials are sent (cookies)
         headers: {
@@ -15,11 +16,9 @@ const LogoutButton = () => {
       });
 
       if (response.ok) {
-        // Clear any local user state if needed
+        clearUser(); // Clear user information from variables.js
         console.log('Logout successful');
-        // Redirect to login page
         navigate('/login');
-        window.location.reload(); //refresh the page
       } else {
         console.error('Logout failed');
       }

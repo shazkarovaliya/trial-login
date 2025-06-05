@@ -1,9 +1,9 @@
-/* Main.css */
+Main.css
 
 body {
   margin: 0;
+  margin-top: 50px;
   padding: 0;
-  background-color: rgb(84, 205, 245);
   font-family: Arial, sans-serif;
   justify-content: center;
   text-align: center;
@@ -91,42 +91,6 @@ p {
   border-top-left-radius: 25px;
   margin-bottom: -50px;
   height: 100%;
-}
-
-.navbar {
-  width: 80%;
-  background-color: black;
-  display: flex;
-  justify-content: center;
-  padding: 10px 20px;
-  box-sizing: border-box; /* Ensures padding is included in the element's total width */
-  margin: 0 auto; /* Center the navbar horizontally */
-  margin-top: 10px;
-  border-radius: 15px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Adds shadow to the navbar */
-  position: fixed; /* Fix the navbar position */
-  top: 10px; /* Position from the top of the viewport */
-  left: 50%; /* Center the navbar horizontally */
-  transform: translateX(-50%); /* Center the navbar */
-  z-index: 1000; /* Ensure the navbar is above other content */
-}
-
-.navbar-container {
-  display: flex;
-  justify-content: flex-end;
-  align-items: center;
-  flex-wrap: wrap; /* Allows the items to wrap to the next line if necessary */
-}
-
-.nav-links {
-  list-style: none;
-  display: flex;
-  margin: 0;
-  padding: 0;
-}
-
-.nav-links li {
-  margin-left: 15px;
 }
 
 button {

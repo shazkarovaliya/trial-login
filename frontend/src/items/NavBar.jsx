@@ -3,6 +3,8 @@ import { useNavigate } from 'react-router-dom';
 import LogoutButton from './LogoutButton';
 import { UserContext } from '../components/UserContext';
 
+import '../css/Navbar.css';
+
 const NavBar = () => {
   const navigate = useNavigate();
   const { isLoggedIn } = useContext(UserContext);
@@ -15,9 +17,8 @@ const NavBar = () => {
   useEffect(() => {
     const fetchBankOptions = async () => {
       try {
-        const response = await fetch('http://localhost:3001/getBankOptions', {
+        const response = await fetch('https://vamsivemula.art/getBankOptions', {
           method: 'GET',
-          credentials: 'include'
         });
         if (!response.ok) {
           throw new Error('Failed to fetch bank options');
@@ -80,7 +81,7 @@ const NavBar = () => {
                     </ul>
                   )}
                 </li>
-                <li><button onClick={() => navigate('/transfer')}>Transfer</button></li>
+                <li><button onClick={() => navigate('/transfer')}>Entry</button></li>
                 <li><button onClick={() => navigate('/settings')}>Settings</button></li>
                 <li><LogoutButton /></li>
               </>

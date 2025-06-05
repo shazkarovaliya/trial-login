@@ -15,7 +15,7 @@ const ReportCategory = () => {
     setLoading(true); // Set loading to true when starting to fetch
     setError(null); // Reset any previous errors
 
-    fetch(`http://localhost:3001/category/${category}`, {
+    fetch(`https://vamsivemula.art/category/${category}` /*`http://localhost:3001/category/${category}`*/, {
       method: 'GET',
       credentials: 'include', // Ensure cookies are sent
     })
