@@ -111,6 +111,8 @@ app.post('/register', (req, res) => {
   }
 });
 
+const jwt = require('jsonwebtoken');
+const JWT_SECRET = process.env.JWT_SECRET || 'your_secret_key';
 app.post('/login', (req, res) => {
   const { name, password } = req.body;
 
@@ -122,12 +124,15 @@ app.post('/login', (req, res) => {
     }
 
     if (result.length > 0) {
-      const userData = {
+      const user = {
         user_id: result[0].user_id,
         username: result[0].username,
       };
-      setUser(userData);
-      res.status(200).json({ message: 'Login successful', user: userData });
+
+      // Generate JWT token
+      const token = jwt.sign(user, JWT_SECRET, { expiresIn: '1h' });
+
+      res.status(200).json({ message: 'Login successful', token });
     } else {
       res.status(401).json({ message: 'Invalid credentials' });
     }
